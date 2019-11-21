@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "228889421337",
+    "firebase_url": "https://reactnative-b924a.firebaseio.com",
+    "project_id": "reactnative-b924a",
+    "storage_bucket": "reactnative-b924a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228889421337:android:21f61dc4a803dec5496c88",
+        "android_client_info": {
+          "package_name": "com.fundooapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228889421337-dc5g3vq2bekjdsbhvocfekiqtrvjmnq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoxuXhVyq2Bnr6E_PtG6Y8m8vY8_g41kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228889421337-dc5g3vq2bekjdsbhvocfekiqtrvjmnq9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228889421337:android:28e709067e583f37496c88",
+        "android_client_info": {
+          "package_name": "com.fundoonotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228889421337-dc5g3vq2bekjdsbhvocfekiqtrvjmnq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoxuXhVyq2Bnr6E_PtG6Y8m8vY8_g41kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228889421337-dc5g3vq2bekjdsbhvocfekiqtrvjmnq9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
