@@ -222,6 +222,9 @@ const styles = StyleSheet.create({
         fontStyle : "italic",
         textDecorationLine : "underline"
     },
+    // registerButton : {
+    //     // bottom : 10
+    // },
     /************************ Dashboard ****************************/
     dashboardContainer : {
         width : "100%",
@@ -293,6 +296,19 @@ const styles = StyleSheet.create({
         alignSelf : "flex-end",
         top : 25,
         zIndex : 20000
+    },
+    userCard : {
+        // borderWidth : 1,
+        marginBottom : 5,
+        // width : "45%",
+        // borderWidth : 1,
+        // borderRadius : 20,
+        // display : "flex",
+        // flexDirection : "row"
+        // height : "200%"
+    },
+    notesCard : {
+        // borderWidth : 1
     },
 
     /********************* Forgot Password **********************/
@@ -426,7 +442,10 @@ const styles = StyleSheet.create({
         height : 50
     },
     flatListItemText : {
-        color : 'white'
+        color : 'black'
+    },
+    textStyle : {
+        fontSize : 80
     }
 })
 

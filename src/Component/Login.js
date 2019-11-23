@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, Button, ScrollView, Image, TouchableOpacity} from 'react-native'
+import {Text, View, Button, ScrollView, Image, TouchableOpacity, ActivityIndicator} from 'react-native'
 import styles from './StyleSheets'
 import { Input } from 'react-native-elements';
 import firebase from '../Firebase';
@@ -7,8 +7,8 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 import {StackNavigator} from 'react-navigation'
 import Dashboard from './Dashboard'
 import Register from './Register'
-import Firebase from '../Firebase';
 import {AsyncStorage} from 'react-native'
+import UserServices from '../../UserServices'
 
 class Login extends Component{
 
@@ -18,7 +18,11 @@ class Login extends Component{
             email : '',
             emailError : '',
             password : '',
-            passwordError : ''
+            passwordError : '',
+            isLoading : {
+                display : 'none'
+            },
+            showLoading : false
         }
     }
 
@@ -37,13 +41,13 @@ class Login extends Component{
                 this.setState({
                     ...this.state
                 })
-                console.warn('Text is correct');  
+                // console.warn('Text is correct');  
             }else{
                             this.state.emailError = "Invalid Text"
                             this.setState({
                                 ...this.state
                             })
-                console.warn('Invalid Text');   
+                // console.warn('Invalid Text');   
             }  
         }
     }
@@ -55,7 +59,7 @@ class Login extends Component{
         if(type == 'password'){
             if(passwordRegex.test(this.state.password)){
                 this.state.passwordError = ''
-                console.warn('Password is correct');
+                // console.warn('Password is correct');
                 this.setState({
                     ...this.state
                 })
@@ -65,7 +69,7 @@ class Login extends Component{
                     this.setState({
                         ...this.state
                     })
-                console.warn('Password Invalid');
+                // console.warn('Password Invalid');
             }
         }
     }
@@ -86,6 +90,19 @@ class Login extends Component{
             })
             isError = true
         }
+        if(!this.state.showLoading){
+            this.setState({
+                showLoading : true,
+                isLoading : 'size = "large"'
+            })
+        }else{
+            this.setState({
+                isLoading : {
+                    display : 'none'
+                },
+                showLoading : false
+            })
+        }
 
         if(!isError){
             firebase.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -94,46 +111,63 @@ class Login extends Component{
                 this.setState({
                     email : '',
                     password : '',
+                    isLoading : {
+                        display : 'none'
+                    }
                 })
                 // console.log('Email value ' + this.state.email);
                 
                 // console.warn("Props "+ JSON.stringify(this.props))
+
                 this.props.navigation.navigate('DrawerRouter')
-                var user = firebase.firebase.auth().currentUser
-                console.log('User data' + JSON.stringify(user))
+
+                var userData = firebase.firebase.auth().currentUser
+                var userId = userData.uid
+
+                // var userInfo = new UserServices
+                // userInfo.userDetails()
+                // console.log("User Details from Login : " + JSON.stringify(userInfo.userDetails()));
+                //var userData = UserServices.userDetails()
+                // var user = firebase.firebase.auth().currentUser
+                
+                // console.log('User data' + JSON.stringify(user))
                 // console.warn('User data' + JSON.stringify(user))
-                AsyncStorage.setItem('UserData', JSON.stringify(user))
+                AsyncStorage.setItem('UserId', userId)
                 // console.warn("User Id " + user.uid)
                 // console.warn('Entered Dashboard Screen')
                 // console.log("User Email " + user.email)
                 // var path = '/Dashboard'
                 // this.props.history.push(path)
+                
             })
             .catch((error) => {
                 // console.warn("Email in auth method " + emailId);
                 // console.warn("Password in auth method : " + passwordData);
-                console.warn("Error of Auth " + error);
+                // console.warn("Error of Auth " + error);
 
-                isError = true
-                errorCode = error.code;
-                errorMessage = error.message;
-                console.warn("Error Code : " + errorCode);
-                console.warn("Error Message : " + errorMessage);
-
-                if (errorCode === 'auth/user-not-found') {
-                    // dummy = true
-                    // console.log("Dummy inside Catch");
-
-                    // isError = true
-                    console.warn(`No Such User Found \n Please Click On Sign Up`)
-                } else {
-                    // isError = true
-                    console.warn(errorMessage);
-                }
+                // isError = true
+                // errorCode = error.code;
+                // errorMessage = error.message;
+                // console.warn("Error Code : " + errorCode);
+                // console.warn("Error Message : " + errorMessage);
+                this.state.passwordError = 'Password is Invalid or User does not exist'
+                this.setState({
+                    ...this.state
+                })
+                // if (errorCode === 'auth/user-not-found') {
+                //     // dummy = true
+                //     // console.log("Dummy inside Catch");
+                    
+                //     // isError = true
+                //     console.warn(`No Such User Found \n Please Click On Sign Up`)
+                // } else {
+                //     // isError = true
+                //     console.warn(errorMessage);
+                // }
             })
 
         }
-        console.warn(`Sign In Clicked`)
+        // console.warn(`Sign In Clicked`)
 
     }
 
@@ -229,6 +263,9 @@ class Login extends Component{
                         <View style = {styles.signUpButton}>
                             <Button title = "Sign Up"
                             onPress = {this.handleSignUp}/>
+                        </View>
+                        <View>
+                            <ActivityIndicator style = {this.state.isLoading}/>
                         </View>
                     </View>     
                 </View>

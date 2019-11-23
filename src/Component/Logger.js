@@ -1,5 +1,5 @@
 const EventEmitter = require('events')
-// var emitter = new EventEmitter
+var emitter = new EventEmitter
 
 class logger extends EventEmitter{
 

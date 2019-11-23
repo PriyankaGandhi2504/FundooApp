@@ -8,6 +8,7 @@ import firebase from '../Firebase'
 // import Drawer from 'react-native-drawer'
 import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker'
+// import {InfiniteListView} from 'react-native-infinite-listview'
 
 // var data = [{
 //     value : 'List',
@@ -30,6 +31,13 @@ const data = [
     {id : 5, title :'Fifth Item'},
 ]
 
+const users = [
+    {name : 'Abc', emailId : 'abc@abc.com'},
+    {name : 'Xyz', emailId : 'xyz@xyz.com'},
+    {name : 'Dummy', emailId : 'dummy@dummy.com'},
+    {name : 'Vaishnavi', emailId : 'vaishnavibhosale@gmail.com'}
+]
+
 class Dashboard extends Component{
 
     constructor (props){
@@ -42,7 +50,8 @@ class Dashboard extends Component{
             profileCardDisplay : {
                 display : 'none'
             },
-            avtarSource : null
+            avtarSource : null,
+            usersNote : []
             // cardDisplay : {
             //     display : 'none'
             // }
@@ -114,16 +123,36 @@ class Dashboard extends Component{
 
     signOut = () => {
         this.props.navigation.navigate('Login')
+        firebase.firebase.auth().signOut()
     }
 
-    renderItem = ({item, index}) => {
+    renderItem = ({item}) => {
         return(
             <View style = {styles.flatListItem}>
-                <Text style = {styles.flatListItemText}> {item.value} </Text>
+                <Text style = {styles.flatListItemText}> {item.title} </Text>
             </View>
         )
     }
     render(){
+        AsyncStorage.getItem('UserData') .then((success) => {
+            console.log('Success in Then method' + JSON.stringify(success));
+            this.state.usersNote = success
+            console.log("Users Array from Async Storage : " + this.state.users);
+            // console.log("Note in Success " + success.Note);
+        })
+        .catch((error) => {
+            console.log("Error in catch " + error);    
+        })
+
+        firebase.database.database().ref('Notes').orderByKey().on("")
+        
+
+        // const {navigation} = this.props
+        // const note = navigation.getParam('Note', 'No Note')
+        // const title = navigation.getParam('Title', 'No Title')
+        // console.log("Note in Render " + note);
+        // console.log("Title:",title)
+
         return(
             <View style = {styles.dashboardContainer}>
                 <View style = {styles.dashboardSubContainer}>
@@ -208,14 +237,14 @@ class Dashboard extends Component{
                             </View>
 
                                 </View> */}
-                                <View>
+                                {/* <View>
                                     <FlatList
                                     data = {data}
                                     style = {styles.flatListContainer}
                                     renderItem = {this.renderItem}
 
                                     />
-                                </View>
+                                </View> */}
                                 <View style = {this.state.profileCardDisplay}>
                                     <Card>
                                         <Text style = {{fontWeight : "bold", fontSize : 20, textDecorationLine : "underline", textAlign : "center", bottom : 15}}>
@@ -234,8 +263,33 @@ class Dashboard extends Component{
                                 </View>
                         <ScrollView>
                         <View>
-                            <View style = {{width : "50%"}}>
-                                <Card title = "title"/>
+                        {/* <Card> */}
+                        {
+                        users.map((u, i) => {
+                        return (
+                        <View key={i} 
+                        style={styles.userCard}
+                        >
+                            {/* <Image
+                                style={styles.image}
+                                resizeMode="cover"
+                                source={{ uri: u.avatar }}
+                            /> */}
+                            <View style = {styles.notesCard}>
+                            <Card>
+                                <Text style={styles.name}>{u.name}</Text>
+                                <Text style={styles.name}>{u.emailId}</Text>
+                            </Card>
+                            </View>
+                            
+                        
+                        </View>
+                        );
+                        })
+                        }
+{/* </Card> */}
+                            {/* <View style = {{width : "50%"}}>
+                                <Card title = 'title'/>
                                 <Card title = "title"/>
                             </View>
 
@@ -262,7 +316,7 @@ class Dashboard extends Component{
                             <View style = {{width : "50%", bottom : 100}}>
                                 <Card title = "title"/>
                                 <Card title = "title"/>
-                            </View>
+                            </View> */}
                         </View>
                         </ScrollView>
                         

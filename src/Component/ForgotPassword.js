@@ -57,6 +57,10 @@ class ForgotPassword extends Component{
                 this.props.navigation.navigate('Login')
             })
             .catch((error) => {
+                this.state.emailErr = 'No user record found corresponding to the given Email Id'
+                this.setState({
+                    ...this.state
+                })
                 console.warn('Error Occured on Forgot Password Page' + error)
             })
         }

@@ -21,6 +21,7 @@ class CreateNote extends Component {
                 display:'none'
             },
             notes : [],
+            fetchedUserId : ''
             // snackBarDisplay : true
             
             
@@ -39,17 +40,30 @@ class CreateNote extends Component {
             this.props.navigation.navigate('Dashboard')
             
         }else{
-            var noteObj = {
-                Note : this.state.Note,
-                Title : this.state.Title,
-            }
+            // var noteObj = {
+            //     Note : this.state.Note,
+            //     Title : this.state.Title,
+            // }
+
+            AsyncStorage.getItem('UserId').then((success) => {
+                this.state.fetchedUserId = success
+                // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
+            })
+            // var userID = JSON.parse(this.state.fetchedUserId)
+            // console.log("Parsed User ID " + userID);
+            
+            // var id=fetchedUserId
+
+            console.log("Fetched User Id : " + this.state.fetchedUserId);
+            // firebase.database.storage()
             // this.setState({
             //     snackBarDisplay : {
             //         display : 'none'
             //     }
             // })
-            firebase.database.database().ref('/Notes').push(noteObj)
+            // firebase.database.database().ref('/Notes').push(noteObj)
             // var notesValue = noteObj
+
             var array = this.state.notes
             array.push(noteObj)
             this.setState({
@@ -57,16 +71,28 @@ class CreateNote extends Component {
             })
             console.log("Array Of Notes " + JSON.stringify(this.state.notes));
             var noteObject = {
-                notes : this.state.notes,
+                // notes : this.state.notes,
+                Title : this.state.Title,
+                Note : this.state.Note,
+                fetchedUserId : this.state.fetchedUserId
             }
+            AsyncStorage.setItem('UserData', noteObject)
+            firebase.database.database().ref('/Notes').push(noteObject)
 
+            // var userData = firebase.firebase.auth().currentUser
+            // userId = userData.uid
             // var usersNotes = firebase.firebase.auth().currentUser
             // AsyncStorage.setItem('UserData', usersNotes)
-            AsyncStorage.setItem('UserData', JSON.stringify(noteObj))
-            var data = AsyncStorage.getItem('UserData')
+            // AsyncStorage.setItem('UserId', JSON.stringify(noteObj))
 
-            var parsedData = JSON.parse(data)
-            console.log("Parsed Data " + parsedData);
+            this.props.navigation.navigate('Dashboard')
+            // , {
+            //     Note : this.state.Note,
+            //     Title : this.state.Title
+            // })
+
+            // vsar parsedData = JSON.parse(data)
+            // console.log("Parsed Data " + parsedData);
             
             // var noteObject = {
             //     notes : this.state.notes,
@@ -91,12 +117,12 @@ class CreateNote extends Component {
         }
     }
 
-    handleNoteChange = (text) => {
-        this.state.Note = text
-        this.setState({
-            ...this.state
-        })
-    }
+    // handleNoteChange = (text) => {
+    //     this.state.Note = text
+    //     this.setState({
+    //         ...this.state
+    //     })
+    // }
 
     menuIcon = () => {
         if(!this.state.menuIconVisibility){
@@ -115,6 +141,21 @@ class CreateNote extends Component {
     }
 
     render(){
+
+        AsyncStorage.getItem('UserId').then((success) => {
+            this.state.fetchedUserId = success
+            // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
+        })
+
+        // AsyncStorage.getItem('UserData') .then((success) => {
+        //     console.log('Success in Then method' + success);
+            
+        // })
+        // .catch((error) => {
+        //     console.log("Error in catch " + error);
+            
+        // })
+
         return(
             // <ScrollView>
             <View style = {styles.createNoteContainer}>
@@ -145,7 +186,7 @@ class CreateNote extends Component {
 
                     <View style = {styles.titleText}>
                         <TextInput style = {{fontSize : 20}}
-                        value = {this.state.title}
+                        value = {this.state.Title}
                         placeholder = "Title" 
                         onChangeText = {(text) => this.setState({
                             Title : text
@@ -154,11 +195,13 @@ class CreateNote extends Component {
                         <ScrollView>
                         <TextInput style = {{fontSize : 20}}
                         multiline
-                        value = {this.state.note}
+                        value = {this.state.Note}
                         numberOfLines = {3}
                         maxLength = {150}
                         placeholder = "Note"
-                        onChangeText = {(text) => this.handleNoteChange(text)}/>
+                        onChangeText = {(text) => this.setState({
+                            Note : text
+                        })}/>
                         </ScrollView>
                     </View>
 

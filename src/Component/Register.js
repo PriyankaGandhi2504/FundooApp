@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, Image, TouchableOpacity, Button, ScrollView} from 'react-native'
+import {Text, View, Image, TouchableOpacity, Button, ScrollView, ActivityIndicator} from 'react-native'
 import styles from './StyleSheets'
 import {Input} from 'react-native-elements'
 import firebase from '../Firebase'
@@ -20,7 +20,12 @@ class Register extends Component{
             lastNameErr : '',
             confirmPassword : '',
             confirmPasswordErr : '',
-            passwordShow : false
+            passwordShow : true,
+            showLoading : false,
+            isLoading : {
+                display : 'none'
+            }
+
         }
     }
 
@@ -39,7 +44,7 @@ class Register extends Component{
             this.setState({
                 ...this.state
             })
-            console.warn('First Name Correct');
+            // console.warn('First Name Correct');
             
         }else{
             // isErr = true
@@ -56,7 +61,7 @@ class Register extends Component{
                 this.setState({
                     ...this.state
                 })
-                console.warn('Invalid Input');
+                // console.warn('Invalid Input');
                     
             //     }
             // }
@@ -147,17 +152,16 @@ class Register extends Component{
     }
 
     eyeClick = () => {
-        console.warn('Eye Clicked');
-        // if(!this.state.passwordShow){
-
-        //     this.setState({
-        //         passwordShow : true
-        //     })
-        // }else{
-        //     this.setState({
-        //         passwordShow : false
-        //     })
-        // }
+        // console.warn('Eye Clicked');
+        if(this.state.passwordShow){
+            this.setState({
+                passwordShow : false
+            })
+        }else{
+            this.setState({
+                passwordShow : true
+            })
+        }
     }
 
     signInClick = () => {
@@ -166,14 +170,14 @@ class Register extends Component{
     }
 
     registerButton = () => {
-        isError = false
+        var isError = false
         // var dummy = {
         //     firstName : "abc",
         //     lastName : this.state.lastName
         // }
         // firebase.database.database().ref('/user').push(dummy)
 
-        console.warn('Register Button Clicked');
+        // console.warn('Register Button Clicked');
         if(this.state.firstName == ''){
             this.state.firstNameErr = "Field Required"
             this.setState({
@@ -210,6 +214,20 @@ class Register extends Component{
             isError = true
         }
 
+        if(!this.state.isLoading){
+            this.setState({
+                showLoading : true,
+                isLoading : 'size = "large"'
+            })
+        }else{
+            this.setState({
+                showLoading : false,
+                isLoading : {
+                    display : 'none'
+                }
+            })
+        }
+
         if(!isError){
             if(this.state.password === this.state.confirmPassword){
                 var obj = {
@@ -228,7 +246,10 @@ class Register extends Component{
                     this.setState({
                         firstName : '',
                         email : '',
-                        password : ''
+                        password : '',
+                        isLoading : {
+                            display : "none"
+                        }
                     })
                     this.props.navigation.navigate('Login')
                 })
@@ -331,7 +352,7 @@ class Register extends Component{
                         value = {this.state.confirmPassword}
                         placeholder = 'Confirm Password *'
                         textContentType = "password"
-                        secureTextEntry  = {true}
+                        secureTextEntry  = {this.state.passwordShow}
                         onChangeText = {(text) => this.setState({
                             confirmPassword : text
                         })}
@@ -354,6 +375,9 @@ class Register extends Component{
                             style = {styles.registerButton}
                             onPress = {this.registerButton}/>
                             </TouchableOpacity>
+                        </View>
+                        <View style = {{display : "flex", alignItems : "center", justifyContent : "center"}}>
+                        <ActivityIndicator style = {this.state.isLoading}/>
                         </View>
                         {/* <Text style = {styles.gmailText}> @gmail.com </Text> </Input> */}
                     

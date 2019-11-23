@@ -14,7 +14,8 @@ import {DrawerItems} from 'react-navigation'
 import DrawerRouter from './src/Component/DrawerNavigator'
 import MoreOptions from './src/Component/MoreOptions'
 import FlatListDemo from './src/Component/FlatListDemo'
-import Try from './src/Component/Try'
+// import Try from './src/Component/Try'
+import ReviewDoubleClickQue from './src/Component/ReviewDoubleClickQue'
 // import Snackbar from './src/Component/SnackBar'
 
 class App extends Component{
@@ -23,14 +24,16 @@ class App extends Component{
     return(
       // <AppDrawerNavigator/>
      <Router/>
+
 // {/* <Try/> */}
     //  <DrawerRouter/>
     //  <View>
+        //  {/* <ReviewDoubleClickQue/> */}
       //  <FlatListDemo/>
-          //  {/* <CreateNote/> */}
-          // {/* <Dashboard/> */}
-        //  {/* <Snackbar/> */}
-        //  </View>
+              //  {/* <CreateNote/> */}
+            //  {/* <Dashboard/> */}
+            // {/* <Snackbar/> */}
+    //  </View>
     );
   }
 }
