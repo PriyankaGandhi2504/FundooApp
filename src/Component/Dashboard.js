@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, TouchableOpacity, Image, ScrollView, Button, FlatList} from 'react-native'
+import {View, Text, TouchableOpacity, Image, ScrollView, Button, FlatList, TouchableHighlight} from 'react-native'
 import styles from './StyleSheets'
 import {SearchBar, Card} from 'react-native-elements'
 import CreateNote from './CreateNote'
@@ -8,6 +8,8 @@ import firebase from '../Firebase'
 // import Drawer from 'react-native-drawer'
 import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker'
+import userData from '../../UserServices'
+const UserData = new userData
 // import {InfiniteListView} from 'react-native-infinite-listview'
 
 // var data = [{
@@ -38,6 +40,8 @@ const users = [
     {name : 'Vaishnavi', emailId : 'vaishnavibhosale@gmail.com'}
 ]
 
+var array;
+
 class Dashboard extends Component{
 
     constructor (props){
@@ -51,11 +55,17 @@ class Dashboard extends Component{
                 display : 'none'
             },
             avtarSource : null,
-            usersNote : []
+            usersNote : [],
+            isLongPressed : false,
+            longPressedStyle : {},
+            selectedNotesIndex : [],
+            flag : []
             // cardDisplay : {
             //     display : 'none'
             // }
         }
+        // console.log("Constructor ");
+        
     }
 
     updateSearch = (text) => {
@@ -70,24 +80,26 @@ class Dashboard extends Component{
     }
 
     profileDisplay = () => {
-        var userData = firebase.firebase.auth().currentUser
-        var userMailId = userData.email
+        var userDataa = firebase.firebase.auth().currentUser
+        var userEmailId = userDataa.email
         // console.log("User email id " + userMailId);
-        
-        if(!this.state.profileVisibility){
-            this.setState({
-                profileCardDisplay : styles.profileDisplay,
-                profileVisibility : true,
-                userEmail : userMailId
-            })
-        }else{
-            this.setState({
-                profileCardDisplay : {
-                    display : 'none'
-                },
-                profileVisibility : false
-            })
-        }
+        // if(!this.state.profileVisibility){
+        //     this.setState({
+        //         profileCardDisplay : styles.profileDisplay,
+        //         profileVisibility : true,
+        //         userEmail : userMailId
+        //     })
+
+        // }else{
+        //     this.setState({
+        //         profileCardDisplay : {
+        //             display : 'none'
+        //         },
+        //         profileVisibility : false
+        //     })
+        // }
+        this.props.navigation.navigate('SignOutMenu', {userEmailId})
+
     } 
 
     galleryIcon = () => {
@@ -133,26 +145,114 @@ class Dashboard extends Component{
             </View>
         )
     }
-    render(){
-        AsyncStorage.getItem('UserData') .then((success) => {
-            console.log('Success in Then method' + JSON.stringify(success));
-            this.state.usersNote = success
-            console.log("Users Array from Async Storage : " + this.state.users);
-            // console.log("Note in Success " + success.Note);
-        })
-        .catch((error) => {
-            console.log("Error in catch " + error);    
-        })
 
-        firebase.database.database().ref('Notes').orderByKey().on("")
+     componentDidMount(){
+        // console.log("await ");
         
+        var details = UserData.userData()
+        // console.log("received");
+        
+        console.log("Details " + JSON.stringify(details));
+        this.setState({
+            usersNote : details
+        })
+        console.log("Users Note " + this.state.usersNote);
+        // console.log("Component Did Mount");
+        
+    }
 
+    // componentDidUpdate(){
+    //     var details = UserData.userData()
+    //     console.log(" Update  Details " + JSON.stringify(details));
+    //     this.setState({
+    //         usersNote : details
+    //     })
+    //     console.log("Users Note " + this.state.usersNote);
+    //     console.log("Component Did Update");
+    // }
+
+    // static getDerivedStateFromProps(props, state){
+    //     console.log("Get Derived State From Props");
+        
+    // }
+
+    handleLongPress = (event, i) => {
+        // console.log("I Index " + i);
+        this.state.selectedNotesIndex.push(i)
+        // console.log( "Selected notes indexes " + this.state.selectedNotesIndex);
+        this.state.flag[i] = 1
+        // console.log("Card Long Pressed") 
+        // console.log( "Flag state of " + i + "is " + this.state.flag[i]);
+        
+        if(!this.state.isLongPressed){
+            this.setState({
+                isLongPressed : true,
+                longPressedStyle : styles.longPressedStyle,
+            })
+            // ,()=>{console.log(this.state.isLongPressed)})
+            // console.log("in if statement ");
+            
+        }else{
+            this.state.flag[i] = 0
+
+            this.setState({
+                isLongPressed : false,
+                // longPressedStyle : {
+                //     display : 'none'
+                // }
+            })
+        }
+    }
+
+    handleNormalPress = (event, i) => {
+        this.state.flag[i] = 0
+        this.setState({
+            isLongPressed : false,
+            // longPressedStyle : {
+            //     display : 'none'
+            // }
+        })
+    }
+
+    render(){
+
+        // console.log("Render ");
+        
+        // AsyncStorage.getItem('UserData') .then((success) => {
+        //     console.log('Success in Then method' + JSON.stringify(success));
+        //     this.state.usersNote = success
+        //     console.log("Users Array from Async Storage : " + this.state.users);
+        //     // console.log("Note in Success " + success.Note);
+        // })
+        // .catch((error) => {
+        //     console.log("Error in catch " + error);    
+        // })
+
+        // firebase.database.database().ref('Notes').orderByKey().on("value", function(snapshot){
+        //     console.log('DataBase data ' + JSON.stringify(snapshot.val()));
+        //     var userObject = snapshot.val()
+        //     // var usersData = JSON.stringify(snapshot.val())
+        //     console.log("Has Property " + JSON.stringify(userObject));
+            
+            
+            // console.log("User's Data : " + JSON.stringify(usersData));
+            
+        // })
+        // console.log("Array in Render " + JSON.stringify(array));
+        // this.setState({
+        //     usersNote : array
+        // })
+        // console.log("Users Note in state " + JSON.stringify(this.state.usersNote));
+        
+        
+        
         // const {navigation} = this.props
         // const note = navigation.getParam('Note', 'No Note')
         // const title = navigation.getParam('Title', 'No Title')
         // console.log("Note in Render " + note);
         // console.log("Title:",title)
-
+        // console.log("Note in user Object " + userObject.Note);
+        
         return(
             <View style = {styles.dashboardContainer}>
                 <View style = {styles.dashboardSubContainer}>
@@ -245,49 +345,53 @@ class Dashboard extends Component{
 
                                     />
                                 </View> */}
-                                <View style = {this.state.profileCardDisplay}>
+                                {/* <View style = {this.state.profileCardDisplay}>
                                     <Card>
                                         <Text style = {{fontWeight : "bold", fontSize : 20, textDecorationLine : "underline", textAlign : "center", bottom : 15}}>
                                             Profile
                                         </Text>
                                         <Text style = {{bottom : 10}}>
                                             {this.state.userEmail}
-                                        </Text>
+                                        </Text> */}
 
                                         {/* <TouchableOpacity> */}
-                                        <Button title = "Sign Out"
-                                        onPress = {this.signOut}/>
+                                        {/* <Button title = "Sign Out"
+                                        onPress = {this.signOut}/> */}
                                         {/* </TouchableOpacity> */}
 
-                                    </Card>
-                                </View>
+                                    {/* </Card>
+                                </View> */}
                         <ScrollView>
                         <View>
                         {/* <Card> */}
                         {
-                        users.map((u, i) => {
-                        return (
-                        <View key={i} 
-                        style={styles.userCard}
-                        >
-                            {/* <Image
-                                style={styles.image}
-                                resizeMode="cover"
-                                source={{ uri: u.avatar }}
-                            /> */}
-                            <View style = {styles.notesCard}>
-                            <Card>
-                                <Text style={styles.name}>{u.name}</Text>
-                                <Text style={styles.name}>{u.emailId}</Text>
-                            </Card>
-                            </View>
-                            
-                        
-                        </View>
-                        );
-                        })
+                            this.state.usersNote.map((u, i) => {
+                                return (
+                                    <View key={i} 
+                                    style={styles.userCard}>
+                                    {/* <Image
+                                    style={styles.image}
+                                    resizeMode="cover"
+                                    source={{ uri: u.avatar }}
+                                    /> */}
+                                    <TouchableOpacity onLongPress = {(event) => this.handleLongPress(event, i)}
+                                    onPress = {(event) => this.handleNormalPress(event, i)}
+                                    style = {this.state.flag[i] === 1 ? this.state.longPressedStyle : {}}>
+                                    <View style = {styles.notesCard}>
+                                        <Card>
+                                            <Text style={styles.name}>{u.Title}</Text>
+                                            <Text style={styles.name}>{u.Note}</Text>
+                                        </Card>
+                                    </View>
+                                    </TouchableOpacity>
+                                    </View>
+                                );
+                            })
                         }
-{/* </Card> */}
+                        </View>
+                        </ScrollView>
+       
+                            {/* </Card> */}
                             {/* <View style = {{width : "50%"}}>
                                 <Card title = 'title'/>
                                 <Card title = "title"/>
@@ -317,8 +421,7 @@ class Dashboard extends Component{
                                 <Card title = "title"/>
                                 <Card title = "title"/>
                             </View> */}
-                        </View>
-                        </ScrollView>
+                        
                         
                     {/* <View style = {styles.googleKeepImage}>
                         <Image 

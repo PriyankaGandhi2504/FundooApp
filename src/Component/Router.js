@@ -11,6 +11,7 @@ import Dashboard from './Dashboard'
 import ForgotPassword from './ForgotPassword'
 import CreateNote from './CreateNote'
 import MoreOptions from './MoreOptions'
+import SignOutMenu from './SignOutMenu'
 
 // navigationOptions : {header : null}
 const MainNavigator = createStackNavigator({
@@ -20,7 +21,8 @@ const MainNavigator = createStackNavigator({
   Register : {screen : Register, navigationOptions : {header : null}},
   CreateNote : {screen : CreateNote, navigationOptions : {header : null}},
   MoreOptions : {screen : MoreOptions},
-  DrawerRouter : {screen : DrawerRouter, navigationOptions : {header : null}}
+  DrawerRouter : {screen : DrawerRouter, navigationOptions : {header : null}},
+  SignOutMenu : {screen : SignOutMenu, navigationOptions : {header : null}}
   // HomeScreen : {screen : HomeScreen, navigationOptions : {header : null}},
   // SettingScreen : {screen : SettingScreen, navigationOptions : {header : null}}
 },

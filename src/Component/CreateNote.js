@@ -45,10 +45,10 @@ class CreateNote extends Component {
             //     Title : this.state.Title,
             // }
 
-            AsyncStorage.getItem('UserId').then((success) => {
-                this.state.fetchedUserId = success
-                // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
-            })
+            // AsyncStorage.getItem('UserId').then((success) => {
+            //     this.state.fetchedUserId = success
+            //     // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
+            // })
             // var userID = JSON.parse(this.state.fetchedUserId)
             // console.log("Parsed User ID " + userID);
             
@@ -65,18 +65,22 @@ class CreateNote extends Component {
             // var notesValue = noteObj
 
             var array = this.state.notes
+            
             array.push(noteObj)
+            // console.log("Arr Data " + arr);
+            
             this.setState({
                 notes : array
             })
             console.log("Array Of Notes " + JSON.stringify(this.state.notes));
             var noteObject = {
                 // notes : this.state.notes,
-                Title : this.state.Title,
+                // notes : [{name : 'abc'}, {name : 'xyz'}],
+                 Title : this.state.Title,
                 Note : this.state.Note,
                 fetchedUserId : this.state.fetchedUserId
             }
-            AsyncStorage.setItem('UserData', noteObject)
+            // AsyncStorage.setItem('UserData', noteObject)
             firebase.database.database().ref('/Notes').push(noteObject)
 
             // var userData = firebase.firebase.auth().currentUser
@@ -185,7 +189,7 @@ class CreateNote extends Component {
                     </View>
 
                     <View style = {styles.titleText}>
-                        <TextInput style = {{fontSize : 20}}
+                        <TextInput style = {{fontSize : 24}}
                         value = {this.state.Title}
                         placeholder = "Title" 
                         onChangeText = {(text) => this.setState({
@@ -193,7 +197,7 @@ class CreateNote extends Component {
                         })}
                         />
                         <ScrollView>
-                        <TextInput style = {{fontSize : 20}}
+                        <TextInput style = {{fontSize : 18}}
                         multiline
                         value = {this.state.Note}
                         numberOfLines = {3}

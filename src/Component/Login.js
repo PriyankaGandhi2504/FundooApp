@@ -133,6 +133,15 @@ class Login extends Component{
                 // console.log('User data' + JSON.stringify(user))
                 // console.warn('User data' + JSON.stringify(user))
                 AsyncStorage.setItem('UserId', userId)
+
+                AsyncStorage.getItem('UserId') .then((success) => {
+                    console.log("UserId " +success);
+                    
+                })
+                .catch ((error) => {
+                    console.log("Error from login " + error);
+                    
+                })
                 // console.warn("User Id " + user.uid)
                 // console.warn('Entered Dashboard Screen')
                 // console.log("User Email " + user.email)

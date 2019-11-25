@@ -21,11 +21,16 @@ const AppDrawerNavigator = createDrawerNavigator({
     },
     {
       // hideStatusBar : true,
-      drawerBackgroundColor : 'rgba(255,255,255,.9)',
+      drawerBackgroundColor : 'rgba(255,255,255,.99)',
+      
+
     //   overlayColor : '#6b52ae',
       contentOptions : {
-        activeTintColor : '#fff',
-        activeBackgroundColor : '#6b52ae'
+        activeTintColor : 'black',
+        activeBackgroundColor : '#feefc3',
+        
+        // textDecorationColor : 'black',
+        // activeBackgroundColor : 'black'
       },
     })
   

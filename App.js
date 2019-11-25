@@ -16,24 +16,34 @@ import MoreOptions from './src/Component/MoreOptions'
 import FlatListDemo from './src/Component/FlatListDemo'
 // import Try from './src/Component/Try'
 import ReviewDoubleClickQue from './src/Component/ReviewDoubleClickQue'
+import SignOutMenu from './src/Component/SignOutMenu'
 // import Snackbar from './src/Component/SnackBar'
+import store from './src/Component/SignOutStore' 
+import {Provider} from 'react-redux'
+import MultiSelectDemo from './src/Component/MultiSelectDemo'
 
 class App extends Component{
   render()
+
   {
     return(
       // <AppDrawerNavigator/>
+      // <Provider store = {store}>
      <Router/>
+
+      // </Provider>
 
 // {/* <Try/> */}
     //  <DrawerRouter/>
     //  <View>
-        //  {/* <ReviewDoubleClickQue/> */}
-      //  <FlatListDemo/>
-              //  {/* <CreateNote/> */}
-            //  {/* <Dashboard/> */}
-            // {/* <Snackbar/> */}
-    //  </View>
+      //  <MultiSelectDemo/>
+        // {/* <SignOutMenu/> */}
+          // {/* <ReviewDoubleClickQue/> */}
+        //  {/* <FlatListDemo/> */}
+                //  {/* <CreateNote/> */}
+              //  {/* <Dashboard/> */}
+            //  {/* <Snackbar/> */}
+      //  </View>
     );
   }
 }

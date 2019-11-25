@@ -220,7 +220,8 @@ const styles = StyleSheet.create({
         fontSize : 20,
         color : "darkblue",
         fontStyle : "italic",
-        textDecorationLine : "underline"
+        textDecorationLine : "underline",
+        
     },
     // registerButton : {
     //     // bottom : 10
@@ -234,20 +235,39 @@ const styles = StyleSheet.create({
     dashboardSubContainer : {
         margin : "2%",
         height : "100%",
-        // backgroundColor : "orange"
+        // backgroundColor : "orange",
     },
     searchBar : {
         // backfaceVisibility : "hidden",
         color : "white",
         width : "100%",
         borderWidth : 1,
-        borderColor : "black",
+        borderColor : "grey",
         borderRadius : 10,
         height : 40,
+        shadowRadius : 10,
+        shadowOpacity : 0.8,
+        // shadowOffset : {width : 10, height : 10},
+        shadowColor : 'rgba(0,0,0,0.14)',
         // position : "absolute",
         // backgroundColor : "pink",
         zIndex : 1
     },
+    // selectedNoteHeaderBar : {
+    //     color : "white",
+    //     width : "100%",
+    //     borderWidth : 1,
+    //     borderColor : "grey",
+    //     borderRadius : 10,
+    //     height : 40,
+    //     shadowRadius : 10,
+    //     shadowOpacity : 0.8,
+    //     // shadowOffset : {width : 10, height : 10},
+    //     shadowColor : 'rgba(0,0,0,0.14)',
+    //     // position : "absolute",
+    //     // backgroundColor : "pink",
+    //     zIndex : 1
+    // },
     googleKeepImage : {
         // backfaceVisibility : "hidden",
         display : "flex",
@@ -308,7 +328,15 @@ const styles = StyleSheet.create({
         // height : "200%"
     },
     notesCard : {
+        
+        // bottom : 40,
+        // top : 20
         // borderWidth : 1
+    },
+    longPressedStyle : {
+        borderWidth : 2,
+        borderColor : 'black',
+        borderRadius : 10,
     },
 
     /********************* Forgot Password **********************/
@@ -446,6 +474,29 @@ const styles = StyleSheet.create({
     },
     textStyle : {
         fontSize : 80
+    },
+    /*************************** Sign Out Menu ***********************/
+    signOutContainer : {
+        width : "100%",
+        height : "100%",
+        // backgroundColor : 'lightpink'
+    },
+    signOutHeader : {
+        // backgroundColor : 'lightblue',
+        // width : "100%",
+        height : "auto",
+        margin : 10,
+    },
+    userDetails : {
+        marginTop : 40,
+        display : "flex",
+        flexDirection : "row",
+        justifyContent : "space-between"
+    },
+    signOut : {
+        // width : 90,
+        display : "flex",
+        alignItems : "center"
     }
 })
 
