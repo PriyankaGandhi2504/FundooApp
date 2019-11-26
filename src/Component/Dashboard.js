@@ -59,7 +59,9 @@ class Dashboard extends Component{
             isLongPressed : false,
             longPressedStyle : {},
             selectedNotesIndex : [],
-            flag : []
+            flag : [],
+            normalPressedStyle : {},
+            countClick : 0
             // cardDisplay : {
             //     display : 'none'
             // }
@@ -99,7 +101,6 @@ class Dashboard extends Component{
         //     })
         // }
         this.props.navigation.navigate('SignOutMenu', {userEmailId})
-
     } 
 
     galleryIcon = () => {
@@ -185,8 +186,10 @@ class Dashboard extends Component{
         // console.log( "Flag state of " + i + "is " + this.state.flag[i]);
         
         if(!this.state.isLongPressed){
+            // console.log("Long Pressed value " + this.state.isLongPressed);
+            
             this.setState({
-                isLongPressed : true,
+                // isLongPressed : true,
                 longPressedStyle : styles.longPressedStyle,
             })
             // ,()=>{console.log(this.state.isLongPressed)})
@@ -197,6 +200,8 @@ class Dashboard extends Component{
 
             this.setState({
                 isLongPressed : false,
+                normalPressedStyle : styles.normalPressedStyle
+
                 // longPressedStyle : {
                 //     display : 'none'
                 // }
@@ -204,17 +209,35 @@ class Dashboard extends Component{
         }
     }
 
-    handleNormalPress = (event, i) => {
+    handleNormalPress = (event, i, title, note) => {
         this.state.flag[i] = 0
+        // this.state.countClick = this.state.countClick + 1
         this.setState({
             isLongPressed : false,
             // longPressedStyle : {
             //     display : 'none'
             // }
         })
+        // console.log("count " + this.state.countClick);
+
+        // if(this.state.countClick == 2){
+        //     this.setState({
+        //         countClick : 0
+        //     })
+        //     console.log("count " + this.state.countClick);
+            
+            // this.props.navigation.navigate('CreateNote', {
+            //     Title : title,
+            //     Note : note
+            // })
+        // }
+        
     }
 
+    
+
     render(){
+        
 
         // console.log("Render ");
         
@@ -265,6 +288,7 @@ class Dashboard extends Component{
 
                         {/* <DrawerLayoutAndroid/> */}
 
+                        <View>
                         <View style = {styles.searchBar}>
                             <View>
                                 <TouchableOpacity style = {{width : 50}}
@@ -307,9 +331,16 @@ class Dashboard extends Component{
                                 </TouchableOpacity>
                                 </View>
                                 </View>
-
-                                
                             </View>
+
+                            {/* <View style = {styles.searchBar}>
+                                <View style = {{top : 5}}>
+                                    <Image style = {{width : 20, height : 20,}}
+                                    source = {require('../Assets/CrossIcon.png')}/>
+                                </View>
+                            </View> */}
+                        </View>
+                        
                         {/* <View style = {styles.searchBar}>
                             <View>
                                 <TouchableOpacity onPress = {this.props.navigation.openDrawer}>
@@ -363,6 +394,7 @@ class Dashboard extends Component{
                                 </View> */}
                         <ScrollView>
                         <View>
+                            {/* <FlatList/> */}
                         {/* <Card> */}
                         {
                             this.state.usersNote.map((u, i) => {
@@ -375,14 +407,20 @@ class Dashboard extends Component{
                                     source={{ uri: u.avatar }}
                                     /> */}
                                     <TouchableOpacity onLongPress = {(event) => this.handleLongPress(event, i)}
-                                    onPress = {(event) => this.handleNormalPress(event, i)}
-                                    style = {this.state.flag[i] === 1 ? this.state.longPressedStyle : {}}>
-                                    <View style = {styles.notesCard}>
-                                        <Card>
-                                            <Text style={styles.name}>{u.Title}</Text>
-                                            <Text style={styles.name}>{u.Note}</Text>
+                                    onPress = {(event) => this.handleNormalPress(event, i, u.Title, u.Note)}>
+                                    {/* style = {this.state.flag[i] === 1 ? this.state.longPressedStyle : this.handleNormalPress}> */}
+                                    {/* <View style = {styles.notesCard}> */}
+                                        {/* <FlatList
+                                        data = {this.state.usersNote}
+                                        renderItem = {this.renderRow}> */}
+                                        <Card
+                                        containerStyle = {this.state.flag[i] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle}>
+                                            <Text style={{fontSize : 16}}>{u.Title}</Text>
+                                            <Text style={{fontSize : 12, marginTop : 10}}>{u.Note}</Text>
                                         </Card>
-                                    </View>
+                                        {/* </FlatList> */}
+                                       
+                                    {/* </View> */}
                                     </TouchableOpacity>
                                     </View>
                                 );

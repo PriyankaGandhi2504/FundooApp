@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
         shadowColor : 'rgba(0,0,0,0.14)',
         // position : "absolute",
         // backgroundColor : "pink",
-        zIndex : 1
+        zIndex : 1,
     },
     // selectedNoteHeaderBar : {
     //     color : "white",
@@ -337,6 +337,14 @@ const styles = StyleSheet.create({
         borderWidth : 2,
         borderColor : 'black',
         borderRadius : 10,
+        borderStartWidth : 3
+    },
+    normalPressedStyle : {
+        borderColor : 'grey',
+        borderRadius : 10
+    },
+    cardTitle : {
+
     },
 
     /********************* Forgot Password **********************/

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View, FlatList, StyleSheet, Text, Image, ActivityIndicator} from 'react-native';
-import { Card } from 'react-native-elements';
-
+import userData from '../../UserServices'
+const UserData = new userData
 // const DATA = [
 //   {
 //     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -37,19 +37,34 @@ export default class FlatListDemo extends Component {
     }
   }
 
+
   componentDidMount(){
-    this.setState({
-      isLoading : true
-    },this.getData
-    )
-  }
+  // console.log("await ");
+  
+  var details = UserData.userData()
+  // console.log("received");
+  
+  console.log("Details " + JSON.stringify(details));
+  this.setState({
+      data : details
+  })
+  console.log("Users Note " + this.state.usersNote);
+  // console.log("Component Did Mount");
+  
+}
+
 
   getData = async ()=> {
+    // console.log(" get data ");
+    
     const url = 'https://jsonplaceholder.typicode.com/photos?_limit=15&_page='+this.state.page
     fetch(url).then((response) => response.json())
     .then((responseJson) => {
+      // console.log( " Response Json " + JSON.stringify(responseJson));
+      // var array = 
       this.setState({
         data : responseJson,
+        // data : JSON.stringify(responseJson),
         isLoading : false
       })
 
@@ -62,16 +77,19 @@ export default class FlatListDemo extends Component {
     return(
       <View style = {styles.itemView}>
         {/* <Image/> */}
-        <Text style = {styles.itemText}> {item.title} </Text>
         <Text style = {styles.itemText}> {item.id} </Text>
+        <Text style = {styles.itemText}> {item.title} </Text>
       </View>    
     ) 
   }
 
   handleLoadMore = () => {
-    console.warn('handle load more')
+    // this.setState({
+    //   page : 0
+    // })
+    // console.warn('handle load more')
     this.setState({
-      page : this.state.page + 1,
+      page : 1,
       isLoading : true
     },
     this.getData)
@@ -91,10 +109,12 @@ export default class FlatListDemo extends Component {
         <FlatList
         data = {this.state.data}
         renderItem = {this.renderRow}
-        keyExtractor = {(item, index) => index.toString()}
         onEndReached = {this.handleLoadMore}
-        onEndReachedThreshold = {0}
+        keyExtractor = {(item, index) => index.toString()}
+        onEndThreshold = {0}
+        // onEndThreshold = {this.renderRow}
         ListFooterComponent = {this.renderFooter}
+        
         />
       </View>
 
@@ -126,9 +146,6 @@ itemText : {
 itemView : {
   borderBottomWidth : 1,
   marginBottom : 10
-
-},
-loader : {
 
 }
 });

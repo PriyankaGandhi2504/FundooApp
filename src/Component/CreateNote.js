@@ -151,6 +151,14 @@ class CreateNote extends Component {
             // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
         })
 
+        const {navigation} = this.props
+        const note = navigation.getParam('Note' , 'No Note')
+        const title = navigation.getParam('Title', 'No Title')
+        // this.setState({
+        //     Note : note,
+        //     Title : title
+        // })
+
         // AsyncStorage.getItem('UserData') .then((success) => {
         //     console.log('Success in Then method' + success);
             

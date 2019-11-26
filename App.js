@@ -12,7 +12,7 @@ import HomeScreen from './src/Component/HomeScreen'
 import SettingScreen from './src/Component/SettingScreen'
 import {DrawerItems} from 'react-navigation'
 import DrawerRouter from './src/Component/DrawerNavigator'
-import MoreOptions from './src/Component/MoreOptions'
+// import MoreOptions from './src/Component/MoreOptions'
 import FlatListDemo from './src/Component/FlatListDemo'
 // import Try from './src/Component/Try'
 import ReviewDoubleClickQue from './src/Component/ReviewDoubleClickQue'
@@ -21,6 +21,10 @@ import SignOutMenu from './src/Component/SignOutMenu'
 import store from './src/Component/SignOutStore' 
 import {Provider} from 'react-redux'
 import MultiSelectDemo from './src/Component/MultiSelectDemo'
+import Reminders from './src/Component/Reminders'
+import CreateLabel from './src/Component/CreateLabel'
+import Archive from './src/Component/Archive'
+import FlatList1 from './src/Component/FlatList'
 
 class App extends Component{
   render()
@@ -36,14 +40,14 @@ class App extends Component{
 // {/* <Try/> */}
     //  <DrawerRouter/>
     //  <View>
-      //  <MultiSelectDemo/>
-        // {/* <SignOutMenu/> */}
-          // {/* <ReviewDoubleClickQue/> */}
-        //  {/* <FlatListDemo/> */}
-                //  {/* <CreateNote/> */}
-              //  {/* <Dashboard/> */}
+        //  {/* <MultiSelectDemo/> */}
+          // {/* <SignOutMenu/> */}
+            // {/* <ReviewDoubleClickQue/> */}
+        //  <FlatListDemo/>
+                  //  {/* <CreateNote/> */}
+                //  {/* <Dashboard/> */}
             //  {/* <Snackbar/> */}
-      //  </View>
+        // </View>
     );
   }
 }
