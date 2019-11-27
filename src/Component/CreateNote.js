@@ -6,6 +6,7 @@ import firebase from '../Firebase'
 import Dashboard from './Dashboard'
 // import Snackbar from 'react-native-snackbar';
 import {AsyncStorage} from 'react-native';
+import ColorPalette from 'react-native-color-palette'
 // import Snackbar from './SnackBar'
 
 var date = new Date().getMinutes()
@@ -21,10 +22,9 @@ class CreateNote extends Component {
                 display:'none'
             },
             notes : [],
-            fetchedUserId : ''
+            fetchedUserId : '',
+            createNoteContainerStyle : false
             // snackBarDisplay : true
-            
-            
         }
     }
 
@@ -144,6 +144,11 @@ class CreateNote extends Component {
         }
     }
 
+    changeColor = (color) => {
+        
+        alert(`Color ${color}`)
+    }
+
     render(){
 
         AsyncStorage.getItem('UserId').then((success) => {
@@ -151,9 +156,10 @@ class CreateNote extends Component {
             // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
         })
 
-        const {navigation} = this.props
-        const note = navigation.getParam('Note' , 'No Note')
-        const title = navigation.getParam('Title', 'No Title')
+        // const {navigation} = this.props
+        // const note = navigation.getParam('Note' , 'No Note')
+        // const title = navigation.getParam('Title', 'No Title')
+
         // this.setState({
         //     Note : note,
         //     Title : title
@@ -268,6 +274,29 @@ class CreateNote extends Component {
                                 </Text> 
                             </TouchableOpacity>
                         </View>
+
+                        <ScrollView horizontal = {true}
+                        showsHorizontalScrollIndicator={false}>
+                        <View style = {styles.colorPaletteStyle}>
+                            <TouchableOpacity style = {{width : "100%"}}>
+                            
+                                {/* <View> */}
+                                <View style = {{top : -28, height : 40, bottom : 20}}>
+                                <ColorPalette
+                                    onChange={color => this.changeColor(color)}
+                                    defaultColor={'#ffffff'}
+                                    colors={['#ffffff', '#bfef45', '#fffac8', '#ffd8b1', '#fabebe','#aaffc3', '#42d4f4', '#9B59B6', '#e6194B', '#2980B9']}
+                                    title={""}
+                                    icon={
+                                      <Text> </Text>
+                                    // Icon can just be text or ASCII
+                                    }
+                                />
+                                
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        </ScrollView>
                     </View>
 
                     {/* <View> */}
@@ -289,7 +318,7 @@ class CreateNote extends Component {
                             <Image style = {{width : 20, height : 25, marginTop : 5, marginRight : 20}}
                             source = {require('../Assets/Menu.png')}/>
                         </TouchableOpacity>
-                        </View>
+                        </View> 
                     </View>
                 </View>
             </View>

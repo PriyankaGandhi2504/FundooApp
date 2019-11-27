@@ -112,6 +112,7 @@ export default class FlatListDemo extends Component {
         onEndReached = {this.handleLoadMore}
         keyExtractor = {(item, index) => index.toString()}
         onEndThreshold = {0}
+        // initialNumToRender = {1}
         // onEndThreshold = {this.renderRow}
         ListFooterComponent = {this.renderFooter}
         

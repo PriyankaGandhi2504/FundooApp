@@ -23,7 +23,7 @@ class SignOutMenu extends Component {
     }
 
     signOut = () => {
-        this.props.navigation.goBack()
+        this.props.navigation.navigate('Login')
         firebase.firebase.auth().signOut()
         // this.props.signOut()
         // console.log("User Successfully Signed Out");
@@ -58,7 +58,7 @@ class SignOutMenu extends Component {
             <View style = {styles.signOutContainer}>
                 <View style = {styles.signOutHeader}>
                     <View>
-                        <TouchableOpacity onPress = {() => this.props.navigation.navigate('Dashboard')}>
+                        <TouchableOpacity onPress = {() => this.props.navigation.goBack()}>
                             <Image style = {{width : 25, height : 25, borderRadius : 50}}
                             source = {require('../Assets/CrossIcon.png')}/>
                         </TouchableOpacity>

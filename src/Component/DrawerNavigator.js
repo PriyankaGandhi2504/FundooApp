@@ -21,18 +21,36 @@ import Settings from './Settings';
 import HelpFeedback from './HelpFeedback';
 
 const AppDrawerNavigator = createDrawerNavigator({
-    Dashboard : {screen : Dashboard, navigationOptions : {drawerIcon : (<Image style = {{width : 20, height : 20}}
-      source = {require('../Assets/NotesIcon.png')}/>), 
-      drawerLabel : 'Note'}},
-    Reminders : Reminders,
-    CreateLabel : {screen : CreateLabel, navigationOptions : {
-      drawerLabel : 'Create New Label'
+    Dashboard : {screen : Dashboard, navigationOptions : 
+      {drawerIcon : (<Image style = {{width : 25, height : 25}}
+        source = {require('../Assets/NotesIcon.png')}/>), 
+      drawerLabel : 'Note'
     }},
-    Archive : Archive,
-    DeletedNotes : DeletedNotes,
-    Settings : Settings,
+    Reminders : {screen : Reminders, navigationOptions : 
+      {drawerIcon : (<Image style = {{width : 25, height : 25}}
+        source = {require('../Assets/Reminders.png')}/>)
+      }},
+    CreateLabel : {screen : CreateLabel, navigationOptions : 
+      {drawerLabel : 'Create New Label',
+      drawerIcon : (<Image style = {{width : 35, height : 35}}
+        source = {require('../Assets/NewLabel.png')}/>)
+      }},
+    Archive : {screen : Archive, navigationOptions : 
+      {drawerIcon : (<Image style = {{width : 25, height : 25}}
+      source = {require('../Assets/Archive.png')}/>)
+    }},
+    DeletedNotes : {screen : DeletedNotes, navigationOptions : 
+      {drawerLabel : 'Deleted',
+      drawerIcon : (<Image style = {{width : 25, height : 25}}
+        source = {require('../Assets/Trash.png')}/>),
+    }},
+    Settings : {screen : Settings, navigationOptions : 
+      {drawerIcon : (<Image style = {{width : 25, height : 25}}
+      source = {require('../Assets/Setting.png')}/>)}},
     HelpFeedback : {screen : HelpFeedback, navigationOptions : {
-      drawerLabel : 'Help & Feedback'
+      drawerLabel : 'Help & Feedback',
+      drawerIcon : (<Image style = {{width : 25, height : 25}}
+      source = {require('../Assets/HelpFeedback.png')}/>)
     }}
     // CreateNote : CreateNote,
     },

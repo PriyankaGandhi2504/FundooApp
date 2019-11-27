@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity} from 'react-native'
 import { Divider } from 'react-native-elements'
 
 class Reminders extends Component{
+    
 render(){
     return(
         <View>

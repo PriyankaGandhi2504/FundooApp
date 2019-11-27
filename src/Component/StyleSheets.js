@@ -308,7 +308,8 @@ const styles = StyleSheet.create({
     profileIcon : {
         display : "flex", 
         position : "absolute", 
-        alignSelf : "flex-end"
+        alignSelf : "flex-end",
+        justifyContent : "space-around",
     },
     profileDisplay : {
         display : "flex", 
@@ -341,10 +342,21 @@ const styles = StyleSheet.create({
     },
     normalPressedStyle : {
         borderColor : 'grey',
-        borderRadius : 10
+        borderRadius : 10,
+        width : "90%",
+        
+       
+        // width : "40%"
     },
     cardTitle : {
 
+    },
+    gridView : {
+        display : "flex", 
+        width : "100%", 
+        flexDirection : "row", 
+        flexWrap : "wrap",
+        // height : "auto",
     },
 
     /********************* Forgot Password **********************/
@@ -390,7 +402,7 @@ const styles = StyleSheet.create({
     createNoteSubContainer : {
         width : "100%",
         height : "100%",
-        display : "flex",
+        
         // backgroundColor : "lightblue",
     },
     headerContainer : {
@@ -418,7 +430,7 @@ const styles = StyleSheet.create({
         position : "absolute",
         bottom : 0,
         width : "100%",
-        height : 300
+        height : 320
         // alignContent : "space-between"
 
     },
@@ -438,12 +450,13 @@ const styles = StyleSheet.create({
     },
     menuList : {
         backgroundColor : "white",
-        height : 250,
+        height : 270,
         // marginTop : "45%",
         borderRadius : 20,
         width : "100%",
         position : "absolute",
-        borderWidth : 0.3,
+        // borderWidth : 0.3,
+        borderTopWidth : 0.3
         // bottom : 20,
         // display : "flex",
         // justifyContent : "flex-end"
@@ -465,6 +478,14 @@ const styles = StyleSheet.create({
     },
     labels : {
         // backgroundColor : "brown"
+    },
+    colorPaletteStyle : {
+        // backgroundColor : 'pink',
+        // width : 90000,
+        // top : -30
+        // height : "auto"
+        // top : 0
+        
     },
     flatListContainer : {
         flex : 1,

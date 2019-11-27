@@ -25,6 +25,7 @@ import Reminders from './src/Component/Reminders'
 import CreateLabel from './src/Component/CreateLabel'
 import Archive from './src/Component/Archive'
 import FlatList1 from './src/Component/FlatList'
+import ColorPaletteDemo from './src/Component/ColorPaletteDemo'
 
 class App extends Component{
   render()
@@ -40,14 +41,15 @@ class App extends Component{
 // {/* <Try/> */}
     //  <DrawerRouter/>
     //  <View>
-        //  {/* <MultiSelectDemo/> */}
-          // {/* <SignOutMenu/> */}
-            // {/* <ReviewDoubleClickQue/> */}
-        //  <FlatListDemo/>
-                  //  {/* <CreateNote/> */}
-                //  {/* <Dashboard/> */}
-            //  {/* <Snackbar/> */}
-        // </View>
+          //  {/* <MultiSelectDemo/> */}
+            // {/* <SignOutMenu/> */}
+              // {/* <ReviewDoubleClickQue/> */}
+          //  {/* <FlatListDemo/> */}
+          //  {/* <ColorPaletteDemo/> */}
+                    //  <CreateNote/>
+                  //  {/* <Dashboard/> */}
+              //  {/* <Snackbar/> */}
+          // </View>
     );
   }
 }

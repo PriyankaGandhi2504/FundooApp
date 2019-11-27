@@ -10,6 +10,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker'
 import userData from '../../UserServices'
 const UserData = new userData
+import MasonryList from "react-native-masonry-list";
 // import {InfiniteListView} from 'react-native-infinite-listview'
 
 // var data = [{
@@ -17,7 +18,8 @@ const UserData = new userData
 // },{
 //     value : 'Grid',
 // }];
-
+var list = require('../Assets/List.png')
+var grid = require('../Assets/Grid.png')
 const options = {
     title : 'Add Image',
     takePhotoButtonTitle : 'Take photo',
@@ -61,7 +63,13 @@ class Dashboard extends Component{
             selectedNotesIndex : [],
             flag : [],
             normalPressedStyle : {},
-            countClick : 0
+            countClick : 0,
+            gridDisplay : false,
+            gridView : {
+                display : 'none'
+            },
+            icon : list,
+            //Icon : grid,
             // cardDisplay : {
             //     display : 'none'
             // }
@@ -234,6 +242,21 @@ class Dashboard extends Component{
         
     }
 
+    gridDisplay = () => {
+        if(!this.state.gridDisplay){
+            this.setState({
+                gridDisplay : true,
+                icon : grid
+            })
+
+        }else{
+            this.setState({
+                gridDisplay : false,
+                icon : list
+            })
+        }
+    }
+
     
 
     render(){
@@ -307,6 +330,17 @@ class Dashboard extends Component{
                                 </TouchableOpacity>
                             </View>
 
+                            
+                            {/* <View style = {{ display : "flex", alignItems  : "flex-end",right : 50}}>
+                            <TouchableOpacity>
+                                <Image style = {{top : -45, width : 30, height : 30, backgroundColor : 'lightblue' }}
+                                source = {require('../Assets/List.png')}/>
+                               </TouchableOpacity>
+                            </View> */}
+                            
+                            
+                            
+
                             {/* <View style = {{display : "flex", 
                             alignSelf : "flex-end",justifyContent : "center", 
                             top : -55, right : 50}}> */}
@@ -324,7 +358,14 @@ class Dashboard extends Component{
                             {/* </View> */}
 
                             <View style = {styles.profileIcon}>
-                                <View style = {{right : 10, top : 4}}>
+                            <View style = {{display : "flex", alignItems : "flex-end", right : 60, top : 4}}>
+                            <TouchableOpacity onPress = {this.gridDisplay}>
+                                <Image style = {{width : 30, height : 30}}
+                                source = {this.state.icon}/>
+                               </TouchableOpacity>
+                            </View>
+
+                                <View style = {{right : 10, top : -26}}>
                                 <TouchableOpacity onPress = {this.profileDisplay}>
                                 <Image style = {{width : 30, height : 30}}
                                 source = {require('../Assets/ProfileIcon.jpg')}/>
@@ -393,10 +434,12 @@ class Dashboard extends Component{
                                     {/* </Card>
                                 </View> */}
                         <ScrollView>
-                        <View>
+                        {/* <MasonryList> */}
+                        {/* <View> */}
+                        <View style = {this.state.gridDisplay === false ? {width : "100%"} : styles.gridView}>
                             {/* <FlatList/> */}
                         {/* <Card> */}
-                        {
+                        { 
                             this.state.usersNote.map((u, i) => {
                                 return (
                                     <View key={i} 
@@ -413,11 +456,13 @@ class Dashboard extends Component{
                                         {/* <FlatList
                                         data = {this.state.usersNote}
                                         renderItem = {this.renderRow}> */}
+                                        
                                         <Card
                                         containerStyle = {this.state.flag[i] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle}>
                                             <Text style={{fontSize : 16}}>{u.Title}</Text>
                                             <Text style={{fontSize : 12, marginTop : 10}}>{u.Note}</Text>
                                         </Card>
+                                        
                                         {/* </FlatList> */}
                                        
                                     {/* </View> */}
@@ -426,7 +471,11 @@ class Dashboard extends Component{
                                 );
                             })
                         }
+                        <View style={{height:30}}>
+
                         </View>
+                        </View>
+                        {/* </MasonryList> */}
                         </ScrollView>
        
                             {/* </Card> */}
