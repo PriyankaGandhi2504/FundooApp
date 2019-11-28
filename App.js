@@ -34,22 +34,22 @@ class App extends Component{
     return(
       // <AppDrawerNavigator/>
       // <Provider store = {store}>
-     <Router/>
+    //  <Router/>
 
       // </Provider>
 
 // {/* <Try/> */}
     //  <DrawerRouter/>
-    //  <View>
-          //  {/* <MultiSelectDemo/> */}
-            // {/* <SignOutMenu/> */}
-              // {/* <ReviewDoubleClickQue/> */}
-          //  {/* <FlatListDemo/> */}
-          //  {/* <ColorPaletteDemo/> */}
-                    //  <CreateNote/>
-                  //  {/* <Dashboard/> */}
-              //  {/* <Snackbar/> */}
-          // </View>
+     <View>
+             {/* <MultiSelectDemo/> */}
+              {/* <SignOutMenu/> */}
+                {/* <ReviewDoubleClickQue/> */}
+             <FlatListDemo/>
+             {/* <ColorPaletteDemo/> */}
+                       {/* <CreateNote/> */}
+                     {/* <Dashboard/> */}
+                 {/* <Snackbar/> */}
+            </View>
     );
   }
 }

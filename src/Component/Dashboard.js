@@ -20,6 +20,8 @@ import MasonryList from "react-native-masonry-list";
 // }];
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
+var BgColor
+
 const options = {
     title : 'Add Image',
     takePhotoButtonTitle : 'Take photo',
@@ -69,6 +71,7 @@ class Dashboard extends Component{
                 display : 'none'
             },
             icon : list,
+            BColor:BgColor
             //Icon : grid,
             // cardDisplay : {
             //     display : 'none'
@@ -155,18 +158,18 @@ class Dashboard extends Component{
         )
     }
 
-     componentDidMount(){
-        // console.log("await ");
+     async componentDidMount(){
+        console.log("await ");
         
-        var details = UserData.userData()
-        // console.log("received");
+        var details = await UserData.userData()
+        console.log("received");
         
         console.log("Details " + JSON.stringify(details));
         this.setState({
             usersNote : details
         })
         console.log("Users Note " + this.state.usersNote);
-        // console.log("Component Did Mount");
+        console.log("Component Did Mount");
         
     }
 
@@ -261,7 +264,13 @@ class Dashboard extends Component{
 
     render(){
         
-
+        const {navigation} = this.props
+        const color = navigation.getParam('Color', 'No Color')
+        console.log("Dashboard Card Color " + color);
+        
+        // var BgColor = color
+        // console.log( "STATE COLOR " + this.state.BgColor);
+        
         // console.log("Render ");
         
         // AsyncStorage.getItem('UserData') .then((success) => {
@@ -300,6 +309,7 @@ class Dashboard extends Component{
         // console.log("Note in user Object " + userObject.Note);
         
         return(
+
             <View style = {styles.dashboardContainer}>
                 <View style = {styles.dashboardSubContainer}>
 
@@ -450,7 +460,8 @@ class Dashboard extends Component{
                                     source={{ uri: u.avatar }}
                                     /> */}
                                     <TouchableOpacity onLongPress = {(event) => this.handleLongPress(event, i)}
-                                    onPress = {(event) => this.handleNormalPress(event, i, u.Title, u.Note)}>
+                                    onPress = {(event) => this.handleNormalPress(event, i, u.Title, u.Note)}
+                                    >
                                     {/* style = {this.state.flag[i] === 1 ? this.state.longPressedStyle : this.handleNormalPress}> */}
                                     {/* <View style = {styles.notesCard}> */}
                                         {/* <FlatList
@@ -458,7 +469,7 @@ class Dashboard extends Component{
                                         renderItem = {this.renderRow}> */}
                                         
                                         <Card
-                                        containerStyle = {this.state.flag[i] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle}>
+                                        containerStyle = {[ {backgroundColor:color},this.state.flag[i] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle]}>
                                             <Text style={{fontSize : 16}}>{u.Title}</Text>
                                             <Text style={{fontSize : 12, marginTop : 10}}>{u.Note}</Text>
                                         </Card>

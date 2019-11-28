@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native'
+import { colors } from 'react-native-elements'
 
 const styles = StyleSheet.create({
     scrollView : {
@@ -321,6 +322,7 @@ const styles = StyleSheet.create({
     userCard : {
         // borderWidth : 1,
         marginBottom : 5,
+        
         // width : "45%",
         // borderWidth : 1,
         // borderRadius : 20,
@@ -399,14 +401,19 @@ const styles = StyleSheet.create({
         justifyContent : "center",
         alignItems : "center"
     },
-    createNoteSubContainer : {
-        width : "100%",
-        height : "100%",
+    // createNoteSubContainer : {
+    //     width : "100%",
+    //     height : "100%",
         
-        // backgroundColor : "lightblue",
-    },
+    //     backgroundColor : "lightblue",
+    // },
+    // createNoteSubcontainerStyle : {
+    //     width : "100%",
+    //     height : "100%",
+    //     backgroundColor : "lightpink",
+    // },
     headerContainer : {
-        backgroundColor : "white",
+        // backgroundColor : "white",
         display : "flex",
         flexDirection : "row",
         position : "absolute"

@@ -23,7 +23,8 @@ class CreateNote extends Component {
             },
             notes : [],
             fetchedUserId : '',
-            createNoteContainerStyle : false
+            backgroundColor : 'white',
+            backgroundChange : false
             // snackBarDisplay : true
         }
     }
@@ -36,7 +37,7 @@ class CreateNote extends Component {
         }
         if(this.state.Note === '' && this.state.Title === ''){
             alert(`Empty Note Discarded`)
-            
+            // alert(`Selected Color ${this.state.backgroundColor}` )
             this.props.navigation.navigate('Dashboard')
             
         }else{
@@ -89,7 +90,9 @@ class CreateNote extends Component {
             // AsyncStorage.setItem('UserData', usersNotes)
             // AsyncStorage.setItem('UserId', JSON.stringify(noteObj))
 
-            this.props.navigation.navigate('Dashboard')
+            this.props.navigation.navigate('Dashboard', {
+                Color : this.state.backgroundColor
+            })
             // , {
             //     Note : this.state.Note,
             //     Title : this.state.Title
@@ -146,7 +149,18 @@ class CreateNote extends Component {
 
     changeColor = (color) => {
         
-        alert(`Color ${color}`)
+        if(!this.state.backgroundChange){
+            this.setState({
+                backgroundColor : color
+            })
+            alert(`Color ${color}`)
+        }else{
+            this.setState({
+                backgroundColor : 'white'
+            })
+        }
+            
+        
     }
 
     render(){
@@ -177,7 +191,7 @@ class CreateNote extends Component {
         return(
             // <ScrollView>
             <View style = {styles.createNoteContainer}>
-                <View style = {styles.createNoteSubContainer}>
+                <View style = {{width : "100%", height : "100%", backgroundColor : this.state.backgroundColor}}>
                     <View style = {styles.headerContainer}>
                         <View style = {styles.arrowContainer}>
                             <TouchableOpacity onPress = {this.handleBackArrow}>
@@ -188,11 +202,11 @@ class CreateNote extends Component {
                         
                         <View style = {styles.restContainer}>
                         <TouchableOpacity>
-                                <Image style = {{width : 40, height : 30, marginTop : 4}}
-                                source = {require('../Assets/PushPin.jpeg')}/>
+                                <Image style = {{width : 25, height : 25, marginTop : 6}}
+                                source = {require('../Assets/Pinned.png')}/>
                             </TouchableOpacity> 
                             <TouchableOpacity>
-                                <Image style = {{width : 20, height : 20, marginTop : 5}}
+                                <Image style = {{width : 25, height : 25, marginTop : 5}}
                                 source = {require('../Assets/Reminder.png')}/>
                             </TouchableOpacity> 
                             <TouchableOpacity>
@@ -288,7 +302,8 @@ class CreateNote extends Component {
                                     colors={['#ffffff', '#bfef45', '#fffac8', '#ffd8b1', '#fabebe','#aaffc3', '#42d4f4', '#9B59B6', '#e6194B', '#2980B9']}
                                     title={""}
                                     icon={
-                                      <Text> </Text>
+                                      <Image style = {{width : 15, height : 15}}
+                                      source = {require('../Assets/CheckMark.png')}/>
                                     // Icon can just be text or ASCII
                                     }
                                 />

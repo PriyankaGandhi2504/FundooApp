@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import {View, FlatList, StyleSheet, Text, Image, ActivityIndicator} from 'react-native';
 import userData from '../../UserServices'
 const UserData = new userData
-// const DATA = [
-//   {
-//     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//     title: 'First Item',
-//   },
-//   {
-//     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-//     title: 'Second Item',
-//   },
-//   {
-//     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-//     title: 'Third Item',
-//   },
-// ];
+const dataArray = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+    name : 'Priyanka'
+  },
+  {
+    id : 4,
+    title : 'Months',
+    array : ['jan', 'feb']
+  }
+];
 
 // function Item({ title }) {
 //   return (
@@ -57,7 +63,7 @@ export default class FlatListDemo extends Component {
   getData = async ()=> {
     // console.log(" get data ");
     
-    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=15&_page='+this.state.page
+    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=15&_page=1'
     fetch(url).then((response) => response.json())
     .then((responseJson) => {
       // console.log( " Response Json " + JSON.stringify(responseJson));
@@ -79,6 +85,9 @@ export default class FlatListDemo extends Component {
         {/* <Image/> */}
         <Text style = {styles.itemText}> {item.id} </Text>
         <Text style = {styles.itemText}> {item.title} </Text>
+        <Text style = {styles.itemText}> {item.name} </Text>
+        <Text style = {styles.itemText}> {item.array} </Text>
+
       </View>    
     ) 
   }
@@ -89,7 +98,7 @@ export default class FlatListDemo extends Component {
     // })
     // console.warn('handle load more')
     this.setState({
-      page : 1,
+      page : this.state.page + 1,
       isLoading : true
     },
     this.getData)
@@ -107,11 +116,13 @@ export default class FlatListDemo extends Component {
     return (
       <View style = {styles.container}>
         <FlatList
-        data = {this.state.data}
+        data = {dataArray}
         renderItem = {this.renderRow}
         onEndReached = {this.handleLoadMore}
-        keyExtractor = {(item, index) => index.toString()}
+        // keyExtractor = {(item, index) => index.toString()}
         onEndThreshold = {0}
+        // ItemSeparatorComponent = {}
+        // extraData = {this.handleLoadMore}
         // initialNumToRender = {1}
         // onEndThreshold = {this.renderRow}
         ListFooterComponent = {this.renderFooter}
