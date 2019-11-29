@@ -11,9 +11,10 @@ import ImagePicker from 'react-native-image-picker'
 import userData from '../../UserServices'
 const UserData = new userData
 import MasonryList from "react-native-masonry-list";
+import ToggleSearchBar from './ToggleSearchBar'
 // import {InfiniteListView} from 'react-native-infinite-listview'
 
-// var data = [{
+// var data = [{x
 //     value : 'List',
 // },{
 //     value : 'Grid',
@@ -71,7 +72,12 @@ class Dashboard extends Component{
                 display : 'none'
             },
             icon : list,
-            BColor:BgColor
+            toggleSearchBar : {
+                display : 'none'
+            },
+            searchBar : {
+                display : styles.searchBar
+            },
             //Icon : grid,
             // cardDisplay : {
             //     display : 'none'
@@ -159,17 +165,17 @@ class Dashboard extends Component{
     }
 
      async componentDidMount(){
-        console.log("await ");
+        // console.log("await ");
         
         var details = await UserData.userData()
-        console.log("received");
+        // console.log("received");
         
-        console.log("Details " + JSON.stringify(details));
+        // console.log("Details " + JSON.stringify(details));
         this.setState({
             usersNote : details
         })
-        console.log("Users Note " + this.state.usersNote);
-        console.log("Component Did Mount");
+        // console.log("Users Note " + this.state.usersNote);
+        // console.log("Component Did Mount");
         
     }
 
@@ -200,9 +206,16 @@ class Dashboard extends Component{
             // console.log("Long Pressed value " + this.state.isLongPressed);
             
             this.setState({
-                // isLongPressed : true,
+                isLongPressed : true,
                 longPressedStyle : styles.longPressedStyle,
+                toggleSearchBar : styles.toggleSearchBar,
+                searchBarDisplay : {
+                    display : 'none'
+                },
+                
             })
+            // console.log("Long Pressed Value " + this.state.isLongPressed);
+
             // ,()=>{console.log(this.state.isLongPressed)})
             // console.log("in if statement ");
             
@@ -211,12 +224,16 @@ class Dashboard extends Component{
 
             this.setState({
                 isLongPressed : false,
-                normalPressedStyle : styles.normalPressedStyle
-
+                normalPressedStyle : styles.normalPressedStyle,
+                toggleSearchBar : {
+                    display : 'none'
+                },
+                searchBarDisplay : styles.searchBar
                 // longPressedStyle : {
                 //     display : 'none'
                 // }
             })
+            
         }
     }
 
@@ -225,6 +242,11 @@ class Dashboard extends Component{
         // this.state.countClick = this.state.countClick + 1
         this.setState({
             isLongPressed : false,
+            toggleSearchBar : {
+                display : 'none'
+            },
+            searchBarDisplay : styles.searchBar
+
             // longPressedStyle : {
             //     display : 'none'
             // }
@@ -265,8 +287,8 @@ class Dashboard extends Component{
     render(){
         
         const {navigation} = this.props
-        const color = navigation.getParam('Color', 'No Color')
-        console.log("Dashboard Card Color " + color);
+        const color = navigation.getParam('Color', 'white')
+        // console.log("Dashboard Card Color " + color);
         
         // var BgColor = color
         // console.log( "STATE COLOR " + this.state.BgColor);
@@ -312,6 +334,10 @@ class Dashboard extends Component{
 
             <View style = {styles.dashboardContainer}>
                 <View style = {styles.dashboardSubContainer}>
+                    
+                    <View style = {this.state.toggleSearchBar}>
+                    <ToggleSearchBar/>
+                    </View>
 
                     {/* <Drawer type = "overlay" */}
                      {/* content = {<Text>ControlPanel</Text>}
@@ -322,21 +348,21 @@ class Dashboard extends Component{
                         {/* <DrawerLayoutAndroid/> */}
 
                         <View>
-                        <View style = {styles.searchBar}>
-                            <View>
-                                <TouchableOpacity style = {{width : 50}}
-                                onPress = {this.props.navigation.openDrawer}>
-                                <Image style = {{width : 30, height : 30, left : 10, top : 3}}
-                                source = {require('../Assets/DrawerIcon.png')}/>
-                                </TouchableOpacity>
-                            </View>
+                            <View style = {this.state.searchBarDisplay}>
+                                <View>
+                                    <TouchableOpacity style = {{width : 50}}
+                                    onPress = {this.props.navigation.openDrawer}>
+                                        <Image style = {{width : 30, height : 30, left : 10, top : 3}}
+                                        source = {require('../Assets/DrawerIcon.png')}/>
+                                    </TouchableOpacity>
+                                </View>
 
                             <View style = {{left : 70, top : -23}}>
                                 <TouchableOpacity style = {{width : 120}}
                                 onPress = {this.updateSearch}>
-                                <Text>
-                                    Search your Notes
-                                </Text>
+                                    <Text>
+                                        Search your Notes
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
 
@@ -347,9 +373,6 @@ class Dashboard extends Component{
                                 source = {require('../Assets/List.png')}/>
                                </TouchableOpacity>
                             </View> */}
-                            
-                            
-                            
 
                             {/* <View style = {{display : "flex", 
                             alignSelf : "flex-end",justifyContent : "center", 
@@ -368,21 +391,22 @@ class Dashboard extends Component{
                             {/* </View> */}
 
                             <View style = {styles.profileIcon}>
-                            <View style = {{display : "flex", alignItems : "flex-end", right : 60, top : 4}}>
-                            <TouchableOpacity onPress = {this.gridDisplay}>
-                                <Image style = {{width : 30, height : 30}}
-                                source = {this.state.icon}/>
-                               </TouchableOpacity>
-                            </View>
+                                <View style = {{display : "flex", alignItems : "flex-end", right : 60, top : 4}}>
+                                    <TouchableOpacity onPress = {this.gridDisplay}>
+                                        <Image style = {{width : 30, height : 30}}
+                                        source = {this.state.icon}/>
+                                    </TouchableOpacity>
+                                </View>
 
                                 <View style = {{right : 10, top : -26}}>
-                                <TouchableOpacity onPress = {this.profileDisplay}>
-                                <Image style = {{width : 30, height : 30}}
-                                source = {require('../Assets/ProfileIcon.jpg')}/>
-                                </TouchableOpacity>
-                                </View>
+                                    <TouchableOpacity onPress = {this.profileDisplay}>
+                                        <Image style = {{width : 30, height : 30}}
+                                        source = {require('../Assets/ProfileIcon.jpg')}/>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
+                        </View>
+                    </View>
 
                             {/* <View style = {styles.searchBar}>
                                 <View style = {{top : 5}}>
@@ -390,7 +414,6 @@ class Dashboard extends Component{
                                     source = {require('../Assets/CrossIcon.png')}/>
                                 </View>
                             </View> */}
-                        </View>
                         
                         {/* <View style = {styles.searchBar}>
                             <View>
@@ -446,7 +469,7 @@ class Dashboard extends Component{
                         <ScrollView>
                         {/* <MasonryList> */}
                         {/* <View> */}
-                        <View style = {this.state.gridDisplay === false ? {width : "100%"} : styles.gridView}>
+                        <View style = {this.state.gridDisplay === false ? {width : "100%", display : "flex"} : styles.gridView}>
                             {/* <FlatList/> */}
                         {/* <Card> */}
                         { 

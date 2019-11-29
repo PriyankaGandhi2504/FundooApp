@@ -1,8 +1,10 @@
 import React from 'react'
 import SIGN_OUT from './TypesFile'
+import Counter from './TypesFile'
 
 const initialState = {
-    signIn : true
+    signIn : true,
+    counter : 1
 }
 
 export const reducer = (state = initialState, action) => {
@@ -12,6 +14,11 @@ export const reducer = (state = initialState, action) => {
                 ...state,
 
                 signIn : false
+            }
+        case Counter : 
+            return {
+                ...state,
+                counter : state.counter + 1
             }
         default : return state
     }

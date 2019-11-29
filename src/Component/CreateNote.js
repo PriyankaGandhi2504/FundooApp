@@ -79,7 +79,8 @@ class CreateNote extends Component {
                 // notes : [{name : 'abc'}, {name : 'xyz'}],
                  Title : this.state.Title,
                 Note : this.state.Note,
-                fetchedUserId : this.state.fetchedUserId
+                fetchedUserId : this.state.fetchedUserId,
+                // Color : this.state.backgroundColor
             }
             // AsyncStorage.setItem('UserData', noteObject)
             firebase.database.database().ref('/Notes').push(noteObject)
@@ -323,7 +324,7 @@ class CreateNote extends Component {
                         </TouchableOpacity> 
                     </View>
                     {/* </View> */}
-{/* 
+                    {/* 
                     <View style = {this.state.snackBarDisplay}>
                     <Snackbar message = {"Hello"} actionText = {"UNDO"}/>
                     </View> */}

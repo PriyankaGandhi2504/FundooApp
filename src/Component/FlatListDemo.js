@@ -44,20 +44,20 @@ export default class FlatListDemo extends Component {
   }
 
 
-  componentDidMount(){
-  // console.log("await ");
+//   componentDidMount(){
+//   // console.log("await ");
   
-  var details = UserData.userData()
-  // console.log("received");
+//   var details = UserData.userData()
+//   // console.log("received");
   
-  console.log("Details " + JSON.stringify(details));
-  this.setState({
-      data : details
-  })
-  console.log("Users Note " + this.state.usersNote);
-  // console.log("Component Did Mount");
+//   console.log("Details " + JSON.stringify(details));
+//   this.setState({
+//       data : details
+//   })
+//   console.log("Users Note " + this.state.usersNote);
+//   // console.log("Component Did Mount");
   
-}
+// }
 
 
   getData = async ()=> {

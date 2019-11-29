@@ -246,13 +246,26 @@ const styles = StyleSheet.create({
         borderColor : "grey",
         borderRadius : 10,
         height : 40,
-        shadowRadius : 10,
-        shadowOpacity : 0.8,
-        // shadowOffset : {width : 10, height : 10},
-        shadowColor : 'rgba(0,0,0,0.14)',
+        // shadowRadius : 10,
+        // shadowOpacity : 0.2,
+        // shadowOffset : {width : 3, height : 3},
+        // shadowColor : '#000',
         // position : "absolute",
         // backgroundColor : "pink",
         zIndex : 1,
+    },
+    toggleSearchBar : {
+        height : 50, 
+        display : "flex", 
+        flexDirection:'row', 
+        justifyContent : "space-between", 
+        borderBottomWidth : 0.3,
+        // shadowRadius : 3,
+        // shadowOpacity : 0.2,
+        // shadowOffset : {width : 10, height : 10},
+        // shadowColor : '#000',
+        // backgroundColor : 'yellow'
+
     },
     // selectedNoteHeaderBar : {
     //     color : "white",
@@ -293,7 +306,7 @@ const styles = StyleSheet.create({
         // top : 400,
         position : "absolute",
         width : "100%",
-        bottom : 4,
+        bottom : 5,
         borderTopWidth : 1,
         borderRadius : 10
         // height : 300
@@ -340,11 +353,13 @@ const styles = StyleSheet.create({
         borderWidth : 2,
         borderColor : 'black',
         borderRadius : 10,
-        borderStartWidth : 3
+        borderStartWidth : 3,
+        backgroundColor : 'lightgrey'
     },
     normalPressedStyle : {
         borderColor : 'grey',
         borderRadius : 10,
+        borderWidth : 1,
         width : "90%",
         
        
