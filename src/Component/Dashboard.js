@@ -197,7 +197,7 @@ class Dashboard extends Component{
     handleLongPress = (event, i) => {
         // console.log("I Index " + i);
         this.state.selectedNotesIndex.push(i)
-        // console.log( "Selected notes indexes " + this.state.selectedNotesIndex);
+        console.log( "Selected notes indexes " + this.state.selectedNotesIndex);
         this.state.flag[i] = 1
         // console.log("Card Long Pressed") 
         // console.log( "Flag state of " + i + "is " + this.state.flag[i]);
@@ -206,18 +206,20 @@ class Dashboard extends Component{
             // console.log("Long Pressed value " + this.state.isLongPressed);
             
             this.setState({
-                isLongPressed : true,
+                // isLongPressed : true,
                 longPressedStyle : styles.longPressedStyle,
                 toggleSearchBar : styles.toggleSearchBar,
                 searchBarDisplay : {
                     display : 'none'
                 },
-                
+                countClick : 1,
             })
             // console.log("Long Pressed Value " + this.state.isLongPressed);
 
             // ,()=>{console.log(this.state.isLongPressed)})
             // console.log("in if statement ");
+            // this.state.selectedNotesIndex = this.state.selectedNotesIndex.pop()
+            // console.log("Selected Notes Index after Pop " + this.state.selectedNotesIndex);
             
         }else{
             this.state.flag[i] = 0
@@ -239,18 +241,37 @@ class Dashboard extends Component{
 
     handleNormalPress = (event, i, title, note) => {
         this.state.flag[i] = 0
+       var sliceArray = this.state.selectedNotesIndex.splice(i,1)
+        console.log('Selected Index Array After Pop' + sliceArray);
+    //    if(this.state.selectedNotesIndex == ''){
+    //        console.log("Empty Array");
+    //    } 
+
         // this.state.countClick = this.state.countClick + 1
+    
         this.setState({
             isLongPressed : false,
             toggleSearchBar : {
                 display : 'none'
             },
-            searchBarDisplay : styles.searchBar
-
+            searchBarDisplay : styles.searchBar,
             // longPressedStyle : {
             //     display : 'none'
             // }
         })
+
+        if(this.state.countClick === 1){
+            this.setState({
+                longPressedStyle : styles.longPressedStyle,
+                toggleSearchBar : styles.toggleSearchBar,
+                searchBarDisplay : {
+                    display : 'none'
+                },
+                countClick : 1
+            })
+            console.log("Count Click " + this.state.countClick);
+            
+        }
         // console.log("count " + this.state.countClick);
 
         // if(this.state.countClick == 2){
@@ -273,7 +294,6 @@ class Dashboard extends Component{
                 gridDisplay : true,
                 icon : grid
             })
-
         }else{
             this.setState({
                 gridDisplay : false,

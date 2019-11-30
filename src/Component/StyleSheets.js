@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
         zIndex : 1,
     },
     toggleSearchBar : {
-        height : 50, 
+        height : 45, 
         display : "flex", 
         flexDirection:'row', 
         justifyContent : "space-between", 
@@ -548,6 +548,24 @@ const styles = StyleSheet.create({
         // width : 90,
         display : "flex",
         alignItems : "center"
+    },
+    /************************************** Reminder ***********************************/
+    reminderContainer : {
+        width : "100%",
+        height : "100%",
+        backgroundColor : 'lightblue',
+        alignItems : 'center',
+        justifyContent : 'center',
+    },
+    reminderSubContainer : {
+        backgroundColor : 'white',
+        height : 310,
+        width : '90%',
+        display : "flex",
+        // alignItems : 'center',
+        // justifyContent : 'center',
+        // alignContent : 'center',
+        alignSelf : 'center'
     }
 })
 

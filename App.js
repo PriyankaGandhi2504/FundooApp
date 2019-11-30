@@ -27,6 +27,7 @@ import Archive from './src/Component/Archive'
 import FlatList1 from './src/Component/FlatList'
 import ColorPaletteDemo from './src/Component/ColorPaletteDemo'
 import ToggleSearchBar from './src/Component/ToggleSearchBar'
+import Reminder from './src/Component/Reminder'
 
 class App extends Component{
   render()
@@ -35,23 +36,24 @@ class App extends Component{
     return(
       // <AppDrawerNavigator/>
       // <Provider store = {store}>
-     <Router/>
+    //  <Router/>
 
       // </Provider>
 
 // {/* <Try/> */}
     //  <DrawerRouter/>
-      // <View>
-      //           {/* <MultiSelectDemo/>
-      //            {/* <SignOutMenu/> */}
-      //              {/* <ReviewDoubleClickQue/> */}
-      //           <FlatListDemo/>
-      //          {/* <ToggleSearchBar/> */}
-      //           {/* <ColorPaletteDemo/> */}
-      //                     {/* <CreateNote/> */}
-      //                   {/* <Dashboard/> */}
-      //               {/* <Snackbar/> */}
-      //          </View>
+      <View>
+        <Reminder/>
+                {/* <MultiSelectDemo/>
+                 {/* <SignOutMenu/> */}
+                   {/* <ReviewDoubleClickQue/> */}
+                {/* <FlatListDemo/> */}
+               {/* <ToggleSearchBar/> */}
+                {/* <ColorPaletteDemo/> */}
+                          {/* <CreateNote/> */}
+                        {/* <Dashboard/> */}
+                    {/* <Snackbar/> */}
+               </View>
     );
   }
 }
