@@ -8,8 +8,13 @@ import Dashboard from './Dashboard'
 import {AsyncStorage} from 'react-native';
 import ColorPalette from 'react-native-color-palette'
 // import Snackbar from './SnackBar'
+import noteData from '../../UserServices'
+const NoteData = new noteData
 
 var date = new Date().getMinutes()
+var note;
+var title;
+var index; 
 
 class CreateNote extends Component {
     constructor(props){
@@ -24,12 +29,17 @@ class CreateNote extends Component {
             notes : [],
             fetchedUserId : '',
             backgroundColor : 'white',
-            backgroundChange : false
+            backgroundChange : false,
+            note : '',
+            title : '',
+            nextState:'',
+            indexing : '',
+            notesKeys : []
             // snackBarDisplay : true
         }
     }
 
-    handleBackArrow = () => {
+    handleBackArrowToCreate = () => {
         // this.props.navigation.navigate('Dashboard')
         var noteObj = {
             Title : this.state.Title,
@@ -82,49 +92,109 @@ class CreateNote extends Component {
                 fetchedUserId : this.state.fetchedUserId,
                 // Color : this.state.backgroundColor
             }
-            // AsyncStorage.setItem('UserData', noteObject)
-            firebase.database.database().ref('/Notes').push(noteObject)
-
-            // var userData = firebase.firebase.auth().currentUser
-            // userId = userData.uid
-            // var usersNotes = firebase.firebase.auth().currentUser
-            // AsyncStorage.setItem('UserData', usersNotes)
-            // AsyncStorage.setItem('UserId', JSON.stringify(noteObj))
-
-            this.props.navigation.navigate('Dashboard', {
-                Color : this.state.backgroundColor
-            })
-            // , {
-            //     Note : this.state.Note,
-            //     Title : this.state.Title
-            // })
-
-            // vsar parsedData = JSON.parse(data)
-            // console.log("Parsed Data " + parsedData);
+            const pushedData = firebase.database.database().ref('/Notes').push(noteObject)
+            const key=pushedData.key
+            console.log('New Pushed Data :',pushedData)
+            console.log('key of pushed data',key)
             
-            // var noteObject = {
-            //     notes : this.state.notes,
-            //     userId : usersNotes.uid
-            // }
-
-            // var usersNotes = firebase.firebase.auth().currentUser
-
-            // if(usersNotes != null){
-            //     var abc = AsyncStorage.getItem('userId')
-            //     if(abc != null){
-            //         console.log("Abc Data" + JSON.stringify(abc));
-            //     }                
-            // }
-
-            // console.log("Notes " + JSON.stringify(notes));
-            
-            // var notes = AsyncStorage.getItem('userId')
-            // console.log("Notes " + notes);
-            // console.log('Note Object ' + JSON.stringify(noteObj));
-            // alert(AsyncStorage.getAllKeys())
         }
     }
 
+    handleBackArrowToUpdate =() =>{
+
+        var noteDetails = NoteData.noteData()
+        // console.log('note details',noteDetails)
+        // this.setState({
+        //     noteObject : noteDetails
+        // })
+        
+
+        console.log("Notes Keys In Create Note " + noteDetails);
+        
+
+        // AsyncStorage.setItem('UserData', noteObject)
+        
+
+       
+
+       // var pushednoteobject=NoteData.noteData()
+
+        noteObject={
+                Note:this.state.Note,
+                Title:this.state.Title,
+                fetchedUserId:this.state.fetchedUserId
+        }
+
+        
+            firebase.database.database().ref('Notes').child(key).update(noteObject)
+        
+        
+
+        // this.setState({
+        //     notesKeys:object
+        // })
+
+    
+        // var newData=this.state.notesKeys
+        // var updates = {};
+        // updates["/Notes/" + key] = {
+        //   newData
+        // };
+        
+        // if(pushednoteobject === currentNoteKey){
+        // firebase.database.database().ref('Notes')
+        //     pushedData.child('Title').update({
+        //         'Note' : this.state.Note,
+        //         'Title' : this.state.Title,
+        //     })
+
+    
+
+// return firebaseApp
+//   .database()
+//   .ref()
+//   .update(updates);
+        // }
+        
+            
+        // })
+        // var userData = firebase.firebase.auth().currentUser
+        // userId = userData.uid
+        // var usersNotes = firebase.firebase.auth().currentUser
+        // AsyncStorage.setItem('UserData', usersNotes)
+        // AsyncStorage.setItem('UserId', JSON.stringify(noteObj))
+
+        this.props.navigation.navigate('Dashboard')
+        // , {
+        //     Note : this.state.Note,
+        //     Title : this.state.Title
+        // })
+
+        // vsar parsedData = JSON.parse(data)
+        // console.log("Parsed Data " + parsedData);
+        
+        // var noteObject = {
+        //     notes : this.state.notes,
+        //     userId : usersNotes.uid
+        // }
+
+        // var usersNotes = firebase.firebase.auth().currentUser
+
+        // if(usersNotes != null){
+        //     var abc = AsyncStorage.getItem('userId')
+        //     if(abc != null){
+        //         console.log("Abc Data" + JSON.stringify(abc));
+        //     }                
+        // }
+
+        // console.log("Notes " + JSON.stringify(notes));
+        
+        // var notes = AsyncStorage.getItem('userId')
+        // console.log("Notes " + notes);
+        // console.log('Note Object ' + JSON.stringify(noteObj));
+        // alert(AsyncStorage.getAllKeys())
+
+    }
     // handleNoteChange = (text) => {
     //     this.state.Note = text
     //     this.setState({
@@ -160,10 +230,27 @@ class CreateNote extends Component {
                 backgroundColor : 'white'
             })
         }
-            
-        
     }
 
+    componentDidMount = () => {
+        const {navigation} = this.props
+        note = navigation.getParam('Note','')
+        title = navigation.getParam('Title','')
+        index = navigation.getParam('i', '')
+
+        this.setState({
+            
+                Note : note,
+                Title : title,
+                indexing : index
+           
+        })
+    }
+
+    // componentWillUpdate(nextProps, nextState) {
+    //     console.log('........nextState',nextState); //will show the new state
+    //     console.log(this.state); //will show the previous state
+    //   }
     render(){
 
         AsyncStorage.getItem('UserId').then((success) => {
@@ -172,8 +259,13 @@ class CreateNote extends Component {
         })
 
         // const {navigation} = this.props
-        // const note = navigation.getParam('Note' , 'No Note')
-        // const title = navigation.getParam('Title', 'No Title')
+        // note = navigation.getParam('Note' , 'No Note')
+        // title = navigation.getParam('Title', 'No Title')
+
+
+        // console.log("Note in Create Note " + note);
+        // console.log("Title in Create Note " + title);
+        
 
         // this.setState({
         //     Note : note,
@@ -195,7 +287,7 @@ class CreateNote extends Component {
                 <View style = {{width : "100%", height : "100%", backgroundColor : this.state.backgroundColor}}>
                     <View style = {styles.headerContainer}>
                         <View style = {styles.arrowContainer}>
-                            <TouchableOpacity onPress = {this.handleBackArrow}>
+                            <TouchableOpacity onPress = {this.handleBackArrowToCreate}>
                                 <Image style = {{width : 35, height : 35}}
                                 source = {require('../Assets/BackArrow.png')}/>
                             </TouchableOpacity> 

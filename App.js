@@ -28,6 +28,8 @@ import FlatList1 from './src/Component/FlatList'
 import ColorPaletteDemo from './src/Component/ColorPaletteDemo'
 import ToggleSearchBar from './src/Component/ToggleSearchBar'
 import Reminder from './src/Component/Reminder'
+import ToggleSearchbarMenu from './src/Component/ToggleSearchbarMenu'
+import Datepicker from './src/Component/DatePicker'
 
 class App extends Component{
   render()
@@ -36,24 +38,26 @@ class App extends Component{
     return(
       // <AppDrawerNavigator/>
       // <Provider store = {store}>
-    //  <Router/>
+     <Router/>
 
       // </Provider>
 
 // {/* <Try/> */}
     //  <DrawerRouter/>
-      <View>
-        <Reminder/>
-                {/* <MultiSelectDemo/>
-                 {/* <SignOutMenu/> */}
-                   {/* <ReviewDoubleClickQue/> */}
-                {/* <FlatListDemo/> */}
-               {/* <ToggleSearchBar/> */}
-                {/* <ColorPaletteDemo/> */}
-                          {/* <CreateNote/> */}
-                        {/* <Dashboard/> */}
-                    {/* <Snackbar/> */}
-               </View>
+      // <View>
+      //   <Reminder/>
+      //   {/* <Datepicker/> */}
+      //           {/* <MultiSelectDemo/>
+      //            {/* <SignOutMenu/> */}
+      //              {/* <ReviewDoubleClickQue/> */}
+      //           {/* <FlatListDemo/> */}
+      //          {/* <ToggleSearchBar/> */}
+      //          {/* <ToggleSearchbarMenu/> */}
+      //           {/* <ColorPaletteDemo/> */}
+      //                     {/* <CreateNote/> */}
+      //                   {/* <Dashboard/> */}
+      //               {/* <Snackbar/> */}
+      //          </View>
     );
   }
 }

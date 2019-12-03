@@ -260,6 +260,7 @@ const styles = StyleSheet.create({
         flexDirection:'row', 
         justifyContent : "space-between", 
         borderBottomWidth : 0.3,
+        zIndex : 1,
         // shadowRadius : 3,
         // shadowOpacity : 0.2,
         // shadowOffset : {width : 10, height : 10},
@@ -330,7 +331,7 @@ const styles = StyleSheet.create({
         position : "absolute", 
         alignSelf : "flex-end",
         top : 25,
-        zIndex : 20000
+        // zIndex : 20000
     },
     userCard : {
         // borderWidth : 1,
@@ -373,6 +374,7 @@ const styles = StyleSheet.create({
         width : "100%", 
         flexDirection : "row", 
         flexWrap : "wrap",
+        // backgroundColor : 'pink',
         // height : "auto",
     },
 
@@ -566,6 +568,27 @@ const styles = StyleSheet.create({
         // justifyContent : 'center',
         // alignContent : 'center',
         alignSelf : 'center'
+    },
+    /******************************* Toggle Search Bar *******************************/
+    toggleSearchbarMenu : {
+        height : 300,
+        width : 200,
+        backgroundColor : 'lightpink',
+        zIndex : 1000000,
+        // right : 0,
+        // left : 160,
+        display : 'flex',
+        alignSelf : 'flex-end',
+        shadowRadius : 3,
+        shadowOpacity : 0.2,
+        shadowOffset : {width : 10, height : 10},
+        shadowColor : '#000',
+        borderWidth : 0.5
+    },
+    toggleMenu : {
+        width : '100%',
+        height : '100%',
+        // backgroundColor : 'lightblue'
     }
 })
 

@@ -12,6 +12,7 @@ import userData from '../../UserServices'
 const UserData = new userData
 import MasonryList from "react-native-masonry-list";
 import ToggleSearchBar from './ToggleSearchBar'
+
 // import {InfiniteListView} from 'react-native-infinite-listview'
 
 // var data = [{x
@@ -71,7 +72,7 @@ class Dashboard extends Component{
             gridView : {
                 display : 'none'
             },
-            icon : list,
+            icon : grid,
             toggleSearchBar : {
                 display : 'none'
             },
@@ -239,16 +240,60 @@ class Dashboard extends Component{
         }
     }
 
-    handleNormalPress = (event, i, title, note) => {
-        this.state.flag[i] = 0
-       var sliceArray = this.state.selectedNotesIndex.splice(i,1)
-        console.log('Selected Index Array After Pop' + sliceArray);
+    handleNormalPress = (event) => {
+        //this.state.flag[i] = 0
+    //    var sliceArray = this.state.selectedNotesIndex.splice(i,1)
+    //     console.log('Selected Index Array After Pop' + sliceArray);
+
     //    if(this.state.selectedNotesIndex == ''){
     //        console.log("Empty Array");
     //    } 
 
         // this.state.countClick = this.state.countClick + 1
-    
+var noteObject1,skey,keysss;
+        firebase.database.database().ref('Notes').on('child_added',function (snapshot)  {
+         noteObject1 = snapshot.val()
+             console.log('NoteObject data',noteObject1)
+             console.log('Title',noteObject1.Title)
+
+             skey = snapshot.key
+             var childKey = snapshot.child("Notes").key;
+             console.log('childkey:',childKey);
+             
+             console.log('..................child key',skey)
+            })
+
+        firebase.database.database().ref('Notes').on('value',function (snapshot)  {
+            // console.log("Order By Child " + snapshot.key + "Value " + JSON.stringify(snapshot.val().notes));
+            // array = snapshot.val()
+             noteObject1 = snapshot.val()
+             keysss=Object.keys(noteObject1)
+             console.log('keyssss',keysss)
+
+            for(var i=0;i<keysss.length;i++){
+                if(skey === keysss){
+                    console.log('matched key')
+                }
+            }
+             
+            // console.log("Array order by child " + JSON.stringify(array));
+            //console.log("User's Object : " + JSON.stringify(keysss));
+           // console.log("Notes Object " + JSON.stringify(Object.keys(noteObject1)));
+            
+          // noteObj1.push(keysss)
+
+            // if(keysss === noteObject1.key){
+            //     noteObj1.push(keysss)
+            //     console.log('in ID',noteObj1)
+            // }
+            
+            // console.log('Note object ' + noteObj1)
+            // // console.log("User Object Fetched Uid " + userObject.fetchedUserId);
+            
+            
+})
+//end of fetching
+     //console.log('key of card',key)
         this.setState({
             isLongPressed : false,
             toggleSearchBar : {
@@ -260,18 +305,18 @@ class Dashboard extends Component{
             // }
         })
 
-        if(this.state.countClick === 1){
-            this.setState({
-                longPressedStyle : styles.longPressedStyle,
-                toggleSearchBar : styles.toggleSearchBar,
-                searchBarDisplay : {
-                    display : 'none'
-                },
-                countClick : 1
-            })
-            console.log("Count Click " + this.state.countClick);
+        // if(this.state.countClick === 1){
+        //     this.setState({
+        //         longPressedStyle : styles.longPressedStyle,
+        //         toggleSearchBar : styles.toggleSearchBar,
+        //         searchBarDisplay : {
+        //             display : 'none'
+        //         },
+        //         countClick : 1
+        //     })
+        //     console.log("Count Click " + this.state.countClick);
             
-        }
+        // }
         // console.log("count " + this.state.countClick);
 
         // if(this.state.countClick == 2){
@@ -280,11 +325,12 @@ class Dashboard extends Component{
         //     })
         //     console.log("count " + this.state.countClick);
             
-            // this.props.navigation.navigate('CreateNote', {
-            //     Title : title,
-            //     Note : note
-            // })
-        // }
+        //     this.props.navigation.navigate('CreateNote', {
+        //         Title : title,
+        //         Note : note,`
+                
+        //     })
+        // // }
         
     }
 
@@ -292,12 +338,12 @@ class Dashboard extends Component{
         if(!this.state.gridDisplay){
             this.setState({
                 gridDisplay : true,
-                icon : grid
+                icon : list
             })
         }else{
             this.setState({
                 gridDisplay : false,
-                icon : list
+                icon : grid
             })
         }
     }
@@ -497,13 +543,8 @@ class Dashboard extends Component{
                                 return (
                                     <View key={i} 
                                     style={styles.userCard}>
-                                    {/* <Image
-                                    style={styles.image}
-                                    resizeMode="cover"
-                                    source={{ uri: u.avatar }}
-                                    /> */}
                                     <TouchableOpacity onLongPress = {(event) => this.handleLongPress(event, i)}
-                                    onPress = {(event) => this.handleNormalPress(event, i, u.Title, u.Note)}
+                                    onPress = {(event) => this.handleNormalPress(event)}
                                     >
                                     {/* style = {this.state.flag[i] === 1 ? this.state.longPressedStyle : this.handleNormalPress}> */}
                                     {/* <View style = {styles.notesCard}> */}
