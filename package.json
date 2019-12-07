@@ -26,6 +26,7 @@
     "react-native-masonry-list": "^2.13.0",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-material-menu": "^1.0.0",
+    "react-native-modal-datetime-picker": "^7.6.0",
     "react-native-multiple-select": "^0.5.5",
     "react-native-popup-menu": "^0.15.6",
     "react-native-reanimated": "^1.4.0",

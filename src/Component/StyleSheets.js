@@ -308,8 +308,8 @@ const styles = StyleSheet.create({
         position : "absolute",
         width : "100%",
         bottom : 5,
-        borderTopWidth : 1,
-        borderRadius : 10
+        // borderTopWidth : 1,
+        // borderRadius : 10
         // height : 300
         
         // marginBottom : 50
@@ -335,7 +335,9 @@ const styles = StyleSheet.create({
     },
     userCard : {
         // borderWidth : 1,
-        marginBottom : 5,
+        // marginBottom : 5,
+        height : 100,
+        width : '100%'
         
         // width : "45%",
         // borderWidth : 1,
@@ -362,19 +364,21 @@ const styles = StyleSheet.create({
         borderRadius : 10,
         borderWidth : 1,
         width : "90%",
+        // backgroundColor : 'white'
         
        
         // width : "40%"
     },
+    
     cardTitle : {
-
     },
+
     gridView : {
         display : "flex", 
         width : "100%", 
         flexDirection : "row", 
         flexWrap : "wrap",
-        // backgroundColor : 'pink',
+        // backgroundColor : 'lightblue',
         // height : "auto",
     },
 
@@ -553,17 +557,18 @@ const styles = StyleSheet.create({
     },
     /************************************** Reminder ***********************************/
     reminderContainer : {
-        width : "100%",
-        height : "100%",
-        backgroundColor : 'lightblue',
-        alignItems : 'center',
-        justifyContent : 'center',
+        // width : "100%",
+        // height : "100%",
+        // backgroundColor : 'lightblue',
+        // alignItems : 'center',
+        // justifyContent : 'center',
     },
     reminderSubContainer : {
         backgroundColor : 'white',
-        height : 310,
+        height : 290,
         width : '90%',
         display : "flex",
+        borderWidth : 1,
         // alignItems : 'center',
         // justifyContent : 'center',
         // alignContent : 'center',

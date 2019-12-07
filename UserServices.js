@@ -22,6 +22,9 @@ class UserServices{
             // console.log("Order By Child " + snapshot.key + "Value " + JSON.stringify(snapshot.val().notes));
             // array = snapshot.val()
              var userObject = snapshot.val()
+            // var notekeys = Object.keys(userObject)
+            //  console.log("Note Keys " + notekeys);
+             
             // console.log("Array order by child " + JSON.stringify(array));
             console.log("User's Object : " + JSON.stringify(userObject));
             if(userId === userObject.fetchedUserId){

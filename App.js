@@ -29,7 +29,8 @@ import ColorPaletteDemo from './src/Component/ColorPaletteDemo'
 import ToggleSearchBar from './src/Component/ToggleSearchBar'
 import Reminder from './src/Component/Reminder'
 import ToggleSearchbarMenu from './src/Component/ToggleSearchbarMenu'
-import Datepicker from './src/Component/DatePicker'
+import Datedropdown from './src/Component/Datedropdown'
+import Note from './src/Component/Note'
 
 class App extends Component{
   render()
@@ -46,11 +47,12 @@ class App extends Component{
     //  <DrawerRouter/>
       // <View>
       //   <Reminder/>
-      //   {/* <Datepicker/> */}
+      //   {/* <Datedropdown/> */}
       //           {/* <MultiSelectDemo/>
       //            {/* <SignOutMenu/> */}
       //              {/* <ReviewDoubleClickQue/> */}
       //           {/* <FlatListDemo/> */}
+      //           {/* <Note/> */}
       //          {/* <ToggleSearchBar/> */}
       //          {/* <ToggleSearchbarMenu/> */}
       //           {/* <ColorPaletteDemo/> */}

@@ -61,13 +61,11 @@ const AppDrawerNavigator = createDrawerNavigator({
       // contentComponent : contentComponent
     //   overlayColor : '#6b52ae',
       contentOptions : {
-        
         activeTintColor : 'black',
         activeBackgroundColor : '#feefc3',
         itemsContainerStyle: {
           marginVertical: 50,
         },
-        
         // textDecorationColor : 'black',
         // activeBackgroundColor : 'black'
       },
@@ -79,5 +77,4 @@ const AppDrawerNavigator = createDrawerNavigator({
     // })
   
   const DrawerRouter = createAppContainer(AppDrawerNavigator);
-  // const Router = createDrawerNavigator(MainNavigator)
   export default DrawerRouter;

@@ -6,11 +6,8 @@ var date = new Date()
 var currentDate = date.getDate()
 var currentMonth = date.getMonth() + 1
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+var curentDate = currentDate + monthNames[date.getMonth()]
 
-var dateObject = {
-    currentdate : currentDate,
-    currentMonth : monthNames[date.getMonth()]
-}
 
 var data = [{
     value : 'Today'
@@ -20,12 +17,9 @@ var data = [{
 },
 {
     value : 'Next Monday'
-},
-{
-    value : 'Select a date...'
 }]
 
-class Datepicker extends Component{
+class Datedropdown extends Component{
 
     constructor(props){
         super(props)
@@ -34,15 +28,17 @@ class Datepicker extends Component{
         }
     }
 
+    handleSelectedValue = () => {
+        alert(`Value Selected ${data}`)
+    }
 
     render(){
-        this.state.currentDate.push(currentDate)
-        this.state.currentDate.push(monthNames[date.getMonth()])
+        
         return(
             <View>
                 <Dropdown
-                        label = {this.state.currentDate}
-                        containerStyle = {{width : 270, left : 20, top : 10}}
+                        value = {curentDate}
+                        containerStyle = {{width : 270, left : 20, top : 20}}
                         style = {{height : 25}}
                         data = {data}
                         
@@ -55,4 +51,4 @@ class Datepicker extends Component{
     }
 }
 
-export default Datepicker
+export default Datedropdown

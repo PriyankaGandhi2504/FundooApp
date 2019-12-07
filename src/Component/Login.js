@@ -27,7 +27,6 @@ class Login extends Component{
     }
 
     onPressForgotpassword = () => {
-        // alert(`Forget Password Clicked`)
         this.props.navigation.navigate('ForgotPassword')
     }
 
@@ -41,13 +40,11 @@ class Login extends Component{
                 this.setState({
                     ...this.state
                 })
-                // console.warn('Text is correct');  
             }else{
                             this.state.emailError = "Invalid Text"
                             this.setState({
                                 ...this.state
                             })
-                // console.warn('Invalid Text');   
             }  
         }
     }
@@ -59,7 +56,6 @@ class Login extends Component{
         if(type == 'password'){
             if(passwordRegex.test(this.state.password)){
                 this.state.passwordError = ''
-                // console.warn('Password is correct');
                 this.setState({
                     ...this.state
                 })
@@ -69,7 +65,6 @@ class Login extends Component{
                     this.setState({
                         ...this.state
                     })
-                // console.warn('Password Invalid');
             }
         }
     }
@@ -107,7 +102,6 @@ class Login extends Component{
         if(!isError){
             firebase.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
             .then((success) => {
-                // console.warn("Success" + success);
                 this.setState({
                     email : '',
                     password : '',
@@ -115,12 +109,7 @@ class Login extends Component{
                         display : 'none'
                     }
                 })
-                // console.log('Email value ' + this.state.email);
-                
-                // console.warn("Props "+ JSON.stringify(this.props))
-
                 this.props.navigation.navigate('DrawerRouter')
-
                 var userData = firebase.firebase.auth().currentUser
                 var userId = userData.uid
 
@@ -133,61 +122,26 @@ class Login extends Component{
                 // console.log('User data' + JSON.stringify(user))
                 // console.warn('User data' + JSON.stringify(user))
                 AsyncStorage.setItem('UserId', userId)
-
                 AsyncStorage.getItem('UserId') .then((success) => {
-                    console.log("UserId " +success);
-                    
+                    console.log("UserId " +success);     
                 })
                 .catch ((error) => {
                     console.log("Error from login " + error);
                     
                 })
-                // console.warn("User Id " + user.uid)
-                // console.warn('Entered Dashboard Screen')
-                // console.log("User Email " + user.email)
-                // var path = '/Dashboard'
-                // this.props.history.push(path)
-                
             })
             .catch((error) => {
-                // console.warn("Email in auth method " + emailId);
-                // console.warn("Password in auth method : " + passwordData);
-                // console.warn("Error of Auth " + error);
-
-                // isError = true
-                // errorCode = error.code;
-                // errorMessage = error.message;
-                // console.warn("Error Code : " + errorCode);
-                // console.warn("Error Message : " + errorMessage);
                 this.state.passwordError = 'Password is Invalid or User does not exist'
                 this.setState({
                     ...this.state
                 })
-                // if (errorCode === 'auth/user-not-found') {
-                //     // dummy = true
-                //     // console.log("Dummy inside Catch");
-                    
-                //     // isError = true
-                //     console.warn(`No Such User Found \n Please Click On Sign Up`)
-                // } else {
-                //     // isError = true
-                //     console.warn(errorMessage);
-                // }
             })
-
         }
-        // console.warn(`Sign In Clicked`)
-
     }
 
     handleSignUp = () => {
-        // console.warn(`Sign Up Clicked`)
         this.props.navigation.navigate('Register')
     }
-
-    // static navigationOptions = {
-    //     title : 'MainNavigator'
-    // }
 
     render(){
         //const {navigate} = this.props.navigation;
@@ -206,21 +160,11 @@ class Login extends Component{
                             placeholder = 'Demo 2' />
                         </View> */}
 
-                        {/* <View>
-                            <TouchableOpacity onPress = {this.props.navigation.openDrawer}>
-                            <Text>
-                                Hello
-                            </Text>
-                            </TouchableOpacity>
-                            
-                        </View> */}
-                        
                         <View>
                             <Image style = {styles.image}
                                 source = {require('../Assets/fundoo2.jpeg')}
                             />
                             <Text style = {styles.fundooapp}> FundooApp </Text>
-                            
                             <Text style = {styles.signInText}> Sign In </Text>  
                             <Text style = {styles.label}> Use Your Google Account </Text>
                         </View>
@@ -229,7 +173,6 @@ class Login extends Component{
                             <Input
                             value={this.state.email}
                                 placeholder='Email ID'
-                                
                                 onChangeText = {(text) => this.validateEmail(text, 'email')}
                                 errorMessage = {this.state.emailError}
                                 // leftIcon = {{ type: 'font-awesome', name: 'chevron-left' }}
@@ -243,7 +186,6 @@ class Login extends Component{
                                 secureTextEntry = {true}
                                 onChangeText = {(text) => this.validatePassword(text, 'password')}
                                 errorMessage = {this.state.passwordError}
-                                // leftIcon = {{ type: 'font-awesome', name: 'chevron-left' }}
                             />
                         </View>
 
@@ -253,16 +195,8 @@ class Login extends Component{
                             </TouchableOpacity>
                         </View>
 
-                        {/* <View style = {styles.forgotPassword}>
-                            <label>
-                            Forgot Password
-                            </label>
-                        
-                        </View> */}
-
                         <View style = {styles.signInButton}>
                             <Button title = "Sign In"
-                            // onPress = {() => navigate('Dashboard')}/>
                              onPress = {this.handleSignIn}/>
                         </View>
                         

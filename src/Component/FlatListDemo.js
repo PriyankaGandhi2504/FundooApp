@@ -59,11 +59,15 @@ export default class FlatListDemo extends Component {
   
 // }
 
+componentDidMount = () => {
+  this.getData()
+} 
+
 
   getData = async ()=> {
     // console.log(" get data ");
     
-    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=15&_page=1'
+    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=35&_page='+this.state.page
     fetch(url).then((response) => response.json())
     .then((responseJson) => {
       // console.log( " Response Json " + JSON.stringify(responseJson));
@@ -72,8 +76,7 @@ export default class FlatListDemo extends Component {
         data : responseJson,
         // data : JSON.stringify(responseJson),
         isLoading : false
-      })
-
+      }, this.getData)
     })
   }
 
@@ -85,8 +88,8 @@ export default class FlatListDemo extends Component {
         {/* <Image/> */}
         <Text style = {styles.itemText}> {item.id} </Text>
         <Text style = {styles.itemText}> {item.title} </Text>
-        <Text style = {styles.itemText}> {item.name} </Text>
-        <Text style = {styles.itemText}> {item.array} </Text>
+        {/* <Text style = {styles.itemText}> {item.name} </Text>
+        <Text style = {styles.itemText}> {item.array} </Text> */}
 
       </View>    
     ) 
@@ -98,15 +101,14 @@ export default class FlatListDemo extends Component {
     // })
     // console.warn('handle load more')
     this.setState({
-      page : this.state.page + 1,
+      page : 1,
       isLoading : true
-    },
-    this.getData)
+    },this.getData)
   }
 
   renderFooter = () => {
     return(
-      <View style = {styles.loader}>
+      <View>
         <ActivityIndicator size = "large"/>
       </View>
     )
@@ -116,13 +118,17 @@ export default class FlatListDemo extends Component {
     return (
       <View style = {styles.container}>
         <FlatList
-        data = {dataArray}
+        data = {this.state.data}
+        // initialNumToRender = {10}
+        numColumns = {1}
         renderItem = {this.renderRow}
         onEndReached = {this.handleLoadMore}
-        // keyExtractor = {(item, index) => index.toString()}
+        keyExtractor = {(item, index) => index.toString()}
         onEndThreshold = {0}
+        showsVerticalScrollIndicator = {false}
+        
         // ItemSeparatorComponent = {}
-        // extraData = {this.handleLoadMore}
+        // extraData = {this.renderRow}
         // initialNumToRender = {1}
         // onEndThreshold = {this.renderRow}
         ListFooterComponent = {this.renderFooter}

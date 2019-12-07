@@ -4,12 +4,14 @@ import styles from './StyleSheets'
 import {Input} from 'react-native-elements'
 import firebase from '../Firebase'
 import Dashboard from './Dashboard'
-// import Snackbar from 'react-native-snackbar';
+import Snackbar from 'react-native-snackbar';
 import {AsyncStorage} from 'react-native';
 import ColorPalette from 'react-native-color-palette'
 // import Snackbar from './SnackBar'
 import noteData from '../../UserServices'
 const NoteData = new noteData
+import DateTimePicker from "react-native-modal-datetime-picker";
+import Reminder from './Reminder'
 
 var date = new Date().getMinutes()
 var note;
@@ -33,9 +35,16 @@ class CreateNote extends Component {
             note : '',
             title : '',
             nextState:'',
-            indexing : '',
-            notesKeys : []
-            // snackBarDisplay : true
+            KeyValue : '',
+            notesKeys : [],
+            isArchive : false,
+            archivedNotesVisibility : {
+                display : 'none'
+            },
+            isReminderVisible : false,
+            reminderVisibility : {
+                display : 'none'
+            }
         }
     }
 
@@ -46,7 +55,10 @@ class CreateNote extends Component {
             Note : this.state.Note
         }
         if(this.state.Note === '' && this.state.Title === ''){
-            alert(`Empty Note Discarded`)
+            Snackbar.show({
+                title: 'Empty Note Discarded',
+                duration: 1000
+              });
             // alert(`Selected Color ${this.state.backgroundColor}` )
             this.props.navigation.navigate('Dashboard')
             
@@ -96,11 +108,13 @@ class CreateNote extends Component {
             const key=pushedData.key
             console.log('New Pushed Data :',pushedData)
             console.log('key of pushed data',key)
+
+            this.props.navigation.navigate('Dashboard')
             
         }
     }
 
-    handleBackArrowToUpdate =() =>{
+    handleBackArrowToUpdate =(Note, Title, KeyValue) =>{
 
         var noteDetails = NoteData.noteData()
         // console.log('note details',noteDetails)
@@ -113,9 +127,6 @@ class CreateNote extends Component {
         
 
         // AsyncStorage.setItem('UserData', noteObject)
-        
-
-       
 
        // var pushednoteobject=NoteData.noteData()
 
@@ -125,6 +136,7 @@ class CreateNote extends Component {
                 fetchedUserId:this.state.fetchedUserId
         }
 
+        console.log("Key in create note " + key);
         
             firebase.database.database().ref('Notes').child(key).update(noteObject)
         
@@ -218,7 +230,7 @@ class CreateNote extends Component {
         }
     }
 
-    changeColor = (color) => {
+    changeColor = () => {
         
         if(!this.state.backgroundChange){
             this.setState({
@@ -234,17 +246,37 @@ class CreateNote extends Component {
 
     componentDidMount = () => {
         const {navigation} = this.props
-        note = navigation.getParam('Note','')
-        title = navigation.getParam('Title','')
-        index = navigation.getParam('i', '')
+        // console.log('Fetched note ' + fetchedNote);
+        
+        // Note = navigation.getParam('fetchedNote','')
+        // Title = navigation.getParam('fetchedTitle','')
+       // key1 = navigation.getParam('key1', '')
 
-        this.setState({
+        // this.setState({
             
-                Note : note,
-                Title : title,
-                indexing : index
+        //         Note : Note,
+        //         Title : Title,
+        //         //KeyValue : key1
            
-        })
+        // }, () => this.handleBackArrowToUpdate(Note, Title))
+    }
+
+    handleReminder = () => {
+        if(!this.state.isReminderVisible){
+            this.setState({ 
+                reminderVisibility : '',
+                isReminderVisible : true
+            })
+        }else{
+            this.setState({
+                reminderVisibility : {
+                    display : 'none'
+                },
+                isReminderVisible : false
+            })
+        }
+        
+
     }
 
     // componentWillUpdate(nextProps, nextState) {
@@ -278,7 +310,7 @@ class CreateNote extends Component {
         // })
         // .catch((error) => {
         //     console.log("Error in catch " + error);
-            
+
         // })
 
         return(
@@ -298,11 +330,11 @@ class CreateNote extends Component {
                                 <Image style = {{width : 25, height : 25, marginTop : 6}}
                                 source = {require('../Assets/Pinned.png')}/>
                             </TouchableOpacity> 
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress = {this.handleReminder}>
                                 <Image style = {{width : 25, height : 25, marginTop : 5}}
                                 source = {require('../Assets/Reminder.png')}/>
                             </TouchableOpacity> 
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress = {this.handleArchive}>
                                 <Image style = {{width : 25, height : 25, marginTop : 3}}
                                 source = {require('../Assets/Archive.png')}/>
                             </TouchableOpacity> 
@@ -427,6 +459,9 @@ class CreateNote extends Component {
                             source = {require('../Assets/Menu.png')}/>
                         </TouchableOpacity>
                         </View> 
+                    </View>
+                    <View style = {this.state.reminderVisibility}>
+                        <Reminder/>
                     </View>
                 </View>
             </View>
