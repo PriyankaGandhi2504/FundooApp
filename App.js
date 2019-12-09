@@ -31,6 +31,7 @@ import Reminder from './src/Component/Reminder'
 import ToggleSearchbarMenu from './src/Component/ToggleSearchbarMenu'
 import Datedropdown from './src/Component/Datedropdown'
 import Note from './src/Component/Note'
+import AddBoxMenu from './src/Component/AddBoxMenu'
 
 class App extends Component{
   render()
@@ -46,7 +47,8 @@ class App extends Component{
 // {/* <Try/> */}
     //  <DrawerRouter/>
       // <View>
-      //   <Reminder/>
+      //   <AddBoxMenu/>
+      //   {/* <Reminder/> */}
       //   {/* <Datedropdown/> */}
       //           {/* <MultiSelectDemo/>
       //            {/* <SignOutMenu/> */}
@@ -63,6 +65,7 @@ class App extends Component{
     );
   }
 }
+
 
 
 export default App

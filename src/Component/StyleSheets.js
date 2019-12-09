@@ -464,13 +464,19 @@ const styles = StyleSheet.create({
     },
     addItemIcon : {
         display : "flex",
+        height : 325,
+        width : '100%',
+        // height : 400,
+        alignItems : 'flex-start',
         justifyContent : "flex-end",
-        top : -5,
-        // backgroundColor : "white"
+        // top : 50,
+        // alignContent : 'flex-end',
+        // backgroundColor : "lightgreen",
+        position : 'absolute'
     },
     menuIcon : {
-        // backgroundColor : "blue",
-        width : "90%",
+        // backgroundColor : "lightblue",
+        width : "100%",
         display : "flex",
         alignItems : "flex-end",
         top : -10,

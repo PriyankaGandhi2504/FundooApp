@@ -20,8 +20,6 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'Jul
 var hours = date.getHours()
 var minutes = date.getMinutes()
 
-// var currentDateMonth = currentDate + currentMonth
-
 class Reminder extends Component{
 
     constructor(props){
@@ -54,7 +52,6 @@ class Reminder extends Component{
      
     handleDatePicked = date => {
         console.log("A date has been picked: ", date);
-        // console.log('A Time has been picked: ' + datetime)
         this.hideDateTimePicker();
     };
 
@@ -66,9 +63,18 @@ class Reminder extends Component{
         console.log('Value of Radio Button ' + this.state.value)
     }
 
+    handleSaveButton = () => {
+        this.props.handleReminder()
+        this.props.navigation.navigate('CreateNote')
+    }
+
+    handleCancelButton = () => {
+        this.props.handleReminder()
+        this.props.navigation.navigate('CreateNote')
+    }
+
     render(){
-        console.log('Hours in render ' + hours)
-        // console.log("Current date " + JSON.stringify(dateObject));
+        
         return(
             <View style = {styles.reminderContainer}>
                 <View style = {styles.reminderSubContainer}>
@@ -81,7 +87,6 @@ class Reminder extends Component{
                         labelStyle = {{left : -5}}
                         buttonSize = {15}
                         buttonOuterStyle = {10}
-                        
                         // selectedButtonColor = {'green'}
                         // selectedLabelColor = {'green'}
                         // disabled = {true}
@@ -98,11 +103,6 @@ class Reminder extends Component{
 
                     <View>
                         <Datedropdown/>
-                        {/* <DatePicker
-                        style = {{width : 200, top : 40, left : 20}}
-                        date = {this.state.date}
-                        format = 'DD-MM'
-                        /> */}
                     </View>
 
                     {/* <View> */}
@@ -112,25 +112,32 @@ class Reminder extends Component{
                         {/* <View style = {{top : 10, left : 15}}>
                             <Text> Select a Date </Text>
                         </View>
-                        <DatePicker
-                        
+                        <DatePicker       
                         style = {{width : 300, top : 20, left : 20}}
                         date = {this.state.date}
                         format = 'DD-MM'
                         onDateChange={(date) => {this.setState({date: date})}}
-
                         /> */}
-                        {/* </Dropdown> */}
-                        
+                        {/* </Dropdown> */}       
                     {/* </View> */}
 
+                    <View style = {{top : 25, left : 25}}>
+                        <Text style = {{fontWeight : 'bold'}}>
+                            Select a Date and Time : 
+                        </Text>
+                    </View>
                     <View>
-                        <TouchableOpacity style = {{top : 40, left : 20, borderWidth : 1, width : '80%', height : 50, display : 'flex', justifyContent : 'space-around'}}
+                        <DatePicker
+                        style = {{top : 40, width : '90%', left : 20}}
+                        date = {this.state.date}
+                        format = 'DD-MM-YYYY h:mm:ss a'
+                        mode = 'datetime'
+                        onDateChange = {(date) => {this.setState({date:date})}}/>
+                        {/* <TouchableOpacity style = {{top : 40, left : 20, borderWidth : 1, width : '80%', height : 50, display : 'flex', justifyContent : 'space-around'}}
                         onPress = {this.handleDateTimeVisibility}>
                             <Text style = {{top : 10, display : 'flex', alignSelf : 'center', fontSize : 16}}>
                                 Select Date and Time
                             </Text>
-
                             <Image style = {{bottom : 13, width : 35, height : 35, right : 5, display : 'flex', alignSelf : 'flex-end',}}
                         source = {require('../Assets/Calendar.png')}/>
                         </TouchableOpacity>
@@ -143,16 +150,14 @@ class Reminder extends Component{
                         is24Hour = {true}
                         onConfirm={this.handleDatePicked}
                         onCancel={this.hideDateTimePicker}
-                        />
+                        /> */}
                     </View>
 
                     <View style = {{width : 150, display : 'flex', flexDirection : 'row', justifyContent : 'space-around', alignSelf : 'flex-end', right : 5, top : 60}}>
-                        <Button title = 'Cancel'/>
-                        <Button title = 'Save'/>
-                    </View>
-
-                    <View>
-                        {/* <DatePickerAndroid/> */}
+                        <Button title = 'Cancel'
+                        onPress = {this.handleCancelButton}/>            
+                        <Button title = 'Save'
+                        onPress = {this.handleSaveButton}/>
                     </View>
                 </View>
             </View>

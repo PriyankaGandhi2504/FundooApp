@@ -12,6 +12,12 @@ import noteData from '../../UserServices'
 const NoteData = new noteData
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Reminder from './Reminder'
+import RBSheet from "react-native-raw-bottom-sheet";
+import AddBoxMenu from './AddBoxMenu'
+import {Provider} from 'react-redux'
+import store from './SignOutStore'
+import setColor from './SignOutAction'
+import {connect} from 'react-redux'
 
 var date = new Date().getMinutes()
 var note;
@@ -34,17 +40,15 @@ class CreateNote extends Component {
             backgroundChange : false,
             note : '',
             title : '',
-            nextState:'',
             KeyValue : '',
             notesKeys : [],
             isArchive : false,
-            archivedNotesVisibility : {
-                display : 'none'
-            },
+            isPin : false,
             isReminderVisible : false,
             reminderVisibility : {
                 display : 'none'
-            }
+            },
+            
         }
     }
 
@@ -74,7 +78,6 @@ class CreateNote extends Component {
             // })
             // var userID = JSON.parse(this.state.fetchedUserId)
             // console.log("Parsed User ID " + userID);
-            
             // var id=fetchedUserId
 
             console.log("Fetched User Id : " + this.state.fetchedUserId);
@@ -88,10 +91,8 @@ class CreateNote extends Component {
             // var notesValue = noteObj
 
             var array = this.state.notes
-            
             array.push(noteObj)
             // console.log("Arr Data " + arr);
-            
             this.setState({
                 notes : array
             })
@@ -99,10 +100,12 @@ class CreateNote extends Component {
             var noteObject = {
                 // notes : this.state.notes,
                 // notes : [{name : 'abc'}, {name : 'xyz'}],
-                 Title : this.state.Title,
+                Title : this.state.Title,
                 Note : this.state.Note,
                 fetchedUserId : this.state.fetchedUserId,
-                // Color : this.state.backgroundColor
+                isArchive : this.state.isArchive,
+                isPin : this.state.isPin,
+                Color : this.state.backgroundColor
             }
             const pushedData = firebase.database.database().ref('/Notes').push(noteObject)
             const key=pushedData.key
@@ -121,32 +124,25 @@ class CreateNote extends Component {
         // this.setState({
         //     noteObject : noteDetails
         // })
-        
-
         console.log("Notes Keys In Create Note " + noteDetails);
-        
-
         // AsyncStorage.setItem('UserData', noteObject)
-
        // var pushednoteobject=NoteData.noteData()
 
         noteObject={
                 Note:this.state.Note,
                 Title:this.state.Title,
-                fetchedUserId:this.state.fetchedUserId
+                fetchedUserId:this.state.fetchedUserId,
+                isArchive : this.state.isArchive,
+                isPin : this.state.isPin
         }
 
         console.log("Key in create note " + key);
-        
             firebase.database.database().ref('Notes').child(key).update(noteObject)
-        
-        
 
         // this.setState({
         //     notesKeys:object
         // })
 
-    
         // var newData=this.state.notesKeys
         // var updates = {};
         // updates["/Notes/" + key] = {
@@ -160,15 +156,11 @@ class CreateNote extends Component {
         //         'Title' : this.state.Title,
         //     })
 
-    
-
-// return firebaseApp
-//   .database()
-//   .ref()
-//   .update(updates);
-        // }
-        
-            
+        // return firebaseApp
+        //   .database()
+        //   .ref()
+        //   .update(updates);
+                // }
         // })
         // var userData = firebase.firebase.auth().currentUser
         // userId = userData.uid
@@ -182,7 +174,7 @@ class CreateNote extends Component {
         //     Title : this.state.Title
         // })
 
-        // vsar parsedData = JSON.parse(data)
+        // var parsedData = JSON.parse(data)
         // console.log("Parsed Data " + parsedData);
         
         // var noteObject = {
@@ -191,7 +183,6 @@ class CreateNote extends Component {
         // }
 
         // var usersNotes = firebase.firebase.auth().currentUser
-
         // if(usersNotes != null){
         //     var abc = AsyncStorage.getItem('userId')
         //     if(abc != null){
@@ -200,7 +191,6 @@ class CreateNote extends Component {
         // }
 
         // console.log("Notes " + JSON.stringify(notes));
-        
         // var notes = AsyncStorage.getItem('userId')
         // console.log("Notes " + notes);
         // console.log('Note Object ' + JSON.stringify(noteObj));
@@ -218,7 +208,7 @@ class CreateNote extends Component {
         if(!this.state.menuIconVisibility){
             this.setState({
                 menuListDisplay : styles.menuList,
-                menuIconVisibility : true
+                menuIconVisibility : true,
             })
         }else{
             this.setState({
@@ -230,13 +220,14 @@ class CreateNote extends Component {
         }
     }
 
-    changeColor = () => {
-        
+    changeColor = (color) => {
+        //this.props.setColor(color)
+        // dispatch(setColor.setColor({color}))
         if(!this.state.backgroundChange){
             this.setState({
                 backgroundColor : color
             })
-            alert(`Color ${color}`)
+            // alert(`Color ${color}`)
         }else{
             this.setState({
                 backgroundColor : 'white'
@@ -261,30 +252,34 @@ class CreateNote extends Component {
         // }, () => this.handleBackArrowToUpdate(Note, Title))
     }
 
-    handleReminder = () => {
-        if(!this.state.isReminderVisible){
-            this.setState({ 
-                reminderVisibility : '',
-                isReminderVisible : true
+    handlePinnedNotes = async() => {        
+            await this.setState({
+                isPin : !this.state.isPin
             })
-        }else{
-            this.setState({
-                reminderVisibility : {
-                    display : 'none'
-                },
-                isReminderVisible : false
-            })
-        }
-        
-
+            console.log("Pinned Status In If " + this.state.isPin);
     }
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     console.log('........nextState',nextState); //will show the new state
-    //     console.log(this.state); //will show the previous state
-    //   }
-    render(){
+    handleReminder = async() => {
+            await this.setState({ 
+                isReminderVisible : !this.state.isReminderVisible,
+                reminderVisibility : {
+                    width : '100%'
+                },  
+            })
 
+            // console.log('Is reminder visible' + this.state.isReminderVisible)
+    }
+
+    handleArchive = async() => {
+            await this.setState({
+                isArchive : !this.state.isArchive,
+            })
+            console.log("Is Archive in if" + this.state.isArchive);
+    }
+
+    render(){
+        // console.log('Visibility ' + this.state.isReminderVisible)
+        // console.log('Color in Create Note ' + this.state.backgroundColor)
         AsyncStorage.getItem('UserId').then((success) => {
             this.state.fetchedUserId = success
             // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
@@ -294,11 +289,9 @@ class CreateNote extends Component {
         // note = navigation.getParam('Note' , 'No Note')
         // title = navigation.getParam('Title', 'No Title')
 
-
         // console.log("Note in Create Note " + note);
         // console.log("Title in Create Note " + title);
         
-
         // this.setState({
         //     Note : note,
         //     Title : title
@@ -315,6 +308,7 @@ class CreateNote extends Component {
 
         return(
             // <ScrollView>
+            
             <View style = {styles.createNoteContainer}>
                 <View style = {{width : "100%", height : "100%", backgroundColor : this.state.backgroundColor}}>
                     <View style = {styles.headerContainer}>
@@ -326,7 +320,7 @@ class CreateNote extends Component {
                         </View>
                         
                         <View style = {styles.restContainer}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {this.handlePinnedNotes}>
                                 <Image style = {{width : 25, height : 25, marginTop : 6}}
                                 source = {require('../Assets/Pinned.png')}/>
                             </TouchableOpacity> 
@@ -416,38 +410,54 @@ class CreateNote extends Component {
 
                         <ScrollView horizontal = {true}
                         showsHorizontalScrollIndicator={false}>
-                        <View style = {styles.colorPaletteStyle}>
-                            <TouchableOpacity style = {{width : "100%"}}>
-                            
-                                {/* <View> */}
-                                <View style = {{top : -28, height : 40, bottom : 20}}>
-                                <ColorPalette
-                                    onChange={color => this.changeColor(color)}
-                                    defaultColor={'#ffffff'}
-                                    colors={['#ffffff', '#bfef45', '#fffac8', '#ffd8b1', '#fabebe','#aaffc3', '#42d4f4', '#9B59B6', '#e6194B', '#2980B9']}
-                                    title={""}
-                                    icon={
-                                      <Image style = {{width : 15, height : 15}}
-                                      source = {require('../Assets/CheckMark.png')}/>
-                                    // Icon can just be text or ASCII
-                                    }
-                                />
-                                
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+                            <View style = {styles.colorPaletteStyle}>
+                                <TouchableOpacity style = {{width : "100%"}}>
+                                    {/* <View> */}
+                                    <View style = {{top : -28, height : 40, bottom : 20}}>
+                                    <ColorPalette
+                                        onChange={color => this.changeColor(color)}
+                                        defaultColor={'#ffffff'}
+                                        colors={['#ffffff', '#bfef45', '#fffac8', '#ffd8b1', '#fabebe','#aaffc3', '#42d4f4', '#9B59B6', '#e6194B', '#2980B9']}
+                                        title={""}
+                                        icon={
+                                        <Image style = {{width : 15, height : 15}}
+                                        source = {require('../Assets/CheckMark.png')}/>
+                                        // Icon can just be text or ASCII
+                                        }
+                                    />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </ScrollView>
                     </View>
 
-                    {/* <View> */}
                     <View style = {styles.addItemIcon}>
-
-                        <TouchableOpacity>
+                        <View style={{ flex: 1, justifyContent: "flex-end"}}>
+                            <TouchableOpacity onPress = {() => {this.RBSheet.open()}}>
+                                <Image style = {{width : 40, height : 40, left : 5, bottom : 5}}
+                                source = {require('../Assets/AddItems.png')}/>
+                            </TouchableOpacity>
+                            <RBSheet
+                            ref={ref => {
+                                this.RBSheet = ref;
+                            }}
+                            height={250}
+                            duration={250}
+                            customStyles={{
+                                container: {
+                                justifyContent: "center",
+                                alignItems: "center",
+                                bottom : 50
+                                }
+                            }}>
+                            <AddBoxMenu/>
+                            </RBSheet>
+                        </View>
+                        {/* <TouchableOpacity>
                             <Image style = {{width : 40, height : 40, left : 5}}
                             source = {require('../Assets/AddItems.png')}/>
-                        </TouchableOpacity> 
+                        </TouchableOpacity>  */}
                     </View>
-                    {/* </View> */}
                     {/* 
                     <View style = {this.state.snackBarDisplay}>
                     <Snackbar message = {"Hello"} actionText = {"UNDO"}/>
@@ -460,14 +470,28 @@ class CreateNote extends Component {
                         </TouchableOpacity>
                         </View> 
                     </View>
-                    <View style = {this.state.reminderVisibility}>
-                        <Reminder/>
+
+                    <View style = {{display : this.state.isReminderVisible ? 'flex' : 'none'}}>
+                        <Reminder navigation = {this.props.navigation} handleReminder = {this.handleReminder}/>
                     </View>
+
                 </View>
             </View>
+            //</Provider>
         // </ScrollView>
         )
     }
 }
 
+// const mapStateToProps = (state, ownProps) => {
+//     return {
+//         color : state.color
+//     }
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         setColor : color => dispatch(setColor.setColor(color))
+//     }
+// }
 export default CreateNote

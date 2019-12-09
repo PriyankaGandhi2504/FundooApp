@@ -192,16 +192,18 @@ class Note extends Component {
     }
 
     render() {
+        
         // const { navigation } = this.props
         // const color = navigation.getParam('Color', 'white')
-        const {index, Title, Note, gridDisplayValue} = this.props
+        const {index, Title, Note, gridDisplayValue, Color} = this.props
+        // console.log('Color in Note ' + Color)
         return (
             <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, index)}
                     onPress={(event) => this.handleNormalPress(event, index)}
                     style={gridDisplayValue === false ? {width: "100%"} : styles.gridView}>
                 <View>
                     <Card
-                    containerStyle={[{width : '90%', display : 'flex', flexWrap : "wrap"}, this.state.flag[index] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle]}>
+                    containerStyle={[{width : '90%', display : 'flex', flexWrap : "wrap", backgroundColor : Color}, this.state.flag[index] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle]}>
                         <Text style={{ fontSize: 16 }}>{Title}</Text>
                         <Text style={{ fontSize: 12, marginTop: 10 }}>{Note}</Text>
                     </Card>

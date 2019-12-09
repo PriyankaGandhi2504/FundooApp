@@ -158,10 +158,11 @@ class Dashboard extends Component {
     //     console.log("Get Derived State From Props");
     // }
 
-     componentDidMount() {
+     componentDidMount = async() => {
         var details = UserData.userData()
-        // console.log("Details " + JSON.stringify(details));
-        this.setState({
+        console.log("Details " + JSON.stringify(details.Color));
+
+        await this.setState({
             usersNote: details
         })
         console.log("Users Note " + JSON.stringify(this.state.usersNote));
@@ -544,7 +545,7 @@ class Dashboard extends Component {
                                     return (
                                         <View key={i}
                                             style={styles.userCard}>
-                                                <Note index = {i} Title = {u.Title} Note = {u.Note} navigation = {this.props.navigation} gridDisplayValue = {this.state.gridDisplay}/>
+                                                <Note index = {i} Title = {u.Title} Note = {u.Note} navigation = {this.props.navigation} gridDisplayValue = {this.state.gridDisplay} Color = {u.Color}/>
                                             {/* <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, i)}
                                                 onPress={(event) => this.handleNormalPress(event)}>
                                                 <Card
