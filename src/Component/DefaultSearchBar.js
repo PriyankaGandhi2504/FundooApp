@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image, ScrollView, Button, FlatList, TouchableHighlight } from 'react-native'
 import styles from './StyleSheets'
+import firebase from '../Firebase'
 
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 
-class SearchBar extends Component{
+class DefaultSearchBar extends Component{
 
     constructor(props){
         super(props)
         this.state={
             gridDisplay: false,
-            gridView: {
-                display: 'none'
-            },
+            // gridView: {
+            //     display: 'none'
+            // },
             icon: grid,
             searchBar: {
                 display: styles.searchBar
@@ -58,12 +59,17 @@ class SearchBar extends Component{
     }
 
     render(){
+       const {textdisplay} = this.props
+        // console.log('Text Display ' +this.props.searchText);
+        // console.log('userNoteProp in Default searchbar',this.props.userNotesProp)
+        
         return(
             <View>
-                        <View style={this.state.searchBar}>
+                        <View style={styles.searchBar}>
                             <View>
                                 <TouchableOpacity style={{ width: 50 }}
-                                    onPress={this.props.navigation.openDrawer}>
+                                    onPress={this.props.navigation.openDrawer}
+                                    >
                                     <Image style={{ width: 30, height: 30, left: 10, top: 3 }}
                                         source={require('../Assets/DrawerIcon.png')} />
                                 </TouchableOpacity>
@@ -71,9 +77,10 @@ class SearchBar extends Component{
 
                             <View style={{ left: 70, top: -23 }}>
                                 <TouchableOpacity style={{ width: 120 }}
-                                    onPress={this.updateSearch}>
+                                    onPress={this.updateSearch}
+                                    >
                                     <Text>
-                                        Search your Notes
+                                     {textdisplay}
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -104,14 +111,18 @@ class SearchBar extends Component{
 
                             <View style={styles.profileIcon}>
                                 <View style={{ display: "flex", alignItems: "flex-end", right: 60, top: 4 }}>
-                                    <TouchableOpacity onPress={this.gridDisplay}>
+                                    <TouchableOpacity 
+                                    onPress={this.gridDisplay}
+                                    >
                                         <Image style={{ width: 30, height: 30 }}
                                             source={this.state.icon} />
                                     </TouchableOpacity>
                                 </View>
 
                                 <View style={{ right: 10, top: -26 }}>
-                                    <TouchableOpacity onPress={this.profileDisplay}>
+                                    <TouchableOpacity 
+                                    onPress={this.profileDisplay}
+                                    >
                                         <Image style={{ width: 30, height: 30 }}
                                             source={require('../Assets/ProfileIcon.jpg')} />
                                     </TouchableOpacity>
@@ -123,4 +134,4 @@ class SearchBar extends Component{
     }
 }
 
-export default SearchBar
+export default DefaultSearchBar

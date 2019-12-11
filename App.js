@@ -47,7 +47,7 @@ class App extends Component{
 // {/* <Try/> */}
     //  <DrawerRouter/>
       // <View>
-      //   <AddBoxMenu/>
+      //   {/* <AddBoxMenu/> */}
       //   {/* <Reminder/> */}
       //   {/* <Datedropdown/> */}
       //           {/* <MultiSelectDemo/>

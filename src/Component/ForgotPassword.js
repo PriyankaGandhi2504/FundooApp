@@ -24,19 +24,16 @@ class ForgotPassword extends Component{
                 this.setState({
                     ...this.state
                 })
-                console.warn('Text is correct');  
             }else{
-                            this.state.emailErr = "Invalid Text"
-                            this.setState({
-                                ...this.state
-                            })
-                console.warn('Invalid Text');   
+                this.state.emailErr = "Invalid Text"
+                this.setState({
+                    ...this.state
+                })
             }  
         }
     }
 
     handleSubmit = () => {
-        // console.warn('Submit Button Clicked')
         isError = false
         if(this.state.email == ''){
             this.state.emailErr = "Field Required"
@@ -49,7 +46,6 @@ class ForgotPassword extends Component{
         if(!isError){
             firebase.firebase.auth().sendPasswordResetEmail(this.state.email)
             .then((success) => {
-                // console.warn("Successfully Sent" +success) 
                 alert(`Reset password link sent to your email Id. \n Please Login to continue`)
                 this.setState({
                     email : ''
@@ -61,7 +57,7 @@ class ForgotPassword extends Component{
                 this.setState({
                     ...this.state
                 })
-                console.warn('Error Occured on Forgot Password Page' + error)
+                // console.warn('Error Occured on Forgot Password Page' + error)
             })
         }
     }
@@ -70,31 +66,30 @@ class ForgotPassword extends Component{
         return(
             <View style = {styles.forgotPassContainer}>
                 <View style = {styles.forgotSubContainer}>
-                <View style = {styles.forgotPassword}>
-                    <Text style = {styles.forgotLabel}>
-                        Forgot Password
-                    </Text>
+                    <View style = {styles.forgotPassword}>
+                        <Text style = {styles.forgotLabel}>
+                            Forgot Password
+                        </Text>
+                        <Text style = {styles.recoveryEmail}>
+                            Enter Your Recovery Email ID
+                        </Text>
+                    </View>
 
-                    <Text style = {styles.recoveryEmail}>
-                        Enter Your Recovery Email ID
-                    </Text>
-                </View>
+                    <View style = {styles.forgotEmailInput}>
+                        <Input
+                        value = {this.state.email}
+                        placeholder = 'Email ID'
+                        onChangeText = {(text) => this.handleForgotPass(text, 'email')}
+                        errorMessage = {this.state.emailErr}
+                        />
+                    </View>
 
-                <View style = {styles.forgotEmailInput}>
-                    <Input
-                    value = {this.state.email}
-                    placeholder = 'Email ID'
-                    onChangeText = {(text) => this.handleForgotPass(text, 'email')}
-                    errorMessage = {this.state.emailErr}
-                    />
+                    <View style = {styles.submitButton}>
+                        <Button
+                        title = "Submit"
+                        onPress = {this.handleSubmit}/>
+                    </View>
                 </View>
-                <View style = {styles.submitButton}>
-                    <Button
-                    title = "Submit"
-                    onPress = {this.handleSubmit}/>
-                </View>
-                </View>
-                
             </View>
         )
     }

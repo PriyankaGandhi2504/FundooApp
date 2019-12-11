@@ -246,6 +246,7 @@ const styles = StyleSheet.create({
         borderColor : "grey",
         borderRadius : 10,
         height : 40,
+        top : 1,
         // shadowRadius : 10,
         // shadowOpacity : 0.2,
         // shadowOffset : {width : 3, height : 3},
@@ -336,8 +337,11 @@ const styles = StyleSheet.create({
     userCard : {
         // borderWidth : 1,
         // marginBottom : 5,
-        height : 100,
-        width : '100%'
+        height : 'auto',
+        width : '100%',
+        // display : 'flex',
+        flexWrap : 'wrap',
+        flexDirection : 'row'
         
         // width : "45%",
         // borderWidth : 1,
@@ -376,7 +380,7 @@ const styles = StyleSheet.create({
     gridView : {
         display : "flex", 
         width : "100%", 
-        flexDirection : "row", 
+        flexDirection : "column", 
         flexWrap : "wrap",
         // backgroundColor : 'lightblue',
         // height : "auto",
@@ -563,6 +567,8 @@ const styles = StyleSheet.create({
     },
     /************************************** Reminder ***********************************/
     reminderContainer : {
+        position : 'absolute',
+        width : '100%'
         // width : "100%",
         // height : "100%",
         // backgroundColor : 'lightblue',
@@ -578,7 +584,8 @@ const styles = StyleSheet.create({
         // alignItems : 'center',
         // justifyContent : 'center',
         // alignContent : 'center',
-        alignSelf : 'center'
+        alignSelf : 'center',
+        position : 'absolute'
     },
     /******************************* Toggle Search Bar *******************************/
     toggleSearchbarMenu : {

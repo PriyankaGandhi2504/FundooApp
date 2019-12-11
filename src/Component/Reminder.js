@@ -10,7 +10,7 @@ import CreateNote from './CreateNote'
  
 var radioValues = [
     {label : 'Time', value : 0},
-    {label : 'Place', value : 1}
+    // {label : 'Place', value : 1}
 ]
 
 var date = new Date()
@@ -65,7 +65,11 @@ class Reminder extends Component{
 
     handleSaveButton = () => {
         this.props.handleReminder()
-        this.props.navigation.navigate('CreateNote')
+        this.props.handleReminderSet()
+        // console.log('Date in Save Button ' + this.state.date)
+        this.props.navigation.navigate('CreateNote', {
+            date : this.state.date
+        })
     }
 
     handleCancelButton = () => {
@@ -130,7 +134,7 @@ class Reminder extends Component{
                         <DatePicker
                         style = {{top : 40, width : '90%', left : 20}}
                         date = {this.state.date}
-                        format = 'DD-MM-YYYY h:mm:ss a'
+                        format = 'DD-MM-YYYY h:mm a'
                         mode = 'datetime'
                         onDateChange = {(date) => {this.setState({date:date})}}/>
                         {/* <TouchableOpacity style = {{top : 40, left : 20, borderWidth : 1, width : '80%', height : 50, display : 'flex', justifyContent : 'space-around'}}

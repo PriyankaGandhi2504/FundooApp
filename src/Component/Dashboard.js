@@ -12,11 +12,9 @@ import userData from '../../UserServices'
 const UserData = new userData
 import ToggleSearchBar from './ToggleSearchBar'
 import Note from './Note'
-import SearchBar from './SearchBar'
 
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
-var BgColor
 
 const options = {
     title: 'Add Image',
@@ -24,23 +22,6 @@ const options = {
     chooseFromLibraryButtonTitle: 'Choose image',
 
 }
-
-const data = [
-    { id: 1, title: 'First Item' },
-    { id: 2, title: 'Second Item' },
-    { id: 3, title: 'Third Item' },
-    { id: 4, title: 'Forth Item' },
-    { id: 5, title: 'Fifth Item' },
-]
-
-const users = [
-    { name: 'Abc', emailId: 'abc@abc.com' },
-    { name: 'Xyz', emailId: 'xyz@xyz.com' },
-    { name: 'Dummy', emailId: 'dummy@dummy.com' },
-    { name: 'Vaishnavi', emailId: 'vaishnavibhosale@gmail.com' }
-]
-
-var array;
 
 class Dashboard extends Component {
 
@@ -70,7 +51,7 @@ class Dashboard extends Component {
             toggleSearchBar: {
                 display: 'none'
             },
-            searchBar: {
+            searchBarDisp: {
                 display: styles.searchBar
             },
             newObjectArray: [],
@@ -155,17 +136,17 @@ class Dashboard extends Component {
     }
 
     // static getDerivedStateFromProps(){
-    //     console.log("Get Derived State From Props");
+    //     console.log("Get State From Props");
     // }
 
      componentDidMount = async() => {
         var details = UserData.userData()
-        console.log("Details " + JSON.stringify(details.Color));
+        console.log("Details from Dashboard " + JSON.stringify(details));
 
         await this.setState({
             usersNote: details
         })
-        console.log("Users Note " + JSON.stringify(this.state.usersNote));
+        console.log("Users Note in Dashboard Component Did Mount " + JSON.stringify(this.state.usersNote));
     }
 
     // componentDidUpdate(){
@@ -295,7 +276,7 @@ class Dashboard extends Component {
                     var ndata=noteObject1[keyIndex]
                     ndata['key']=keyIndex
 
-                    console.log("note " + JSON.stringify(ndata));
+                    // console.log("note " + JSON.stringify(ndata));
 
                     // combinedNoteKeyObj = [
                     //     {title: noteObject1[keyIndex].Title},
@@ -306,16 +287,16 @@ class Dashboard extends Component {
                     noteObjectArray.push(ndata)
 
                 }
-
-                console.log("Note object Array " + JSON.stringify(noteObjectArray));
-
+                // console.log("Note object Array " + JSON.stringify(noteObjectArray));
             })
             console.log("Note object Array outside Loop" + JSON.stringify(noteObjectArray));
+            // console.log("Note Object Array Is Archive .......... " + JSON.stringify(noteObjectArray.isArchive));
+            
 
     this.setState({
         usersNote:noteObjectArray
     })
-            this.props.navigation.navigate('CreateNote')
+    this.props.navigation.navigate('CreateNote')
 
             //end of fetching
             //console.log('key of card',key)
@@ -324,7 +305,7 @@ class Dashboard extends Component {
                 toggleSearchBar: {
                     display: 'none'
                 },
-                searchBarDisplay: styles.searchBar,
+                searchBarDisp: styles.searchBar,
                 // longPressedStyle : {
                 //     display : 'none'
                 // }
@@ -438,7 +419,7 @@ class Dashboard extends Component {
                         </View> */}
 
                     <View>
-                        <View style={this.state.searchBarDisplay}>
+                        <View style={styles.searchBar}>
                             <View>
                                 <TouchableOpacity style={{ width: 50 }}
                                     onPress={this.props.navigation.openDrawer}>
@@ -498,10 +479,6 @@ class Dashboard extends Component {
                         </View>
                     </View>
 
-                    {/* <View>
-                            <Note/>
-                    </View> */}
-
                     {/* <View style = {styles.searchBar}>
                                 <View style = {{top : 5}}>
                                     <Image style = {{width : 20, height : 20,}}
@@ -538,28 +515,18 @@ class Dashboard extends Component {
                                 </View> */}
 
                     <ScrollView>                        
-                        <View>
+                        <View style={styles.userCard}>
                             {
-                                this.state.usersNote.map((u, i) => {
-                                    // const {u.Title, u.Note} = this.props
-                                    return (
-                                        <View key={i}
-                                            style={styles.userCard}>
-                                                <Note index = {i} Title = {u.Title} Note = {u.Note} navigation = {this.props.navigation} gridDisplayValue = {this.state.gridDisplay} Color = {u.Color}/>
-                                            {/* <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, i)}
-                                                onPress={(event) => this.handleNormalPress(event)}>
-                                                <Card
-                                                    containerStyle={[{ backgroundColor: color }, this.state.flag[i] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle]}>
-                                                    <Text style={{ fontSize: 16 }}>{u.Title}</Text>
-                                                    <Text style={{ fontSize: 12, marginTop: 10 }}>{u.Note}</Text>
-                                                </Card>
-                                            </TouchableOpacity> */}
-                                        </View>
-                                    );
+                                this.state.usersNote.map((usersNote, indexing) => {
+                                    if(!usersNote.isArchive && !usersNote.Deleted){
+                                        return (
+                                                <Note index = {indexing} Title = {usersNote.Title} Note = {usersNote.Note} 
+                                                navigation = {this.props.navigation} gridDisplayValue = {this.state.gridDisplay} 
+                                                Color = {usersNote.Color} Reminder = {usersNote.Reminder}/>
+                                        );
+                                    }                                    
                                 })
                             }
-                            <View style={{ height: 30 }}>
-                            </View>
                         </View>
                     </ScrollView>
 

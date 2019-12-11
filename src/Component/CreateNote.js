@@ -18,11 +18,13 @@ import {Provider} from 'react-redux'
 import store from './SignOutStore'
 import setColor from './SignOutAction'
 import {connect} from 'react-redux'
+import {Chip} from 'react-native-paper'
 
 var date = new Date().getMinutes()
 var note;
 var title;
 var index; 
+var dateAndTime='';
 
 class CreateNote extends Component {
     constructor(props){
@@ -48,8 +50,16 @@ class CreateNote extends Component {
             reminderVisibility : {
                 display : 'none'
             },
-            
+            shouldReminderSet : false,
+            reminderSetVisibility : {
+                display : 'none'
+            },
+            isDeleted : false
         }
+        // const {navigation} = this.props
+        //  dateAndTime = navigation.getParam('date' , 'No Date')
+       
+        // console.log('this.props.date in  Createnote',dateAndTime)
     }
 
     handleBackArrowToCreate = () => {
@@ -105,7 +115,9 @@ class CreateNote extends Component {
                 fetchedUserId : this.state.fetchedUserId,
                 isArchive : this.state.isArchive,
                 isPin : this.state.isPin,
-                Color : this.state.backgroundColor
+                Color : this.state.backgroundColor,
+                Reminder : dateAndTime,
+                Deleted : this.state.isDeleted
             }
             const pushedData = firebase.database.database().ref('/Notes').push(noteObject)
             const key=pushedData.key
@@ -133,7 +145,10 @@ class CreateNote extends Component {
                 Title:this.state.Title,
                 fetchedUserId:this.state.fetchedUserId,
                 isArchive : this.state.isArchive,
-                isPin : this.state.isPin
+                isPin : this.state.isPin,
+                Color : this.state.backgroundColor,
+                Reminder : dateAndTime,
+                Deleted : this.state.isDeleted
         }
 
         console.log("Key in create note " + key);
@@ -270,11 +285,40 @@ class CreateNote extends Component {
             // console.log('Is reminder visible' + this.state.isReminderVisible)
     }
 
+    handleReminderDisplay = async() => {
+        await this.setState({
+            shouldReminderSet : !this.state.shouldReminderSet,
+            reminderSetVisibility : {
+                width : '50%'
+            }
+        })
+    }
+
     handleArchive = async() => {
             await this.setState({
                 isArchive : !this.state.isArchive,
             })
-            console.log("Is Archive in if" + this.state.isArchive);
+            console.log("Is Archive" + this.state.isArchive);
+    }
+
+    handleDelete = async() => {
+        await this.setState({
+            isDeleted : !this.state.isDeleted
+        })
+        this.handleBackArrowToCreate()
+        Snackbar.show({
+            title: 'Note moved to Bin',
+            duration: 1000,
+            action : {
+                title : 'UNDO',
+                color: 'green',
+                onPress : () => {this.setState({
+                    isDeleted : false
+                })
+            alert(`State Changed ${this.state.isDeleted}`)}
+            }
+          });
+        // console.log("Is Deleted " + this.state.isDeleted)
     }
 
     render(){
@@ -284,9 +328,10 @@ class CreateNote extends Component {
             this.state.fetchedUserId = success
             // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
         })
-
-        // const {navigation} = this.props
-        // note = navigation.getParam('Note' , 'No Note')
+        const {navigation} = this.props
+        dateAndTime = navigation.getParam('date','')
+       
+        //  console.log('Date And Time in Render ' + dateAndTime)
         // title = navigation.getParam('Title', 'No Title')
 
         // console.log("Note in Create Note " + note);
@@ -343,6 +388,15 @@ class CreateNote extends Component {
                             Title : text
                         })}
                         />
+                        <View style = {this.state.shouldReminderSet === true ? {width : '50%'} : {display : 'none'} }>
+                            <Chip icon = {require('../Assets/Reminder.png')}
+                            style = {{width : '45%'}}
+                            style = {{borderWidth : 0.5, borderColor : 'black', backgroundColor : this.state.backgroundColor, top : 5}}
+                            mode = 'flat'
+                            >
+                                {dateAndTime}
+                            </Chip>
+                        </View>
                         <ScrollView>
                         <TextInput style = {{fontSize : 18}}
                         multiline
@@ -359,7 +413,8 @@ class CreateNote extends Component {
                     <View style = {styles.footerComponents}>
                     <View style ={this.state.menuListDisplay}>
                         <View style = {styles.delete}>
-                        <TouchableOpacity style = {{width : "100%"}}> 
+                        <TouchableOpacity style = {{width : "100%"}}
+                        onPress = {this.handleDelete}> 
                             <Image style = {{width : 20, height : 20, left : 10, top : 10}}
                             source = {require('../Assets/DeleteIcon.png')}/>
                                 <Text style = {{fontSize : 20, left : 80, bottom : 12}}> 
@@ -472,7 +527,7 @@ class CreateNote extends Component {
                     </View>
 
                     <View style = {{display : this.state.isReminderVisible ? 'flex' : 'none'}}>
-                        <Reminder navigation = {this.props.navigation} handleReminder = {this.handleReminder}/>
+                        <Reminder navigation = {this.props.navigation} handleReminder = {this.handleReminder} handleReminderSet = {this.handleReminderDisplay}/>
                     </View>
 
                 </View>

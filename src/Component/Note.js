@@ -5,6 +5,7 @@ import firebase from '../Firebase'
 import {Card} from 'react-native-elements'
 import CreateNote from './CreateNote'
 import ToggleSearchBar from './ToggleSearchBar'
+import {Chip} from 'react-native-paper'
 
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
@@ -195,17 +196,25 @@ class Note extends Component {
         
         // const { navigation } = this.props
         // const color = navigation.getParam('Color', 'white')
-        const {index, Title, Note, gridDisplayValue, Color} = this.props
+        const {index, Title, Note, gridDisplayValue, Color, Reminder} = this.props
         // console.log('Color in Note ' + Color)
         return (
             <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, index)}
                     onPress={(event) => this.handleNormalPress(event, index)}
-                    style={gridDisplayValue === false ? {width: "100%"} : styles.gridView}>
+                    style={gridDisplayValue === false ? {width: "100%"} : {width : '50%'}}>
                 <View>
                     <Card
                     containerStyle={[{width : '90%', display : 'flex', flexWrap : "wrap", backgroundColor : Color}, this.state.flag[index] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle]}>
                         <Text style={{ fontSize: 16 }}>{Title}</Text>
                         <Text style={{ fontSize: 12, marginTop: 10 }}>{Note}</Text>
+                        <View style = {Reminder !== '' ? {width : 175} : {display : 'none'}}>
+                        <Chip icon = {require('../Assets/Reminder.png')}
+                            style = {{width : '45%'}}
+                            style = {{borderWidth : 0.5, borderColor : 'black', backgroundColor : Color, top : 5, left : -10}}
+                            >
+                                {Reminder}
+                            </Chip>
+                            </View>
                     </Card>
 
                     <View style={{ height: 30 }}/>

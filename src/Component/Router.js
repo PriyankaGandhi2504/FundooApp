@@ -34,7 +34,7 @@ const MainNavigator = createStackNavigator({
   Archive : {screen : Archive, navigationOptions : {header : null}},
   DeletedNotes : {screen : DeletedNotes, navigationOptions : {header : null}},
   Settings : {screen : Settings, navigationOptions : {header : null}},
-  HelpFeedback : {screen : HelpFeedback, navigationOptions : {header : null}}
+  HelpFeedback : {screen : HelpFeedback, navigationOptions : {header : null}},
   // HomeScreen : {screen : HomeScreen, navigationOptions : {header : null}},
   // SettingScreen : {screen : SettingScreen, navigationOptions : {header : null}}
 },
