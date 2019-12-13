@@ -145,21 +145,11 @@ class Login extends Component{
 
     render(){
         //const {navigate} = this.props.navigation;
-        // console.warn("props in render" + JSON.stringify(this.props))
         return(
             <ScrollView>   
              {/* <KeyboardAwareScrollView> */}
-                <View style = {styles.loginContainer}>  
-                
+                <View style = {styles.loginContainer}>
                     <View style = {styles.loginSubcontainer}> 
-
-                    {/* <View style = {styles.demo}>
-                            <Input style = {styles.demo1}
-                            placeholder = 'Demo 1' />
-                            <Input style = {styles.demo2}
-                            placeholder = 'Demo 2' />
-                        </View> */}
-
                         <View>
                             <Image style = {styles.image}
                                 source = {require('../Assets/fundoo2.jpeg')}
@@ -213,7 +203,7 @@ class Login extends Component{
                     </View>     
                 </View>
                  {/* </KeyboardAwareScrollView> */}
-                  </ScrollView>
+            </ScrollView>
         )
     }
 }

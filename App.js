@@ -32,6 +32,9 @@ import ToggleSearchbarMenu from './src/Component/ToggleSearchbarMenu'
 import Datedropdown from './src/Component/Datedropdown'
 import Note from './src/Component/Note'
 import AddBoxMenu from './src/Component/AddBoxMenu'
+import Orientation from './src/Component/Orientation'
+import SearchNote from './src/Component/SearchNote'
+// import RefreshControlDemo from './src/Component/RefreshControlDemo'
 
 class App extends Component{
   render()
@@ -47,6 +50,9 @@ class App extends Component{
 // {/* <Try/> */}
     //  <DrawerRouter/>
       // <View>
+      // <SearchNote/>
+      //   {/* <RefreshControlDemo/> */}
+      //   {/* <Orientation/> */}
       //   {/* <AddBoxMenu/> */}
       //   {/* <Reminder/> */}
       //   {/* <Datedropdown/> */}

@@ -46,7 +46,8 @@ const AppDrawerNavigator = createDrawerNavigator({
     }},
     Settings : {screen : Settings, navigationOptions : 
       {drawerIcon : (<Image style = {{width : 25, height : 25}}
-      source = {require('../Assets/Setting.png')}/>)}},
+      source = {require('../Assets/Setting.png')}/>)
+    }},
     HelpFeedback : {screen : HelpFeedback, navigationOptions : {
       drawerLabel : 'Help & Feedback',
       drawerIcon : (<Image style = {{width : 25, height : 25}}

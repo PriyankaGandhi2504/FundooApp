@@ -25,9 +25,7 @@ class SignOutMenu extends Component {
     signOut = () => {
         this.props.navigation.navigate('Login')
         firebase.firebase.auth().signOut()
-        // this.props.signOut()
-        // console.log("User Successfully Signed Out");
-        
+        // this.props.signOut()        
     }
 
     uploadProfile = () => {

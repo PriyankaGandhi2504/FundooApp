@@ -11,7 +11,7 @@ class UserServices{
         // console.log("User Details in User Services");
     }
 
-     userData(){
+     userData(callback){
         var userObj = []
         var userId = this.userDetails()
         // console.log("User Id in firebase " + userId);
@@ -23,14 +23,15 @@ class UserServices{
             // var notekeys = Object.keys(userObject)
             //  console.log("Note Keys " + notekeys);
             // console.log("Array order by child " + JSON.stringify(array));
-            console.log("User's Object : " + JSON.stringify(userObject));
+            // console.log("User's Object : " + JSON.stringify(userObject));
             if(userId === userObject.fetchedUserId){
                 userObj.push(userObject)
+                callback(userObj)
             }
             // console.log("User Object Fetched Uid " + userObject.fetchedUserId);  
         })
-        console.log("User's Object Outside Loop : " + JSON.stringify(userObj));
-        return userObj
+        // console.log("User's Object Outside Loop : " + JSON.stringify(userObj));
+        // return userObj
     }
 
 
@@ -60,9 +61,9 @@ class UserServices{
             // array = snapshot.val()
              var noteObject1 = snapshot.val()
              var keysss=Object.keys(noteObject1)
-             console.log('keyssss',keysss)
+            //  console.log('keyssss',keysss)
             // console.log("Array order by child " + JSON.stringify(array));
-            console.log("User's Object : " + JSON.stringify(keysss));
+            // console.log("User's Object : " + JSON.stringify(keysss));
            // console.log("Notes Object " + JSON.stringify(Object.keys(noteObject1)));
             
            noteObj1.push(keysss)
@@ -74,7 +75,7 @@ class UserServices{
             // console.log('Note object ' + noteObj1)
             // // console.log("User Object Fetched Uid " + userObject.fetchedUserId);
         })
-        console.log("User's Object Outside Loop : " + JSON.stringify(noteObj1));
+        // console.log("User's Object Outside Loop : " + JSON.stringify(noteObj1));
         return noteObj1
     
     }  

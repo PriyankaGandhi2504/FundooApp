@@ -18,6 +18,7 @@ import Archive from './Archive'
 import DeletedNotes from './DeletedNotes';
 import Settings from './Settings'
 import HelpFeedback from './HelpFeedback'
+import SearchNote from './SearchNote'
 
 // navigationOptions : {header : null}
 const MainNavigator = createStackNavigator({
@@ -35,6 +36,7 @@ const MainNavigator = createStackNavigator({
   DeletedNotes : {screen : DeletedNotes, navigationOptions : {header : null}},
   Settings : {screen : Settings, navigationOptions : {header : null}},
   HelpFeedback : {screen : HelpFeedback, navigationOptions : {header : null}},
+  SearchNote : {screen : SearchNote, navigationOptions : {header : null}}
   // HomeScreen : {screen : HomeScreen, navigationOptions : {header : null}},
   // SettingScreen : {screen : SettingScreen, navigationOptions : {header : null}}
 },
