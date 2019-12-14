@@ -20,9 +20,6 @@ import { connect } from 'react-redux'
 import { Chip } from 'react-native-paper'
 
 var date = new Date().getMinutes()
-var Note;
-var Title;
-var KeyValue;
 var filledPinIcon = require('../Assets/FilledPin.png')
 var outlinedPinIcon = require('../Assets/Pinned.png')
 var dateAndTime = '';
@@ -30,6 +27,8 @@ var dataToUpdate
 
 class CreateNote extends Component {
     constructor(props) {
+        const { navigation } = props
+        dataToUpdate = navigation.getParam('clickedNote' , '')
         super(props)
         this.state = {
             Title: '',
@@ -44,7 +43,7 @@ class CreateNote extends Component {
             backgroundChange: false,
             note: '',
             title: '',
-            KeyValue: '',
+            KeyValue: dataToUpdate.key,
             notesKeys: [],
             isArchive: false,
             isPin: false,
@@ -61,6 +60,7 @@ class CreateNote extends Component {
             pinIcon : outlinedPinIcon,
             data : ''
         }
+        
         // const {navigation} = this.props
         //  dateAndTime = navigation.getParam('date' , 'No Date')
 
@@ -159,14 +159,18 @@ class CreateNote extends Component {
         const { navigation } = this.props
         dataToUpdate = navigation.getParam('clickedNote' , '')
         console.log('Data To Update ' + JSON.stringify(dataToUpdate))
-        await this.setState({
-            // data : dataToUpdate,
-            Note : dataToUpdate.Note,
-            Title : dataToUpdate.Title,
-            KeyValue : dataToUpdate.key
-        })
-
-        console.log('this.state.data' + JSON.stringify(this.state.KeyValue))   
+        if(this.state.KeyValue !== undefined){
+            await this.setState({
+                Note : dataToUpdate.Note,
+                Title : dataToUpdate.Title,
+                // KeyValue : dataToUpdate.key
+            })
+            console.log('this.state.data' + this.state.KeyValue) 
+        }else{
+            console.log('Key not found');
+            
+        }
+          
     }
 
     handlePinnedNotes = async () => {
@@ -181,8 +185,6 @@ class CreateNote extends Component {
                 pinIcon : outlinedPinIcon
             })
         }
-        
-
         // console.log("Pinned Status In If " + this.state.isPin);
     }
 
@@ -223,7 +225,7 @@ class CreateNote extends Component {
                 }
             }
         });
-        this.handleBackArrowToCreate()
+       // this.handleBackArrowToCreate()
         // console.log("Is Archive" + this.state.isArchive);
     }
 
@@ -277,14 +279,13 @@ class CreateNote extends Component {
         //     console.log("Error in catch " + error);
         // })
 console.log('Key Value in render ' + this.state.KeyValue);
-console.log('kuch to daal '+ String(this.state.KeyValue).length === 0);
-
+console.log('kuch to dikha '+ JSON.stringify(dataToUpdate));
         return (
             <View style={styles.createNoteContainer}>
                 <View style={{ width: "100%", height: "100%", backgroundColor: this.state.backgroundColor }}>
                     <View style={styles.headerContainer}>
                         <View style={styles.arrowContainer}>
-                            <TouchableOpacity onPress={this.state.KeyValue !== '' ? this.handleBackArrowToCreate : this.handleBackArrowToUpdate}>
+                            <TouchableOpacity onPress={this.state.KeyValue === undefined ? this.handleBackArrowToCreate : this.handleBackArrowToUpdate} >
                                 <Image style={{ width: 35, height: 35 }}
                                     source={require('../Assets/BackArrow.png')} />
                             </TouchableOpacity>

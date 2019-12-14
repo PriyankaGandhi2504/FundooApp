@@ -26,7 +26,7 @@ class UserServices{
             // console.log("User's Object : " + JSON.stringify(userObject));
             if(userId === userObject.fetchedUserId){
                 userObj.push(userObject)
-                callback(userObj)
+                return callback(userObj)
             }
             // console.log("User Object Fetched Uid " + userObject.fetchedUserId);  
         })

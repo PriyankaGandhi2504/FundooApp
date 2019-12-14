@@ -122,6 +122,14 @@ class Login extends Component{
                 // console.log('User data' + JSON.stringify(user))
                 // console.warn('User data' + JSON.stringify(user))
                 AsyncStorage.setItem('UserId', userId)
+                AsyncStorage.setItem('isAuthenticatedUser', 'true')
+                AsyncStorage.getItem('isAuthenticatedUser').then((success) => {
+                    console.log("Is Authenticated User " + success);
+                    
+                }).catch((error) => {
+                    console.log('Error from get item ' + error);
+                })
+
                 AsyncStorage.getItem('UserId') .then((success) => {
                     console.log("UserId " +success);     
                 })

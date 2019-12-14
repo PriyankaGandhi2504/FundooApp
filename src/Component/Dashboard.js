@@ -94,8 +94,8 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        UserData.userData((response) => {
-            // console.log("Response in Component Did Mount " + response);
+        UserData.userData(response => {
+            console.log("Response in Component Did Mount " + response);
 
             this.setState({
                 usersNote: response

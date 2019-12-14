@@ -34,6 +34,7 @@ import Note from './src/Component/Note'
 import AddBoxMenu from './src/Component/AddBoxMenu'
 import Orientation from './src/Component/Orientation'
 import SearchNote from './src/Component/SearchNote'
+// import SplashScreen from './src/Component/SplashScreen'
 // import RefreshControlDemo from './src/Component/RefreshControlDemo'
 
 class App extends Component{
@@ -50,7 +51,8 @@ class App extends Component{
 // {/* <Try/> */}
     //  <DrawerRouter/>
       // <View>
-      // <SearchNote/>
+      //   <SplashScreen/>
+      // {/* <SearchNote/> */}
       //   {/* <RefreshControlDemo/> */}
       //   {/* <Orientation/> */}
       //   {/* <AddBoxMenu/> */}

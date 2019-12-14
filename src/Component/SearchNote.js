@@ -39,22 +39,31 @@ class SearchNote extends Component{
         })
         return(
             this.state.notesArray.map((notesArray, indexes) => {
-                if (notesArray.Note === value || notesArray.Title === value) {
+                if (notesArray.Note == value || notesArray.Title == value) {
                     // this.setState({
                     //     noteDisplay : {
                     //         width : '100%'
                     //     }
                     // })
-                    
-                    return (                    
-                        alert('found')
+                    alert(`found`)
+                    return (  
+                        alert(`Found in return`)                  
+                        // <View>
+                        
+                    //   {/* <View style = {{height : 900}}> */}
+                        // <Note index={indexes} Title={notesArray.Title} Note={notesArray.Note} 
+                        // navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} 
+                        // Color={notesArray.Color} Reminder={notesArray.Reminder}/>
+                        // </View>
+                        //  </View>
+                        // </View>
                         // <Text>hola</Text>
                     );
                     // <View style = {{height : '100%' , backgroundColor : 'pink'}}>
                     //             <Text> hello</Text>
                     //     </View>);
                         // <View style = {{height : 900}}>
-                    //    ? <Note index={indexes} Title={notesArray.Title} Note={notesArray.Note} 
+                    //    <Note index={indexes} Title={notesArray.Title} Note={notesArray.Note} 
                     //     navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} 
                     //     Color={notesArray.Color} Reminder={notesArray.Reminder}/>
                         // </View>
@@ -64,8 +73,10 @@ class SearchNote extends Component{
         )
     }
 
-    handleCrossIcon = () => {
-       this.state.searchedText = ''
+    handleCrossIcon = async() => {
+       await this.setState({
+           searchedText : ''
+       })
     }
 
     render(){

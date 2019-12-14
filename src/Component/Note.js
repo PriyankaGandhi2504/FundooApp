@@ -84,33 +84,24 @@ class Note extends Component {
     }
 
     handleNormalPress = (event, i) => {
-
         var ndata;
-        console.log('value of i', i)
-
         var noteObject1, keysss;
         var noteObjectArray = []
 
         firebase.database.database().ref('Notes').on('child_added', function (snapshot) {
             noteObject1 = snapshot.val()
-
             firebase.database.database().ref('Notes').on('value', function (snapshot) {
-
                 noteObject1 = snapshot.val()
                 keysss = Object.keys(noteObject1)
-
             })
 
             var j;
             for (j = 0; j < keysss.length; j++) {
                 var keyIndex = keysss[j]
-
                 ndata = noteObject1[keyIndex]
                 ndata['key'] = keyIndex
                 noteObjectArray.push(ndata)
-
             }
-
         })
 
         this.setState({
@@ -139,7 +130,6 @@ class Note extends Component {
             this.props.navigation.navigate('CreateNote',
                 {
                     clickedNote: noteObjectArray[i]
-
                 }
             )
         }

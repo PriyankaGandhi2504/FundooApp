@@ -48,6 +48,10 @@ class DeletedNotes extends Component {
         }
     }
 
+    handleEmptyRecycleBin = () => {
+        
+    }
+
     render() {
         return (
             <View>
@@ -78,7 +82,7 @@ class DeletedNotes extends Component {
 
                 <View style = {this.state.isEmptyNoteDisplay}>
                 <View style = {{height : 50, width : '50%', elevation : 1, borderWidth : 0.5, right : 10, top : 10}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {this.handleEmptyRecycleBin}>
                             <Text style = {{fontSize : 20, top : 10}}> Empty Recycle Bin </Text>
                         </TouchableOpacity>
                     </View>
