@@ -84,70 +84,39 @@ class Note extends Component {
     }
 
     handleNormalPress = (event, i) => {
-        //this.state.flag[i] = 0
-        //    var sliceArray = this.state.selectedNotesIndex.splice(i,1)
-        //     console.log('Selected Index Array After Pop' + sliceArray);
-        //    if(this.state.selectedNotesIndex == ''){
-        //        console.log("Empty Array");
-        //    } 
+
         var ndata;
         console.log('value of i', i)
-        // console.log('Note Title' + JSON.stringify(ndata[keyIndex].Title));
-        // this.state.countClick = this.state.countClick + 1
-        var noteObject1, skey, keysss;
+
+        var noteObject1, keysss;
         var noteObjectArray = []
 
         firebase.database.database().ref('Notes').on('child_added', function (snapshot) {
             noteObject1 = snapshot.val()
-            // console.log('NoteObject data', noteObject1)     note, title, fetchedUserId
-            //  console.log('Title',noteObject1.Title)
-            // console.log('Keyysssssssss' + keysss);
 
             firebase.database.database().ref('Notes').on('value', function (snapshot) {
-                // console.log("Order By Child " + snapshot.key + "Value " + JSON.stringify(snapshot.val().notes));
-                // array = snapshot.val()
+
                 noteObject1 = snapshot.val()
                 keysss = Object.keys(noteObject1)
-                // console.log('keyssss', keysss)
 
-                // for (var i = 0; i < keysss.length; i++) {
-                //     if (skey === keysss) {
-                //         console.log('matched key')
-                //     }
-                // }
-                // console.log("Array order by child " + JSON.stringify(array));
-                //console.log("User's Object : " + JSON.stringify(keysss));
-                // console.log("Notes Object " + JSON.stringify(Object.keys(noteObject1)));
-                // noteObj1.push(keysss)
-                // if(keysss === noteObject1.key){
-                //     noteObj1.push(keysss)
-                //     console.log('in ID',noteObj1)
-                // }
-                // console.log('Note object ' + noteObj1)
-                // // console.log("User Object Fetched Uid " + userObject.fetchedUserId);
             })
-            //skey = snapshot.key
-            //  var childKey = snapshot.child("Notes").key;
-            //  console.log('childkey:',childKey);
-            //console.log('..................child key', skey)
+
             var j;
             for (j = 0; j < keysss.length; j++) {
                 var keyIndex = keysss[j]
-                // console.log('keyIndex Title', JSON.stringify(noteObject1[keyIndex]))
+
                 ndata = noteObject1[keyIndex]
                 ndata['key'] = keyIndex
-                noteObjectArray.push(ndata) 
-                //console.log('Note Title inside loop ' + JSON.stringify(ndata.Title));
+                noteObjectArray.push(ndata)
+
             }
-            // console.log("note " + JSON.stringify(ndata));
-            // console.log("Note object Array " + JSON.stringify(noteObjectArray));
+
         })
-        // console.log('Note Title' + JSON.stringify(noteObjectArray[i].key)); //particular card's key
-        // console.log("Note object Array outside Loop" + JSON.stringify(noteObjectArray));
+
         this.setState({
             usersNote: noteObjectArray
         })
-        // console.log('Note Title oiutside loop ' + JSON.stringify(noteObjectArray[i].key)); //particular card's key
+
         if (this.state.isSelected[i] === true) {
             this.state.isSelected[i] = false
             this.state.flag[i] = 0
@@ -166,28 +135,15 @@ class Note extends Component {
                 })
             }
         } else {
-            // console.log('Note Title in else part ' + JSON.stringify(noteObjectArray[i].key)); //particular card's key
+            console.log('Note Title in else part ' + JSON.stringify(noteObjectArray[i].Note)); //particular card's key
             this.props.navigation.navigate('CreateNote',
-            {
-                clickedNote : noteObjectArray[i]
+                {
+                    clickedNote: noteObjectArray[i]
 
-            }
-                // {
-                //     fetchedNote : noteObjectArray[i].Note,
-                //     fetchedTitle : noteObjectArray[i].Title,
-                //     fetchedKey : noteObjectArray[i].key
-                // }
+                }
             )
         }
-        //end of fetching
-
-        // , {
-        //     Title : title,
-        //     Note : note,
-        // }
-        // )
-        // // }
-    }
+    }//end of normalPress
 
     render() {
         const { index, Title, Note, gridDisplayValue, Color, Reminder } = this.props

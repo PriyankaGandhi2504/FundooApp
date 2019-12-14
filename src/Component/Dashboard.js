@@ -157,7 +157,7 @@ class Dashboard extends Component {
         // console.log("Note in Render " + note);
         // console.log("Title:",title)
         // console.log("Note in user Object " + userObject.Note);
-
+        
         return (
 
             <View style={styles.dashboardContainer}>

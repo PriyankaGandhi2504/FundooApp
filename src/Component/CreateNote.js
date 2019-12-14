@@ -58,7 +58,8 @@ class CreateNote extends Component {
             },
             isDeleted: false,
             toUpdateOrCreate : false,
-            pinIcon : outlinedPinIcon
+            pinIcon : outlinedPinIcon,
+            data : ''
         }
         // const {navigation} = this.props
         //  dateAndTime = navigation.getParam('date' , 'No Date')
@@ -81,29 +82,7 @@ class CreateNote extends Component {
             this.props.navigation.navigate('Dashboard')
 
         } else {
-            // var noteObj = {
-            //     Note : this.state.Note,
-            //     Title : this.state.Title,
-            // }
-
-            // AsyncStorage.getItem('UserId').then((success) => {
-            //     this.state.fetchedUserId = success
-            //     // console.log("Fetched user id in Create Note " + this.state.fetchedUserId);  
-            // })
-            // var userID = JSON.parse(this.state.fetchedUserId)
-            // console.log("Parsed User ID " + userID);
-            // var id=fetchedUserId
-
-            // console.log("Fetched User Id : " + this.state.fetchedUserId);
-            // firebase.database.storage()
-            // this.setState({
-            //     snackBarDisplay : {
-            //         display : 'none'
-            //     }
-            // })
-            // firebase.database.database().ref('/Notes').push(noteObj)
-            // var notesValue = noteObj
-
+           
             var array = this.state.notes
             array.push(noteObj)
             // console.log("Arr Data " + arr);
@@ -131,17 +110,7 @@ class CreateNote extends Component {
         }
     }
 
-    handleBackArrowToUpdate = (Note, Title, KeyValue) => {
-
-        var noteDetails = NoteData.noteData()
-        // console.log('note details',noteDetails)
-        // this.setState({
-        //     noteObject : noteDetails
-        // })
-        // console.log("Notes Keys In Create Note " + noteDetails);
-        // AsyncStorage.setItem('UserData', noteObject)
-        // var pushednoteobject=NoteData.noteData()
-
+    handleBackArrowToUpdate = () => {
         var noteObject = {
             Note: this.state.Note,
             Title: this.state.Title,
@@ -152,71 +121,11 @@ class CreateNote extends Component {
             Reminder: dateAndTime,
             Deleted: this.state.isDeleted
         }
-
-       // console.log("Key in create note " + KeyValue);
-        firebase.database.database().ref('Notes').child(KeyValue).update(noteObject)
-
-        // this.setState({
-        //     notesKeys:object
-        // })
-
-        // var newData=this.state.notesKeys
-        // var updates = {};
-        // updates["/Notes/" + key] = {
-        //   newData
-        // };
-
-        // if(pushednoteobject === currentNoteKey){
-        // firebase.database.database().ref('Notes')
-        //     pushedData.child('Title').update({
-        //         'Note' : this.state.Note,
-        //         'Title' : this.state.Title,
-        //     })
-
-        // }
-        // })
-        // var userData = firebase.firebase.auth().currentUser
-        // userId = userData.uid
-        // var usersNotes = firebase.firebase.auth().currentUser
-        // AsyncStorage.setItem('UserData', usersNotes)
-        // AsyncStorage.setItem('UserId', JSON.stringify(noteObj))
-
+       firebase.database.database().ref('Notes').child(this.state.KeyValue).update(noteObject)
         this.props.navigation.navigate('Dashboard')
-        // , {
-        //     Note : this.state.Note,
-        //     Title : this.state.Title
-        // })
-
-        // var parsedData = JSON.parse(data)
-        // console.log("Parsed Data " + parsedData);
-
-        // var noteObject = {
-        //     notes : this.state.notes,
-        //     userId : usersNotes.uid
-        // }
-
-        // var usersNotes = firebase.firebase.auth().currentUser
-        // if(usersNotes != null){
-        //     var abc = AsyncStorage.getItem('userId')
-        //     if(abc != null){
-        //         console.log("Abc Data" + JSON.stringify(abc));
-        //     }                
-        // }
-
-        // console.log("Notes " + JSON.stringify(notes));
-        // var notes = AsyncStorage.getItem('userId')
-        // console.log("Notes " + notes);
-        // console.log('Note Object ' + JSON.stringify(noteObj));
-        // alert(AsyncStorage.getAllKeys())
-
+        
     }
-    // handleNoteChange = (text) => {
-    //     this.state.Note = text
-    //     this.setState({
-    //         ...this.state
-    //     })
-    // }
-
+   
     menuIcon = () => {
         if (!this.state.menuIconVisibility) {
             this.setState({
@@ -234,6 +143,7 @@ class CreateNote extends Component {
     }
 
     changeColor = (color) => {
+        alert('color')
         if (!this.state.backgroundChange) {
             this.setState({
                 backgroundColor: color
@@ -245,49 +155,18 @@ class CreateNote extends Component {
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount = async() => {
         const { navigation } = this.props
-        dataToUpdate = navigation.getParam('clickedNote' , 'No Data Found')
+        dataToUpdate = navigation.getParam('clickedNote' , '')
+        console.log('Data To Update ' + JSON.stringify(dataToUpdate))
+        await this.setState({
+            // data : dataToUpdate,
+            Note : dataToUpdate.Note,
+            Title : dataToUpdate.Title,
+            KeyValue : dataToUpdate.key
+        })
 
-        // console.log('Abc Value from create note ' + JSON.stringify(dataToUpdate));
-// if(dataToUpdate.Note || dataToUpdate.Title !== ''){
-//     this.setState({
-//         toUpdateOrCreate : true
-//     })
-//     alert(`${this.state.toUpdateOrCreate}`)
-// }
-  
-// this.state.toUpdateOrCreate=true
-        // this.setState({
-        //     Note : dataToUpdate.Note,
-        //     Title : dataToUpdate.Title,
-        //     KeyValue : dataToUpdate.key
-        // })
-
-        
-       // this.handleBackArrowToCreate()
-
-        // Note = dataToUpdate.Note
-        // Title = dataToUpdate.Title
-        // KeyValue = dataToUpdate.key
-                // console.log('Abc Value from create note ' + JSON.stringify(dataToUpdate.Note));
-                // console.log('Abc Value from create note ' + JSON.stringify(dataToUpdate.Title));
-                // console.log('Abc Value from create note ' + JSON.stringify(dataToUpdate.key));
-
-                // this.handleBackArrowToUpdate(dataToUpdate.Note, dataToUpdate.Title, dataToUpdate.key)
-
-
-        // Note = navigation.getParam('fetchedNote','')
-        // Title = navigation.getParam('fetchedTitle','')
-        // key1 = navigation.getParam('key1', '')
-
-        // this.setState({
-
-        //         Note : Note,
-        //         Title : Title,
-        //         //KeyValue : key1
-
-        // }, () => this.handleBackArrowToUpdate(Note, Title))
+        console.log('this.state.data' + JSON.stringify(this.state.KeyValue))   
     }
 
     handlePinnedNotes = async () => {
@@ -397,13 +276,15 @@ class CreateNote extends Component {
         // .catch((error) => {
         //     console.log("Error in catch " + error);
         // })
+console.log('Key Value in render ' + this.state.KeyValue);
+console.log('kuch to daal '+ String(this.state.KeyValue).length === 0);
 
         return (
             <View style={styles.createNoteContainer}>
                 <View style={{ width: "100%", height: "100%", backgroundColor: this.state.backgroundColor }}>
                     <View style={styles.headerContainer}>
                         <View style={styles.arrowContainer}>
-                            <TouchableOpacity onPress={this.handleBackArrowToCreate}>
+                            <TouchableOpacity onPress={this.state.KeyValue !== '' ? this.handleBackArrowToCreate : this.handleBackArrowToUpdate}>
                                 <Image style={{ width: 35, height: 35 }}
                                     source={require('../Assets/BackArrow.png')} />
                             </TouchableOpacity>
