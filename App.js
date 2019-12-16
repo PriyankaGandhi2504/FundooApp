@@ -51,9 +51,9 @@ class App extends Component{
 // {/* <Try/> */}
     //  <DrawerRouter/>
       // <View>
-      //   <SplashScreen/>
+      //   {/* <SplashScreen/> */}
       // {/* <SearchNote/> */}
-      //   {/* <RefreshControlDemo/> */}
+      //   <RefreshControlDemo/>
       //   {/* <Orientation/> */}
       //   {/* <AddBoxMenu/> */}
       //   {/* <Reminder/> */}

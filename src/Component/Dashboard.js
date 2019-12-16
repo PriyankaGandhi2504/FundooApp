@@ -219,8 +219,8 @@ class Dashboard extends Component {
                                         if (!usersNote.isArchive && !usersNote.Deleted && usersNote.isPin) {
                                             return (
                                                 <Note index={indexing} Title={usersNote.Title} Note={usersNote.Note}
-                                                    navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
-                                                    Color={usersNote.Color} Reminder={usersNote.Reminder} />
+                                                navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
+                                                Color={usersNote.Color} Reminder={usersNote.Reminder} />
                                             );
                                         }
                                     })

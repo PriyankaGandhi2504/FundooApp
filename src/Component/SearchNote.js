@@ -1,30 +1,29 @@
-import React, {Component} from 'react'
-import {View, Text, Image, TouchableOpacity} from 'react-native'
+import React, { Component } from 'react'
+import { View, Image, TouchableOpacity } from 'react-native'
 import Dashboard from './Dashboard'
-import { Input } from 'react-native-elements'
 import { TextInput } from 'react-native-paper'
 import Note from './Note'
 import userData from '../../UserServices'
+import { ScrollView } from 'react-native-gesture-handler'
 const UserData = new userData
 
-class SearchNote extends Component{
+class SearchNote extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            searchedText : '',
-            notesArray : [],
-            noteDisplay : {
-                display : 'none'
-            }
+            searchedText: '',
+            notesArray: [],
+            noteDisplay: {
+                display: 'none'
+            },
         }
     }
 
     componentDidMount = () => {
-        UserData.userData( (response) => {
-            // console.log('Aerchived notes in  Archive page',response)
+        UserData.userData((response) => {
             this.setState({
-                notesArray : response
+                notesArray: response
             })
         })
     }
@@ -35,76 +34,58 @@ class SearchNote extends Component{
 
     handleSearchNote = (value) => {
         this.setState({
-            searchedText : value
+            searchedText: value
         })
-        return(
-            this.state.notesArray.map((notesArray, indexes) => {
-                if (notesArray.Note == value || notesArray.Title == value) {
-                    // this.setState({
-                    //     noteDisplay : {
-                    //         width : '100%'
-                    //     }
-                    // })
-                    alert(`found`)
-                    return (  
-                        alert(`Found in return`)                  
-                        // <View>
-                        
-                    //   {/* <View style = {{height : 900}}> */}
-                        // <Note index={indexes} Title={notesArray.Title} Note={notesArray.Note} 
-                        // navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} 
-                        // Color={notesArray.Color} Reminder={notesArray.Reminder}/>
-                        // </View>
-                        //  </View>
-                        // </View>
-                        // <Text>hola</Text>
-                    );
-                    // <View style = {{height : '100%' , backgroundColor : 'pink'}}>
-                    //             <Text> hello</Text>
-                    //     </View>);
-                        // <View style = {{height : 900}}>
-                    //    <Note index={indexes} Title={notesArray.Title} Note={notesArray.Note} 
-                    //     navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} 
-                    //     Color={notesArray.Color} Reminder={notesArray.Reminder}/>
-                        // </View>
-                    
-                }
-            })
-        )
     }
 
-    handleCrossIcon = async() => {
-       await this.setState({
-           searchedText : ''
-       })
+    handleCrossIcon = async () => {
+        await this.setState({
+            searchedText: ''
+        })
     }
 
-    render(){
-        return(
-            <View style = {{height : 50, borderBottomWidth : 0.5, elevation : 2, display : 'flex', flexDirection : 'row', justifyContent : 'space-between'}}>
-                <TouchableOpacity onPress = {this.handleBackArrow}>
-                    <View>
-                        <Image style = {{width : 30, height : 30, top : 10}}
-                        source = {require('../Assets/BackArrow.png')}/>
+    render() {
+        return (
+            <View style={{ height: '100%', width: '100%' }}>
+                <View style={{ height: 50, borderBottomWidth: 0.5, elevation: 2, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <TouchableOpacity onPress={this.handleBackArrow}>
+                        <View>
+                            <Image style={{ width: 30, height: 30, top: 10 }}
+                                source={require('../Assets/BackArrow.png')} />
+                        </View>
+                    </TouchableOpacity>
+
+                    <View style={{ width: 300, height: 60 }}>
+                        <TextInput style={{ height: 50, width: '100%' }}
+                            value={this.state.searchedText}
+                            placeholder='Search your notes'
+                            onChangeText={(value) => this.handleSearchNote(value)} />
                     </View>
-                </TouchableOpacity>
 
-                <View style = {{width : 300, height : 60}}>
-                    <TextInput style = {{height : 50, width : '100%'}}
-                    value = {this.state.searchedText}
-                    placeholder = 'Search your notes'
-                    onChangeText = {(value) => this.handleSearchNote(value)}/>
-                    {/* <View style = {this.state.noteDisplay}>
-                    <Note index={indexes} Title={notesArray.Title} Note={notesArray.Note} navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} Color={notesArray.Color} Reminder={notesArray.Reminder}/>
-                    </View> */}
+                    <TouchableOpacity onPress={this.handleCrossIcon}>
+                        <View style={{ width: '90%', display: 'flex', alignItems: 'flex-end' }}>
+                            <Image style={{ width: 30, height: 30, top: 10, tintColor: 'grey' }}
+                                source={require('../Assets/Cross.png')} />
+                        </View>
+                    </TouchableOpacity>
                 </View>
- 
-                <TouchableOpacity onPress = {this.handleCrossIcon}>
-                    <View style = {{width : '90%', display : 'flex', alignItems : 'flex-end'}}>
-                        <Image style = {{width : 30, height : 30, top : 10, tintColor : 'grey'}}
-                        source = {require('../Assets/Cross.png')}/>
+
+                <ScrollView>
+                    <View>
+                        {
+                            this.state.notesArray.map((notesArray, indexes) => {                               
+                                if(notesArray.Note.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || notesArray.Note.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || 
+                                    notesArray.Title.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || notesArray.Title.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1) {
+                                    return (
+                                        <Note index={indexes} Title={notesArray.Title} Note={notesArray.Note}
+                                        navigation={this.props.navigation} gridDisplayValue={false}
+                                        Color={notesArray.Color} Reminder={notesArray.Reminder} />
+                                    )
+                                }
+                            })
+                        }
                     </View>
-                </TouchableOpacity>
+                </ScrollView>
 
             </View>
         )

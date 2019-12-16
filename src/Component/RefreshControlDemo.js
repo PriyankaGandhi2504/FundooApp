@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { ScrollView, RefreshControl, StyleSheet, Text, SafeAreaView } from 'react-native';
+import { ScrollView, RefreshControl, StyleSheet, Text, View } from 'react-native';
 const [refreshing, setRefreshing] = React.useState(false);
-const onRefresh
+// const onRefresh
+// const refreshing = false
+// const setRefreshing = false
 
 class RefreshControlDemo extends Component {
 
-    onRefresh = React.useCallback(() => {
+onRefresh = () => {
+    React.useCallback(() => {
         setRefreshing(true);
 
         wait(2000).then(() => setRefreshing(false));
     }, [refreshing]);
+}
 
     wait(timeout) {
         return new Promise(resolve => {
@@ -17,18 +21,20 @@ class RefreshControlDemo extends Component {
         });
     }
 
+
     render() {
         return (
-            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
                 <ScrollView
                     contentContainerStyle={styles.scrollView}
                     refreshControl={
-                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                        <RefreshControl
+                        refreshing={refreshing} onRefresh={this.onRefresh} />
                     }
                 >
                     <Text>Pull down to see RefreshControl indicator</Text>
                 </ScrollView>
-            </SafeAreaView>
+            </View>
         );
     }
 }
