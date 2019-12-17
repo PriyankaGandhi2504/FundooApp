@@ -173,7 +173,6 @@ class Dashboard extends Component {
 
                     <View>
                         {/* <DefaultSearchBar textdisplay = 'Search your Note' navigation = {this.props.navigation}/> */}
-
                         <View style={styles.searchBar}>
                             <View>
                                 <TouchableOpacity style={{ width: 50 }}
@@ -215,12 +214,12 @@ class Dashboard extends Component {
                             <Text> PINNED </Text>
                             <View style={styles.userCard}>
                                 {
-                                    this.state.usersNote.map((usersNote, indexing) => {
-                                        if (!usersNote.isArchive && !usersNote.Deleted && usersNote.isPin) {
+                                    Object.getOwnPropertyNames(this.state.usersNote).map((key, indexing) => {
+                                        if (!this.state.usersNote[key].isArchive && !this.state.usersNote[key].Deleted && this.state.usersNote[key].isPin) {
                                             return (
-                                                <Note index={indexing} Title={usersNote.Title} Note={usersNote.Note}
+                                                <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
                                                 navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
-                                                Color={usersNote.Color} Reminder={usersNote.Reminder} />
+                                                Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} />
                                             );
                                         }
                                     })
@@ -232,12 +231,12 @@ class Dashboard extends Component {
                             <Text> OTHERS </Text>
                             <View style={styles.userCard}>
                                 {
-                                    this.state.usersNote.map((usersNote, indexing) => {
-                                        if (!usersNote.isArchive && !usersNote.Deleted && !usersNote.isPin) {
+                                    Object.getOwnPropertyNames(this.state.usersNote).map((key, indexing) => {
+                                        if (!this.state.usersNote[key].isArchive && !this.state.usersNote[key].Deleted && !this.state.usersNote[key].isPin) {
                                             return (
-                                                <Note index={indexing} Title={usersNote.Title} Note={usersNote.Note}
+                                                <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
                                                     navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
-                                                    Color={usersNote.Color} Reminder={usersNote.Reminder} />
+                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} />
                                             );
                                         }
 

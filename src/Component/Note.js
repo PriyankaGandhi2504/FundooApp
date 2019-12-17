@@ -31,7 +31,9 @@ class Note extends Component {
             toggleSearchBar: {
                 display: 'none'
             },
+            // Deleted : props.DeletedValue
         }
+        // console.log('Deleted Value ' + this.props.DeletedValue)
     }
 
     async componentDidMount() {
@@ -126,8 +128,12 @@ class Note extends Component {
                 })
             }
         } else {
-            console.log('Note Title in else part ' + JSON.stringify(noteObjectArray[i].Note)); //particular card's key
-            this.props.navigation.navigate('CreateNote',
+            // console.log('Deleted Value in Else ' + Deleted)
+            // console.log('Note Title in else part ' + JSON.stringify(noteObjectArray[i].Note)); //particular card's key
+            this.props.DeletedValue === true ? this.props.navigation.navigate('RestoreTrash', {
+                clickedNote: noteObjectArray[i]
+            })
+            : this.props.navigation.navigate('CreateNote',
                 {
                     clickedNote: noteObjectArray[i]
                 }
@@ -136,7 +142,7 @@ class Note extends Component {
     }//end of normalPress
 
     render() {
-        const { index, Title, Note, gridDisplayValue, Color, Reminder } = this.props
+        const {index, Title, Note, gridDisplayValue, Color, Reminder, DeletedValue} = this.props
         return (
             <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, index)}
                 onPress={(event) => this.handleNormalPress(event, index)}

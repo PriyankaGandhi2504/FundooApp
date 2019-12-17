@@ -16,7 +16,7 @@ class UserServices{
         var userId = this.userDetails()
         // console.log("User Id in firebase " + userId);
         // if(userId === )
-         firebase.database.database().ref('Notes').on('child_added',function (snapshot)  {
+         firebase.database.database().ref('Notes').orderByChild('fetchedUserId').equalTo(userId).on('value',function (snapshot)  {
             // console.log("Order By Child " + snapshot.key + "Value " + JSON.stringify(snapshot.val().notes));
             // array = snapshot.val()
              var userObject = snapshot.val()
@@ -24,10 +24,12 @@ class UserServices{
             //  console.log("Note Keys " + notekeys);
             // console.log("Array order by child " + JSON.stringify(array));
             // console.log("User's Object : " + JSON.stringify(userObject));
-            if(userId === userObject.fetchedUserId){
-                userObj.push(userObject)
-                return callback(userObj)
-            }
+            // if(userId === userObject.fetchedUserId){
+                // userObj.push(userObject)
+                console.log('User Object from User Services ' + JSON.stringify(userObject));
+                
+                return callback(userObject)
+            // }
             // console.log("User Object Fetched Uid " + userObject.fetchedUserId);  
         })
         // console.log("User's Object Outside Loop : " + JSON.stringify(userObj));

@@ -43,7 +43,7 @@ class CreateNote extends Component {
             backgroundChange: false,
             note: '',
             title: '',
-            KeyValue: dataToUpdate.key,
+            KeyValue: '',
             notesKeys: [],
             isArchive: false,
             isPin: false,
@@ -58,17 +58,13 @@ class CreateNote extends Component {
             isDeleted: false,
             toUpdateOrCreate : false,
             pinIcon : outlinedPinIcon,
-            data : ''
+            data : '',
         }
-        
         // const {navigation} = this.props
         //  dateAndTime = navigation.getParam('date' , 'No Date')
-
-        // console.log('this.props.date in  Createnote',dateAndTime)
     }
 
     handleBackArrowToCreate = () => {
-        // this.props.navigation.navigate('Dashboard')
         var noteObj = {
             Title: this.state.Title,
             Note: this.state.Note
@@ -78,21 +74,14 @@ class CreateNote extends Component {
                 title: 'Empty Note Discarded',
                 duration: 1000
             });
-            // alert(`Selected Color ${this.state.backgroundColor}` )
             this.props.navigation.navigate('Dashboard')
-
         } else {
-           
             var array = this.state.notes
             array.push(noteObj)
-            // console.log("Arr Data " + arr);
             this.setState({
                 notes: array
             })
-            // console.log("Array Of Notes " + JSON.stringify(this.state.notes));
             var noteObject = {
-                // notes : this.state.notes,
-                // notes : [{name : 'abc'}, {name : 'xyz'}],
                 Title: this.state.Title,
                 Note: this.state.Note,
                 fetchedUserId: this.state.fetchedUserId,
@@ -104,8 +93,6 @@ class CreateNote extends Component {
             }
             const pushedData = firebase.database.database().ref('/Notes').push(noteObject)
             const key = pushedData.key
-            // console.log('New Pushed Data :', pushedData)
-            // console.log('key of pushed data', key)
             this.props.navigation.navigate('Dashboard')
         }
     }
@@ -123,7 +110,6 @@ class CreateNote extends Component {
         }
        firebase.database.database().ref('Notes').child(this.state.KeyValue).update(noteObject)
         this.props.navigation.navigate('Dashboard')
-        
     }
    
     menuIcon = () => {
@@ -143,7 +129,6 @@ class CreateNote extends Component {
     }
 
     changeColor = (color) => {
-        alert('color')
         if (!this.state.backgroundChange) {
             this.setState({
                 backgroundColor: color
@@ -159,6 +144,9 @@ class CreateNote extends Component {
         const { navigation } = this.props
         dataToUpdate = navigation.getParam('clickedNote' , '')
         console.log('Data To Update ' + JSON.stringify(dataToUpdate))
+        await this.setState({
+            KeyValue : dataToUpdate.key
+        })
         if(this.state.KeyValue !== undefined){
             await this.setState({
                 Note : dataToUpdate.Note,
@@ -167,8 +155,7 @@ class CreateNote extends Component {
             })
             console.log('this.state.data' + this.state.KeyValue) 
         }else{
-            console.log('Key not found');
-            
+            console.log('Key not found');   
         }
           
     }
@@ -185,7 +172,6 @@ class CreateNote extends Component {
                 pinIcon : outlinedPinIcon
             })
         }
-        // console.log("Pinned Status In If " + this.state.isPin);
     }
 
     handleReminder = async () => {
@@ -218,14 +204,13 @@ class CreateNote extends Component {
                 title: 'UNDO',
                 color: 'green',
                 onPress: () => {
-                    // this.setState({
                         this.state.isArchive = !this.state.isArchive
-                    // })
+                        this.handleBackArrowToCreate()
                     alert(`State Changed ${this.state.isArchive}`)
                 }
             }
         });
-       // this.handleBackArrowToCreate()
+       this.handleBackArrowToCreate()
         // console.log("Is Archive" + this.state.isArchive);
     }
 
@@ -233,7 +218,6 @@ class CreateNote extends Component {
         await this.setState({
             isDeleted: !this.state.isDeleted
         })
-        this.handleBackArrowToCreate()
         Snackbar.show({
             title: 'Note moved to Bin',
             duration: 1000,
@@ -241,14 +225,15 @@ class CreateNote extends Component {
                 title: 'UNDO',
                 color: 'green',
                 onPress: () => {
-                    this.setState({
-                        isDeleted: false
-                    })
+                    // this.setState({
+                        this.state.isDeleted = !this.state.isDeleted
+                        this.handleBackArrowToCreate()
+                    // })
                     alert(`State Changed ${this.state.isDeleted}`)
                 }
             }
         });
-        // console.log("Is Deleted " + this.state.isDeleted)
+        this.handleBackArrowToCreate()
     }
 
     render() {
@@ -278,8 +263,7 @@ class CreateNote extends Component {
         // .catch((error) => {
         //     console.log("Error in catch " + error);
         // })
-console.log('Key Value in render ' + this.state.KeyValue);
-console.log('kuch to dikha '+ JSON.stringify(dataToUpdate));
+// console.log('Key Value in render ' + this.state.KeyValue);
         return (
             <View style={styles.createNoteContainer}>
                 <View style={{ width: "100%", height: "100%", backgroundColor: this.state.backgroundColor }}>

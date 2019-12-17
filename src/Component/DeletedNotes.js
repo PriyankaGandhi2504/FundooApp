@@ -92,10 +92,15 @@ class DeletedNotes extends Component {
                     <View>
                     
                         {
-                            this.state.deletedNotes.map((deletedNotes, indexes) => {
-                                if (deletedNotes.Deleted) {
+                            Object.getOwnPropertyNames(this.state.deletedNotes).map((key, indexes) => {
+                                console.log('Deleted Value from Deleted Page ' + this.state.deletedNotes[key].Deleted)
+                                if (this.state.deletedNotes[key].Deleted) {
+                                    console.log('Deleted Value from Deleted Page Inside IF ' + this.state.deletedNotes[key].Deleted)
                                     return (
-                                        <Note index={indexes} Title={deletedNotes.Title} Note={deletedNotes.Note} navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} Color={deletedNotes.Color} Reminder={deletedNotes.Reminder} />
+                                        <Note index={indexes} Title={this.state.deletedNotes[key].Title} 
+                                        Note={this.state.deletedNotes[key].Note} navigation={this.props.navigation} 
+                                        gridDisplayValue={this.state.gridDisplay} Color={this.state.deletedNotes[key].Color} 
+                                        Reminder={this.state.deletedNotes[key].Reminder} DeletedValue = {this.state.deletedNotes[key].Deleted}/>
                                     )
                                 }
                             })}

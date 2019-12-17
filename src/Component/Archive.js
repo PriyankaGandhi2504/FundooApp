@@ -49,10 +49,10 @@ class Archive extends Component {
                     <ScrollView>
                         <View style = {{height : '100%'}}>
                             {
-                                this.state.archivedNotes.map((archivedNotes, indexes) => {
-                                    if (archivedNotes.isArchive) {
+                                Object.getOwnPropertyNames(this.state.archivedNotes).map((key, indexes) => {
+                                    if (this.state.archivedNotes[key].isArchive) {
                                         return (
-                                            <Note index={indexes} Title={archivedNotes.Title} Note={archivedNotes.Note} navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} Color={archivedNotes.Color} Reminder={archivedNotes.Reminder}/>
+                                            <Note index={indexes} Title={this.state.archivedNotes[key].Title} Note={this.state.archivedNotes[key].Note} navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} Color={this.state.archivedNotes[key].Color} Reminder={this.state.archivedNotes[key].Reminder}/>
                                         )
                                     }
                                 })}
