@@ -32,7 +32,8 @@ class RestoreTrash extends Component{
                 onPress: () => {
                     // this.setState({
                         updatedDeleteValue = !dataToUpdate.Deleted
-                        
+                        firebase.database.database().ref('Notes').child(dataToUpdate.key).update({Deleted : updatedDeleteValue})
+                        this.props.navigation.goBack()
                         // this.handleBackArrowToCreate()
                     // })
                     // alert(`State Changed ${updatedDeleteValue}`)

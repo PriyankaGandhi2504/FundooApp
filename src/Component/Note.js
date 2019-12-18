@@ -33,6 +33,7 @@ class Note extends Component {
             },
             // Deleted : props.DeletedValue
         }
+        
         // console.log('Deleted Value ' + this.props.DeletedValue)
     }
 

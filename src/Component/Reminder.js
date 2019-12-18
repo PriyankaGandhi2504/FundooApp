@@ -7,6 +7,7 @@ import {Dropdown} from 'react-native-material-dropdown'
 import Datedropdown from './Datedropdown';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import CreateNote from './CreateNote'
+import moment from 'moment';
  
 var radioValues = [
     {label : 'Time', value : 0},
@@ -16,9 +17,10 @@ var radioValues = [
 var date = new Date()
 var currentDate = date.getDate()
 var currentMonth = date.getMonth() + 1
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-var hours = date.getHours()
-var minutes = date.getMinutes()
+// const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+// var hours = date.getHours()
+// var minutes = date.getMinutes()
+
 
 class Reminder extends Component{
 

@@ -36,43 +36,46 @@ import Orientation from './src/Component/Orientation'
 import SearchNote from './src/Component/SearchNote'
 import RestoreTrash from './src/Component/RestoreTrash'
 import RestoreOptions from './src/Component/RestoreOptions'
+import LocalNotificationPage from './src/Component/LocalNotification'
+import Background from './src/Component/Background'
 // import SplashScreen from './src/Component/SplashScreen'
 // import RefreshControlDemo from './src/Component/RefreshControlDemo'
 
 class App extends Component{
   render()
-
   {
     return(
       // <AppDrawerNavigator/>
       // <Provider store = {store}>
-     <Router/>
+    //  <Router/>
 
       // </Provider>
 
 // {/* <Try/> */}
     //  <DrawerRouter/>
-      // <View>
-      // <RestoreTrash/>
-      //   {/* <SplashScreen/> */}
-      // {/* <SearchNote/> */}
-      //   {/* <RefreshControlDemo/> */}
-      //   {/* <Orientation/> */}
-      //   {/* <AddBoxMenu/> */}
-      //   {/* <Reminder/> */}
-      //   {/* <Datedropdown/> */}
-      //           {/* <MultiSelectDemo/>
-      //            {/* <SignOutMenu/> */}
-      //              {/* <ReviewDoubleClickQue/> */}
-      //           {/* <FlatListDemo/> */}
-      //           {/* <Note/> */}
-      //          {/* <ToggleSearchBar/> */}
-      //          {/* <ToggleSearchbarMenu/> */}
-      //           {/* <ColorPaletteDemo/> */}
-      //                     {/* <CreateNote/> */}
-      //                   {/* <Dashboard/> */}
-      //               {/* <Snackbar/> */}
-      //          </View>
+      <View>
+        <Background/>
+      {/* <LocalNotificationPage/> */}
+      {/* <RestoreTrash/> */}
+        {/* <SplashScreen/> */}
+      {/* <SearchNote/> */}
+        {/* <RefreshControlDemo/> */}
+        {/* <Orientation/> */}
+        {/* <AddBoxMenu/> */}
+        {/* <Reminder/> */}
+        {/* <Datedropdown/> */}
+                {/* <MultiSelectDemo/>
+                 {/* <SignOutMenu/> */}
+                   {/* <ReviewDoubleClickQue/> */}
+                {/* <FlatListDemo/> */}
+                {/* <Note/> */}
+               {/* <ToggleSearchBar/> */}
+               {/* <ToggleSearchbarMenu/> */}
+                {/* <ColorPaletteDemo/> */}
+                          {/* <CreateNote/> */}
+                        {/* <Dashboard/> */}
+                    {/* <Snackbar/> */}
+               </View>
     );
   }
 }

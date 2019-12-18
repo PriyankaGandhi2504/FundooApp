@@ -151,13 +151,21 @@ class CreateNote extends Component {
             await this.setState({
                 Note : dataToUpdate.Note,
                 Title : dataToUpdate.Title,
+                backgroundColor : dataToUpdate.Color,
+                
                 // KeyValue : dataToUpdate.key
-            })
-            console.log('this.state.data' + this.state.KeyValue) 
+            }) 
+
         }else{
             console.log('Key not found');   
         }
-          
+
+        if(dataToUpdate.isPin){
+            await this.setState({
+                isPin : dataToUpdate.isPin,
+                pinIcon : filledPinIcon
+            })
+        }   
     }
 
     handlePinnedNotes = async () => {
@@ -205,19 +213,19 @@ class CreateNote extends Component {
                 color: 'green',
                 onPress: () => {
                         this.state.isArchive = !this.state.isArchive
-                        this.handleBackArrowToCreate()
-                    alert(`State Changed ${this.state.isArchive}`)
+                        firebase.database.database().ref('Notes').child(this.state.KeyValue).update({isArchive : this.state.isArchive})
                 }
             }
         });
-       this.handleBackArrowToCreate()
-        // console.log("Is Archive" + this.state.isArchive);
+        firebase.database.database().ref('Notes').child(this.state.KeyValue).update({isArchive : this.state.isArchive, Color : this.state.backgroundColor})
+        this.props.navigation.goBack()
     }
 
     handleDelete = async () => {
         await this.setState({
             isDeleted: !this.state.isDeleted
         })
+
         Snackbar.show({
             title: 'Note moved to Bin',
             duration: 1000,
@@ -225,15 +233,13 @@ class CreateNote extends Component {
                 title: 'UNDO',
                 color: 'green',
                 onPress: () => {
-                    // this.setState({
                         this.state.isDeleted = !this.state.isDeleted
-                        this.handleBackArrowToCreate()
-                    // })
-                    alert(`State Changed ${this.state.isDeleted}`)
+                        firebase.database.database().ref('Notes').child(this.state.KeyValue).update({Deleted : this.state.isDeleted})
                 }
             }
         });
-        this.handleBackArrowToCreate()
+        firebase.database.database().ref('Notes').child(this.state.KeyValue).update({Deleted : this.state.isDeleted})
+        this.props.navigation.goBack()
     }
 
     render() {

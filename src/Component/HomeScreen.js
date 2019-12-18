@@ -2,12 +2,8 @@
 import React,{Component} from 'react';
 import SettingScreen from './SettingScreen'
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
-  Text,
-  StatusBar,Button
+  Button
 } from 'react-native';
 import MoreOptions from './MoreOptions'
 

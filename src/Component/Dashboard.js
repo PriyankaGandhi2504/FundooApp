@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image, ScrollView, Button, FlatList, TouchableHighlight, RefreshControl } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView, Button } from 'react-native'
 import styles from './StyleSheets'
-import { Card } from 'react-native-elements'
 import CreateNote from './CreateNote'
 import { AsyncStorage } from 'react-native'
 import firebase from '../Firebase'
-import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker'
 import userData from '../../UserServices'
 const UserData = new userData
@@ -13,11 +11,14 @@ import ToggleSearchBar from './ToggleSearchBar'
 import Note from './Note'
 import DefaultSearchBar from './DefaultSearchBar'
 import SearchNote from './SearchNote'
+import LocalNotification from 'react-native-local-notification'
+import moment from 'moment';
 
 // const {status} = Permissions.getAsync(Permissions.NOTIFICATIONS)
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 var pinnedArray
+var currentDate = moment().format('D-MM-YYYY h:mm a')
 
 const options = {
     title: 'Add Image',
@@ -61,6 +62,9 @@ class Dashboard extends Component {
             othersArray: []
         }
         console.disableYellowBox = true
+
+        // console.log('Current Date and Time ' + currentDate)
+        // if(currentDate === )
     }
 
     updateSearch = () => {
@@ -95,12 +99,19 @@ class Dashboard extends Component {
 
     componentDidMount() {
         UserData.userData(response => {
-            console.log("Response in Component Did Mount " + response);
+            // console.log("Response in Component Did Mount " + JSON.stringify(response));
 
             this.setState({
                 usersNote: response
             })
+            // console.log('Dashboard Component Did Mount ' + JSON.stringify(this.state.usersNote.Reminder));
+
+
+            // console.log('Users Note Array ' + JSON.stringify(response));
         })
+
+
+        console.log('Dashboard Component Did Mount ' + this.state.usersNote.Reminder);
         // console.log("Details from Dashboard " + JSON.stringify(response));
         // console.log("Users Note in Dashboard Component Did Mount " + JSON.stringify(this.state.usersNote));
     }
@@ -125,7 +136,7 @@ class Dashboard extends Component {
 
     render() {
         // const { navigation } = this.props
-        
+
         // AsyncStorage.getItem('UserData') .then((success) => {
         //     console.log('Success in Then method' + JSON.stringify(success));
         //     this.state.usersNote = success
@@ -157,10 +168,15 @@ class Dashboard extends Component {
         // console.log("Note in Render " + note);
         // console.log("Title:",title)
         // console.log("Note in user Object " + userObject.Note);
-        
+
         return (
 
             <View style={styles.dashboardContainer}>
+                <View style={{ backgroundColor: 'lightblue', elevation: 3 }}>
+
+                    <LocalNotification ref='localNotification'
+                    />
+                </View>
                 <View style={styles.dashboardSubContainer}>
 
                     <View style={this.state.toggleSearchBar}>
@@ -212,15 +228,32 @@ class Dashboard extends Component {
                     <ScrollView>
                         <View >
                             <Text> PINNED </Text>
+                            {/* <Button title = 'Show Notifications' onPress = {this.hanleNotification}/> */}
                             <View style={styles.userCard}>
                                 {
                                     Object.getOwnPropertyNames(this.state.usersNote).map((key, indexing) => {
                                         if (!this.state.usersNote[key].isArchive && !this.state.usersNote[key].Deleted && this.state.usersNote[key].isPin) {
                                             return (
                                                 <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
-                                                navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
-                                                Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} />
+                                                    navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
+                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} />
                                             );
+                                        }
+                                        if (this.state.usersNote[key].Reminder === currentDate) {
+
+                                            // alert(`Matched ${JSON.stringify(this.state.usersNote[key].Note)}`)
+                                            // return (
+                                            alert(`${JSON.stringify(this.state.usersNote[key].Note)}`)
+
+                                            setTimeout(() => {
+                                                this.refs['localNotification'].showNotification({
+                                                    title: 'Notification title',
+                                                    text: 'This is a short notification',
+                                                    onPress: () => alert(`${JSON.stringify(this.state.usersNote[key].Note)}`),
+                                                    onHide: () => alert(`Byeeee`),
+                                                    startHeight: 50
+                                                })
+                                            }, 1000)
                                         }
                                     })
                                 }
@@ -299,6 +332,7 @@ class Dashboard extends Component {
                             </Modal> */}
                     </View>
                 </View>
+
             </View>
         )
     }
