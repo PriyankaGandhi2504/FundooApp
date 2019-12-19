@@ -26,7 +26,7 @@ class UserServices{
             // console.log("User's Object : " + JSON.stringify(userObject));
             // if(userId === userObject.fetchedUserId){
                 // userObj.push(userObject)
-                console.log('User Object from User Services ' + JSON.stringify(userObject));
+                // console.log('User Object from User Services ' + JSON.stringify(userObject));
                 
                 return callback(userObject)
             // }

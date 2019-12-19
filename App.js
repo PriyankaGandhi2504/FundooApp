@@ -36,10 +36,36 @@ import Orientation from './src/Component/Orientation'
 import SearchNote from './src/Component/SearchNote'
 import RestoreTrash from './src/Component/RestoreTrash'
 import RestoreOptions from './src/Component/RestoreOptions'
-import LocalNotificationPage from './src/Component/LocalNotification'
-import Background from './src/Component/Background'
+import Hoc from './src/Component/HOC'
+import UserList from './src/Component/UserList'
+import FastImageDemo from './src/Component/FastImageDemo'
+
+// import LocalNotificationPage from './src/Component/LocalNotification'
+// import PushNotificationPage from './src/Component/PushNotification'
+// import Background from './src/Component/Background'
 // import SplashScreen from './src/Component/SplashScreen'
 // import RefreshControlDemo from './src/Component/RefreshControlDemo'
+const UsersData = [
+  {
+      id: 1,
+      name: 'Abc'
+        
+  },
+  {
+      id: 2,
+      name: 'Infosys'
+  },
+  {
+      id: 3,
+      name: 'Reliance'
+  }
+];
+
+const Users = Hoc(
+  UserList,
+  UsersData
+);
+
 
 class App extends Component{
   render()
@@ -47,35 +73,38 @@ class App extends Component{
     return(
       // <AppDrawerNavigator/>
       // <Provider store = {store}>
-    //  <Router/>
+     <Router/>
 
       // </Provider>
 
 // {/* <Try/> */}
     //  <DrawerRouter/>
-      <View>
-        <Background/>
-      {/* <LocalNotificationPage/> */}
-      {/* <RestoreTrash/> */}
-        {/* <SplashScreen/> */}
-      {/* <SearchNote/> */}
-        {/* <RefreshControlDemo/> */}
-        {/* <Orientation/> */}
-        {/* <AddBoxMenu/> */}
-        {/* <Reminder/> */}
-        {/* <Datedropdown/> */}
-                {/* <MultiSelectDemo/>
-                 {/* <SignOutMenu/> */}
-                   {/* <ReviewDoubleClickQue/> */}
-                {/* <FlatListDemo/> */}
-                {/* <Note/> */}
-               {/* <ToggleSearchBar/> */}
-               {/* <ToggleSearchbarMenu/> */}
-                {/* <ColorPaletteDemo/> */}
-                          {/* <CreateNote/> */}
-                        {/* <Dashboard/> */}
-                    {/* <Snackbar/> */}
-               </View>
+      // <View>
+      //    {/* <Users/> */}
+      //    <FastImageDemo/>
+      //   {/* <Background/> */}
+      // {/* <LocalNotificationPage/> */}
+      // {/* <PushNotificationPage/> */}
+      // {/* <RestoreTrash/> */}
+      //   {/* <SplashScreen/> */}
+      // {/* <SearchNote/> */}
+      //   {/* <RefreshControlDemo/> */}
+      //   {/* <Orientation/> */}
+      //   {/* <AddBoxMenu/> */}
+      //   {/* <Reminder/> */}
+      //   {/* <Datedropdown/> */}
+      //           {/* <MultiSelectDemo/>
+      //            {/* <SignOutMenu/> */}
+      //              {/* <ReviewDoubleClickQue/> */}
+      //           {/* <FlatListDemo/> */}
+      //           {/* <Note/> */}
+      //          {/* <ToggleSearchBar/> */}
+      //          {/* <ToggleSearchbarMenu/> */}
+      //           {/* <ColorPaletteDemo/> */}
+      //                     {/* <CreateNote/> */}
+      //                   {/* <Dashboard/> */}
+      //               {/* <Snackbar/> */}
+      //          </View>
     );
   }
 }
