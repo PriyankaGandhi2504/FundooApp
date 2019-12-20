@@ -143,14 +143,14 @@ class Note extends Component {
     }//end of normalPress
 
     render() {
-        const {index, Title, Note, gridDisplayValue, Color, Reminder, DeletedValue} = this.props
+        const {index, Title, Note, gridDisplayValue, Color, Reminder, DeletedValue, chosenImage} = this.props
         return (
             <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, index)}
                 onPress={(event) => this.handleNormalPress(event, index)}
                 style={gridDisplayValue === false ? { width: "100%" } : { width: '50%' }}>
                 <View>
                     <Card
-                        containerStyle={[{ width: '90%', display: 'flex', flexWrap: "wrap", backgroundColor: Color }, this.state.flag[index] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle]}>
+                        containerStyle={[{ width: '90%', display: 'flex', flexWrap: "wrap", backgroundColor: Color}, this.state.flag[index] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle]}>
                         <Text style={{ fontSize: 16 }}>{Title}</Text>
                         <Text style={{ fontSize: 12, marginTop: 10 }}>{Note}</Text>
                         <View style={Reminder !== '' ? { width: 175 } : { display: 'none' }}>

@@ -4,6 +4,7 @@ import styles from './StyleSheets'
 import firebase from '../Firebase'
 import {Divider} from 'react-native-elements'
 import ImagePicker from 'react-native-image-picker'
+import FastImage from 'react-native-fast-image'
 // import signOutAction from './SignOutAction'
 // import {connect} from 'react-redux'
 
@@ -48,7 +49,7 @@ class SignOutMenu extends Component {
         const {navigation} = this.props
         var userEmailId = navigation.getParam('userEmailId')
         // console.log("User email id " + userEmailId);
-        
+
         // var userData = firebase.firebase.auth().currentUser
         // var userEmail = userData.email
 
@@ -87,6 +88,11 @@ class SignOutMenu extends Component {
                     <Button title = "Sign Out"
                     onPress = {this.signOut}/>
                 </View>
+
+                <View style = {{width : '100%', height : '70%', backgroundColor : 'lightblue', display : 'flex', justifyContent : 'center', alignItems : 'center'}}>
+                        <FastImage style = {{width : 400, height : 400}}
+                        source = {this.state.avtarSource}/>
+                    </View>
             </View>
         )
     }

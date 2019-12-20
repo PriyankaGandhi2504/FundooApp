@@ -194,7 +194,7 @@ class Dashboard extends Component {
                     </View>
 
                     <ScrollView>
-                        <View >
+                        <View>
                             <Text> PINNED </Text>
                             <View style={styles.userCard}>
                                 {
@@ -203,7 +203,7 @@ class Dashboard extends Component {
                                             return (
                                                 <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
                                                     navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
-                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} />
+                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage = {this.state.usersNote[key].chosenImage}/>
                                             );
                                         }
                                         console.log('In Pinned ' + this.state.usersNote[key].Reminder === currentDate);
@@ -229,7 +229,7 @@ class Dashboard extends Component {
                                             return (
                                                 <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
                                                     navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
-                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} />
+                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage = {this.state.usersNote[key].chosenImage} />
                                             );
                                         }
                                         console.log('In Others ' + this.state.usersNote[key].Reminder === currentDate);

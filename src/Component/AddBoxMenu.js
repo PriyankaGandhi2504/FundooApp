@@ -1,7 +1,42 @@
 import React, {Component} from 'react'
 import {View, Text, Image, TouchableOpacity} from 'react-native'
+import ImagePicker from 'react-native-image-picker'
+import CreateNote from './CreateNote'
+
+const options = {
+    title: 'Add Image',
+    takePhotoButtonTitle: 'Take photo',
+    chooseFromLibraryButtonTitle: 'Choose image',
+}
 
 class AddBoxMenu extends Component{
+
+    constructor(props){
+        super(props)
+        this.state = {
+            chosenImage : ''
+        }
+    }
+
+    handleChooseImage = () => {
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log("Response : " + response);
+            if (response.didCancel) {
+                console.log('User cancelled Image Picker');
+            } else if (response.error) {
+                console.log("Image Picker Error : " + response.error);
+            } else {
+                let source = { uri: response.uri }
+                this.setState({
+                    chosenImage: source
+                })
+                this.props.navigation.navigate('CreateNote', {
+                    chosenImage : this.state.chosenImage
+                })
+            }
+        })
+    }
+
     render(){
         return(
             <View style = {{height : '100%',width : '100%'}}>
@@ -15,7 +50,8 @@ class AddBoxMenu extends Component{
                     </View>
                     
                     <View style = {{height : 50}}>
-                        <TouchableOpacity style = {{display : 'flex', flexDirection : 'row'}}>
+                        <TouchableOpacity style = {{display : 'flex', flexDirection : 'row'}}
+                        onPress = {this.handleChooseImage}>
                             <Image style = {{width : 30, height : 30, top : 10, left : 15}}
                             source = {require('../Assets/chooseImage.png')}/>
                             <Text style = {{fontSize : 20, top : 10, left : 40}}> Choose image</Text>

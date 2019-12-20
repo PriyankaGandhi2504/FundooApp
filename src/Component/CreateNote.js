@@ -18,17 +18,20 @@ import store from './SignOutStore'
 import setColor from './SignOutAction'
 import { connect } from 'react-redux'
 import { Chip } from 'react-native-paper'
+import FastImage from 'react-native-fast-image'
 
 var date = new Date().getMinutes()
 var filledPinIcon = require('../Assets/FilledPin.png')
 var outlinedPinIcon = require('../Assets/Pinned.png')
 var dateAndTime = '';
-var dataToUpdate 
+var dataToUpdate
+var chosenImageFromGallery
 
 class CreateNote extends Component {
     constructor(props) {
         const { navigation } = props
         dataToUpdate = navigation.getParam('clickedNote' , '')
+        chosenImageFromGallery = navigation.getParam('chosenImage', '')
         super(props)
         this.state = {
             Title: '',
@@ -59,6 +62,7 @@ class CreateNote extends Component {
             toUpdateOrCreate : false,
             pinIcon : outlinedPinIcon,
             data : '',
+            chosenImage : ''
         }
         // const {navigation} = this.props
         //  dateAndTime = navigation.getParam('date' , 'No Date')
@@ -106,7 +110,8 @@ class CreateNote extends Component {
             isPin: this.state.isPin,
             Color: this.state.backgroundColor,
             Reminder: dateAndTime,
-            Deleted: this.state.isDeleted
+            Deleted: this.state.isDeleted,
+            chosenImage : this.state.chosenImage
         }
        firebase.database.database().ref('Notes').child(this.state.KeyValue).update(noteObject)
         this.props.navigation.navigate('Dashboard')
@@ -143,6 +148,7 @@ class CreateNote extends Component {
     componentDidMount = async() => {
         const { navigation } = this.props
         dataToUpdate = navigation.getParam('clickedNote' , '')
+        chosenImageFromGallery = navigation.getParam('chosenImage', '')
         console.log('Data To Update ' + JSON.stringify(dataToUpdate))
         await this.setState({
             KeyValue : dataToUpdate.key
@@ -157,7 +163,7 @@ class CreateNote extends Component {
             }) 
 
         }else{
-            console.log('Key not found');   
+            console.log('Key not found');
         }
 
         if(dataToUpdate.isPin){
@@ -166,6 +172,17 @@ class CreateNote extends Component {
                 pinIcon : filledPinIcon
             })
         }   
+    }
+
+    componentDidUpdate = (props, state) => {
+        const { navigation } = this.props
+        chosenImageFromGallery = navigation.getParam('chosenImage', '')
+        if(this.state.chosenImage !== chosenImageFromGallery){
+            this.setState({
+                chosenImage : chosenImageFromGallery
+            })
+        }
+        // this.state.chosenImage = chosenImageFromGallery
     }
 
     handlePinnedNotes = async () => {
@@ -237,6 +254,7 @@ class CreateNote extends Component {
                         firebase.database.database().ref('Notes').child(this.state.KeyValue).update({Deleted : this.state.isDeleted})
                 }
             }
+
         });
         firebase.database.database().ref('Notes').child(this.state.KeyValue).update({Deleted : this.state.isDeleted})
         this.props.navigation.goBack()
@@ -251,12 +269,7 @@ class CreateNote extends Component {
         })
         const { navigation } = this.props
         dateAndTime = navigation.getParam('date', '')
-
-        //  console.log('Date And Time in Render ' + dateAndTime)
         // title = navigation.getParam('Title', 'No Title')
-
-        // console.log("Note in Create Note " + note);
-        // console.log("Title in Create Note " + title);
 
         // this.setState({
         //     Note : note,
@@ -297,7 +310,12 @@ class CreateNote extends Component {
                         </View>
                     </View>
 
+                    
                     <View style={styles.titleText}>
+                        <View style = {this.state.chosenImage === '' ? {display : 'none'} : {width : 'auto', height : 'auto'}}>
+                            <FastImage style = {{width : 400, height : 400}}
+                            source = {this.state.chosenImage}/>
+                        </View>
                         <TextInput style={{ fontSize: 24 }}
                             value={this.state.Title}
                             placeholder="Title"
@@ -326,6 +344,7 @@ class CreateNote extends Component {
                                 })} />
                         </ScrollView>
                     </View>
+                    
 
                     <View style={styles.footerComponents}>
                         <View style={this.state.menuListDisplay}>
@@ -421,7 +440,7 @@ class CreateNote extends Component {
                                             bottom: 50
                                         }
                                     }}>
-                                    <AddBoxMenu />
+                                    <AddBoxMenu navigation = {this.props.navigation}/>
                                 </RBSheet>
                             </View>
                         </View>
