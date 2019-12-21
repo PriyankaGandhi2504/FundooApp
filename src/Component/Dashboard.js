@@ -11,13 +11,15 @@ import ToggleSearchBar from './ToggleSearchBar'
 import Note from './Note'
 import DefaultSearchBar from './DefaultSearchBar'
 import SearchNote from './SearchNote'
-import LocalNotification from 'react-native-local-notification'
 import moment from 'moment';
 import PushNotification from 'react-native-push-notification'
+import FastImage from 'react-native-fast-image'
+import {Avatar} from 'react-native-paper'
 
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 var currentDate = moment().format('D-MM-YYYY h:mm a')
+var profileImage
 
 const options = {
     title: 'Add Image',
@@ -105,6 +107,12 @@ class Dashboard extends Component {
         console.log('Dashboard Component Did Mount ' + this.state.usersNote.Reminder);
     }
 
+    componentDidUpdate = () => {
+        const {navigation} = this.props
+        profileImage = navigation.getParam('profileIcon', '')
+        console.log('Profile Image From Dashboard ' + profileImage)
+    }
+
     // static getDerivedStateFromProps(props, state){
     //     console.log("Get Derived State From Props");
     // }
@@ -185,7 +193,7 @@ class Dashboard extends Component {
 
                                 <View style={{ right: 10, top: -26 }}>
                                     <TouchableOpacity onPress={this.profileDisplay}>
-                                        <Image style={{ width: 30, height: 30 }}
+                                        <Avatar.Image size = {30}
                                             source={require('../Assets/ProfileIcon.jpg')} />
                                     </TouchableOpacity>
                                 </View>
@@ -225,6 +233,12 @@ class Dashboard extends Component {
                             <View style={styles.userCard}>
                                 {
                                     Object.getOwnPropertyNames(this.state.usersNote).map((key, indexing) => {
+                                        if(!this.state.usersNote[key].chosenImage === ""){
+                                            return(
+                                                <FastImage style = {{width : 'auto', height : 'auto'}}
+                                                source = {this.state.usersNote[key].chosenImage}/>
+                                            )
+                                        }
                                         if (!this.state.usersNote[key].isArchive && !this.state.usersNote[key].Deleted && !this.state.usersNote[key].isPin) {
                                             return (
                                                 <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}

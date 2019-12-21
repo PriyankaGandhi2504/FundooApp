@@ -5,6 +5,9 @@ import firebase from '../Firebase'
 import {Divider} from 'react-native-elements'
 import ImagePicker from 'react-native-image-picker'
 import FastImage from 'react-native-fast-image'
+import {Avatar} from 'react-native-paper'
+import userData from '../../UserServices'
+const UserData = new userData
 // import signOutAction from './SignOutAction'
 // import {connect} from 'react-redux'
 
@@ -19,7 +22,7 @@ class SignOutMenu extends Component {
         super(props)
         this.state = {
             userEmailId : '',
-            avtarSource : null
+            avatarSource : require('../Assets/ProfileIcon.jpg')
         }
     }
 
@@ -39,10 +42,28 @@ class SignOutMenu extends Component {
             }else{
                 let source = {uri:response.uri}
                 this.setState({
-                    avtarSource : source
+                    avatarSource : source
                 })
+                // console.log('Avatar Source ' + this.state.avatarSource)
             }
         })
+    }
+
+    handleCrossIcon = () => {
+
+        this.props.navigation.navigate('Dashboard', {
+            profileIcon : this.state.avatarSource
+        })
+
+    }
+
+    componentDidMount = () => {
+        UserData.userData(response => {
+            this.setState({
+                usersNote: response
+            })
+        })
+        console.log(" " + this.state.usersNote)
     }
 
     render(){
@@ -57,7 +78,7 @@ class SignOutMenu extends Component {
             <View style = {styles.signOutContainer}>
                 <View style = {styles.signOutHeader}>
                     <View>
-                        <TouchableOpacity onPress = {() => this.props.navigation.goBack()}>
+                        <TouchableOpacity onPress = {this.handleCrossIcon}>
                             <Image style = {{width : 25, height : 25, borderRadius : 50}}
                             source = {require('../Assets/CrossIcon.png')}/>
                         </TouchableOpacity>
@@ -66,8 +87,10 @@ class SignOutMenu extends Component {
                     <View style = {styles.userDetails}>
                         <View>
                             <TouchableOpacity onPress = {this.uploadProfile}>
-                                <Image style = {{width : 35, height : 35}}
-                                source = {require('../Assets/ProfileIcon.jpg')}/>
+                                <Avatar.Image size = {50}
+                                // style = {{width : 35, height : 35}}
+                                source = {this.state.avatarSource}
+                                />
                             </TouchableOpacity>
                         </View>
 
@@ -88,17 +111,10 @@ class SignOutMenu extends Component {
                     <Button title = "Sign Out"
                     onPress = {this.signOut}/>
                 </View>
-
-                <View style = {{width : '100%', height : '70%', backgroundColor : 'lightblue', display : 'flex', justifyContent : 'center', alignItems : 'center'}}>
-                        <FastImage style = {{width : 400, height : 400}}
-                        source = {this.state.avtarSource}/>
-                    </View>
             </View>
         )
     }
 }
-
-
 
 export default SignOutMenu
 

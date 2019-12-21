@@ -73,13 +73,13 @@ class SearchNote extends Component {
                 <ScrollView>
                     <View>
                         {
-                            this.state.notesArray.map((notesArray, indexes) => {                               
-                                if(notesArray.Note.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || notesArray.Note.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || 
-                                    notesArray.Title.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || notesArray.Title.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1) {
+                            Object.getOwnPropertyNames(this.state.notesArray).map((key, indexes) => {                               
+                                if((this.state.notesArray[key].Note).toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || (this.state.notesArray[key].Note).toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || 
+                                (this.state.notesArray[key].Title).toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || (this.state.notesArray[key].Title).toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1) {
                                     return (
-                                        <Note index={indexes} Title={notesArray.Title} Note={notesArray.Note}
+                                        <Note index={indexes} Title={this.state.notesArray[key].Title} Note={this.state.notesArray[key].Note}
                                         navigation={this.props.navigation} gridDisplayValue={false}
-                                        Color={notesArray.Color} Reminder={notesArray.Reminder} />
+                                        Color={this.state.notesArray[key].Color} Reminder={this.state.notesArray[key].Reminder} />
                                     )
                                 }
                             })

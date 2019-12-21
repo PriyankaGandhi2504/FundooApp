@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import styles from './StyleSheets'
 import firebase from '../Firebase'
 import { Card } from 'react-native-elements'
 import CreateNote from './CreateNote'
 import ToggleSearchBar from './ToggleSearchBar'
 import { Chip } from 'react-native-paper'
+import FastImage from 'react-native-fast-image'
 
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
@@ -144,6 +145,7 @@ class Note extends Component {
 
     render() {
         const {index, Title, Note, gridDisplayValue, Color, Reminder, DeletedValue, chosenImage} = this.props
+        // console.log(2367876543,chosenImage)
         return (
             <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, index)}
                 onPress={(event) => this.handleNormalPress(event, index)}
@@ -151,6 +153,8 @@ class Note extends Component {
                 <View>
                     <Card
                         containerStyle={[{ width: '90%', display: 'flex', flexWrap: "wrap", backgroundColor: Color}, this.state.flag[index] === 1 ? this.state.longPressedStyle : styles.normalPressedStyle]}>
+                        <FastImage style = {chosenImage !== '' ? gridDisplayValue ? {width : 130, height : 200} : {width : 280, height : 270} : {display : 'none'}}
+                        source = {chosenImage}/>
                         <Text style={{ fontSize: 16 }}>{Title}</Text>
                         <Text style={{ fontSize: 12, marginTop: 10 }}>{Note}</Text>
                         <View style={Reminder !== '' ? { width: 175 } : { display: 'none' }}>

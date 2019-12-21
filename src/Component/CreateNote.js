@@ -62,7 +62,8 @@ class CreateNote extends Component {
             toUpdateOrCreate : false,
             pinIcon : outlinedPinIcon,
             data : '',
-            chosenImage : ''
+            chosenImage : '',
+            chosenImageFromDB : ''
         }
         // const {navigation} = this.props
         //  dateAndTime = navigation.getParam('date' , 'No Date')
@@ -93,7 +94,8 @@ class CreateNote extends Component {
                 isPin: this.state.isPin,
                 Color: this.state.backgroundColor,
                 Reminder: dateAndTime,
-                Deleted: this.state.isDeleted
+                Deleted: this.state.isDeleted,
+                chosenImage : this.state.chosenImage
             }
             const pushedData = firebase.database.database().ref('/Notes').push(noteObject)
             const key = pushedData.key
@@ -111,7 +113,7 @@ class CreateNote extends Component {
             Color: this.state.backgroundColor,
             Reminder: dateAndTime,
             Deleted: this.state.isDeleted,
-            chosenImage : this.state.chosenImage
+            chosenImage : this.state.chosenImageFromDB
         }
        firebase.database.database().ref('Notes').child(this.state.KeyValue).update(noteObject)
         this.props.navigation.navigate('Dashboard')
@@ -158,10 +160,8 @@ class CreateNote extends Component {
                 Note : dataToUpdate.Note,
                 Title : dataToUpdate.Title,
                 backgroundColor : dataToUpdate.Color,
-                
-                // KeyValue : dataToUpdate.key
-            }) 
-
+                chosenImageFromDB : dataToUpdate.chosenImage
+            })             
         }else{
             console.log('Key not found');
         }
@@ -176,7 +176,7 @@ class CreateNote extends Component {
 
     componentDidUpdate = (props, state) => {
         const { navigation } = this.props
-        chosenImageFromGallery = navigation.getParam('chosenImage', '')
+        chosenImageFromGallery = navigation.getParam('chosenImage', '')        
         if(this.state.chosenImage !== chosenImageFromGallery){
             this.setState({
                 chosenImage : chosenImageFromGallery
@@ -310,11 +310,10 @@ class CreateNote extends Component {
                         </View>
                     </View>
 
-                    
                     <View style={styles.titleText}>
-                        <View style = {this.state.chosenImage === '' ? {display : 'none'} : {width : 'auto', height : 'auto'}}>
+                        <View style = {this.state.chosenImage === '' ? this.state.chosenImageFromDB === '' ? {display : 'none'} : {width : 'auto', height : 'auto'} : {width : 'auto', height : 'auto'}}>
                             <FastImage style = {{width : 400, height : 400}}
-                            source = {this.state.chosenImage}/>
+                            source = {this.state.chosenImage === '' ? this.state.chosenImageFromDB : this.state.chosenImage}/>
                         </View>
                         <TextInput style={{ fontSize: 24 }}
                             value={this.state.Title}
