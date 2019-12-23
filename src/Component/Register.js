@@ -24,7 +24,8 @@ class Register extends Component{
             showLoading : false,
             isLoading : {
                 display : 'none'
-            }
+            },
+            userProfile : ''
         }
     }
 
@@ -54,14 +55,14 @@ class Register extends Component{
             this.setState({
                 ...this.state
             })
-            console.warn('Last Name Correct');
+            // console.warn('Last Name Correct');
             
         }else{
             this.state.lastNameErr = "Invalid Input"
             this.setState({
                 ...this.state
             })
-            console.warn('Invalid last name');
+            // console.warn('Invalid last name');
             
         }
     }
@@ -76,13 +77,13 @@ class Register extends Component{
                 this.setState({
                     ...this.state
                 })
-                console.warn('Text is correct');  
+                // console.warn('Text is correct');  
             }else{
                             this.state.emailErr = "Invalid Email ID"
                             this.setState({
                                 ...this.state
                             })
-                console.warn('Invalid Text');   
+                // console.warn('Invalid Text');   
             }  
         }
     }
@@ -99,13 +100,13 @@ class Register extends Component{
                 this.setState({
                     ...this.state
                 })
-                console.warn('Password is correct');
+                // console.warn('Password is correct');
             }else{
                         this.state.passwordErr = "Invalid Input"
                     this.setState({
                         ...this.state
                     })
-                console.warn('Password Invalid');
+                // console.warn('Password Invalid');
             }
         }
     }
@@ -116,7 +117,7 @@ class Register extends Component{
             this.setState({
                 ...this.state
             })
-            console.warn('Password Matched'); 
+            // console.warn('Password Matched'); 
         }else{
             this.state.confirmPasswordErr = "Password Does Not Match"
             this.setState({
@@ -199,12 +200,15 @@ class Register extends Component{
         }
 
         if(!isError){
+            // var authUserId = firebase.firebase.auth().currentUser
             if(this.state.password === this.state.confirmPassword){
                 var obj = {
                     firstName : this.state.firstName,
                     lastName : this.state.lastName,
                     email : this.state.email,
-                    password : this.state.password
+                    password : this.state.password,
+                    userProfile : this.state.userProfile,
+                    // userID : authUserId
                 }
                 firebase.database.database().ref("/User").push(obj)
                 firebase.firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)

@@ -16,13 +16,15 @@ const options = {
     takePhotoButtonTitle : 'Take Photo',
     chooseFromLibraryButtonTitle : 'Choose Image',
 }
+
+
 class SignOutMenu extends Component {
 
     constructor(props){
         super(props)
         this.state = {
             userEmailId : '',
-            avatarSource : require('../Assets/ProfileIcon.jpg')
+            avatarSource : ''
         }
     }
 
@@ -33,6 +35,7 @@ class SignOutMenu extends Component {
     }
 
     uploadProfile = () => {
+        var userKey; var userValue; var userObjectArray = []
         ImagePicker.showImagePicker(options, (response) => {
             console.log("Response : " + response);
             if(response.didCancel){
@@ -44,26 +47,47 @@ class SignOutMenu extends Component {
                 this.setState({
                     avatarSource : source
                 })
-                // console.log('Avatar Source ' + this.state.avatarSource)
+                var profile = this.state.avatarSource
+                // var currentUserId = UserData.userDetails()
+                // console.log('Current User from sign out ' + currentUserId);
+                firebase.database.database().ref('User').on('child_added', function(snapshot) {
+                    firebase.database.database().ref('User').on('value', function(snapshot) {
+                         userValue = snapshot.val()
+                        userKey = Object.keys(userValue)
+                    })     
+                    var currentUserEmailId = firebase.firebase.auth().currentUser.email
+                    for(var j = 0; j < userKey.length; j++){
+                        var keyIndex = userKey[j]
+                        var userDataKey = userValue[keyIndex]
+                        userDataKey['key']=keyIndex
+                        userObjectArray.push(userDataKey)
+                        if(userObjectArray[j].email === currentUserEmailId){
+                            firebase.database.database().ref('User').child(userObjectArray[j].key).update({userProfile : profile})
+                        }
+                    }     
+                })  
             }
         })
     }
 
     handleCrossIcon = () => {
-
         this.props.navigation.navigate('Dashboard', {
             profileIcon : this.state.avatarSource
         })
-
     }
 
     componentDidMount = () => {
         UserData.userData(response => {
             this.setState({
                 usersNote: response
-            })
+            })            
         })
-        console.log(" " + this.state.usersNote)
+        firebase.database.database().ref('User').orderByValue().on('value', function(snapshot){
+            var profilePic = snapshot.val()
+            console.log('Profile pic ' + JSON.stringify(profilePic.userProfile));
+            
+        })
+        // console.log(" " + this.state.usersNote)
     }
 
     render(){
@@ -89,7 +113,7 @@ class SignOutMenu extends Component {
                             <TouchableOpacity onPress = {this.uploadProfile}>
                                 <Avatar.Image size = {50}
                                 // style = {{width : 35, height : 35}}
-                                source = {this.state.avatarSource}
+                                source = {this.state.avatarSource === '' ? require('../Assets/ProfileIcon.jpg') : this.state.avatarSource}
                                 />
                             </TouchableOpacity>
                         </View>

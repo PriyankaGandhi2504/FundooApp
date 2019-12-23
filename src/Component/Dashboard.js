@@ -19,7 +19,9 @@ import {Avatar} from 'react-native-paper'
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 var currentDate = moment().format('D-MM-YYYY h:mm a')
-var profileImage
+var profileImage = ''; 
+var userDataValue
+var currentUser
 
 const options = {
     title: 'Add Image',
@@ -36,9 +38,6 @@ class Dashboard extends Component {
             googleKeepImageVisibility: false,
             profileVisibility: false,
             userEmail: '',
-            profileCardDisplay: {
-                display: 'none'
-            },
             avtarSource: null,
             usersNote: [],
             isLongPressed: false,
@@ -58,9 +57,8 @@ class Dashboard extends Component {
             searchBarDisp: {
                 display: styles.searchBar
             },
-            newObjectArray: [],
-            pinnedArray: [],
-            othersArray: []
+            profileIcon : ''            
+
         }
         console.disableYellowBox = true
         console.log('Current Date ' + currentDate);
@@ -104,17 +102,38 @@ class Dashboard extends Component {
                 usersNote: response
             })
         })
-        console.log('Dashboard Component Did Mount ' + this.state.usersNote.Reminder);
     }
 
     componentDidUpdate = () => {
-        const {navigation} = this.props
-        profileImage = navigation.getParam('profileIcon', '')
-        console.log('Profile Image From Dashboard ' + profileImage)
+        // const {navigation} = this.props
+        // profileImage = navigation.getParam('profileIcon', '')
+        // console.log('Profile Image From Dashboard ' + profileImage)
+        firebase.database.database().ref('User').on('child_added' , function(snapshot){
+            userDataValue = snapshot.val()            
+            currentUser = firebase.firebase.auth().currentUser.email
+            console.log('Current user in update ' + userDataValue.email);
+
+            if(currentUser === userDataValue.email){
+                console.log("Current user in update " + currentUser);
+                console.log('User data value ' + userDataValue.email);
+                //  this.setState({
+                    profileImage = userDataValue.userProfile
+                // })
+            }   
+        })
+        
+       
+        // this.setState({
+        //     profileIcon : profileImage
+        // })
     }
 
     // static getDerivedStateFromProps(props, state){
     //     console.log("Get Derived State From Props");
+    // }
+
+    // componentWillUnmount = () => {
+    //     console.log('Component Unmounted ');
     // }
 
     gridDisplay = () => {
@@ -194,7 +213,7 @@ class Dashboard extends Component {
                                 <View style={{ right: 10, top: -26 }}>
                                     <TouchableOpacity onPress={this.profileDisplay}>
                                         <Avatar.Image size = {30}
-                                            source={require('../Assets/ProfileIcon.jpg')} />
+                                            source={profileImage === '' ? require('../Assets/ProfileIcon.jpg') : profileImage} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
