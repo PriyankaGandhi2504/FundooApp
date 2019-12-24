@@ -62,7 +62,7 @@ class CreateNote extends Component {
             toUpdateOrCreate : false,
             pinIcon : outlinedPinIcon,
             data : '',
-            chosenImage : '',
+            chosenImage : chosenImageFromGallery,
             chosenImageFromDB : ''
         }
         // const {navigation} = this.props

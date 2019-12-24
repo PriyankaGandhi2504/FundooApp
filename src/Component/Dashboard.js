@@ -19,7 +19,7 @@ import {Avatar} from 'react-native-paper'
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 var currentDate = moment().format('D-MM-YYYY h:mm a')
-var profileImage = ''; 
+var profileImage = profileImage; 
 var userDataValue
 var currentUser
 
@@ -57,9 +57,10 @@ class Dashboard extends Component {
             searchBarDisp: {
                 display: styles.searchBar
             },
-            profileIcon : ''            
-
+            // profileImage : profileImage
         }
+        
+        
         console.disableYellowBox = true
         console.log('Current Date ' + currentDate);
         // console.log('Current Time ' + currentTime);
@@ -96,44 +97,31 @@ class Dashboard extends Component {
         })
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         UserData.userData(response => {
             this.setState({
                 usersNote: response
             })
         })
-    }
 
-    componentDidUpdate = () => {
-        // const {navigation} = this.props
-        // profileImage = navigation.getParam('profileIcon', '')
-        // console.log('Profile Image From Dashboard ' + profileImage)
-        firebase.database.database().ref('User').on('child_added' , function(snapshot){
+        await firebase.database.database().ref('User').on('child_added' , function(snapshot){
             userDataValue = snapshot.val()            
             currentUser = firebase.firebase.auth().currentUser.email
             console.log('Current user in update ' + userDataValue.email);
-
             if(currentUser === userDataValue.email){
-                console.log("Current user in update " + currentUser);
-                console.log('User data value ' + userDataValue.email);
-                //  this.setState({
                     profileImage = userDataValue.userProfile
-                // })
             }   
         })
-        
-       
-        // this.setState({
-        //     profileIcon : profileImage
+        // AsyncStorage.setItem('ProfilePic', profileImage)
+        // AsyncStorage.getItem('ProfilePic').then((success) => {
+        //     console.log('Profile Pic in Async Storage ' + success);
+            
         // })
+        console.log('Profile Image in Component Did Update ' + profileImage);
     }
 
     // static getDerivedStateFromProps(props, state){
     //     console.log("Get Derived State From Props");
-    // }
-
-    // componentWillUnmount = () => {
-    //     console.log('Component Unmounted ');
     // }
 
     gridDisplay = () => {
@@ -143,29 +131,15 @@ class Dashboard extends Component {
                 icon: list
             })
         } else {
-            this.setState({
+            this.setState({ 
                 gridDisplay: false,
                 icon: grid
             })
         }
     }
 
-    render() {
-        // const { navigation } = this.props
-        // AsyncStorage.getItem('UserData') .then((success) => {
-        //     this.state.usersNote = success
-        // })
-        // .catch((error) => {
-        //     console.log("Error in catch " + error);    
-        // })
-
-        // firebase.database.database().ref('Notes').orderByKey().on("value", function(snapshot){
-        //     var userObject = snapshot.val()
-        //     // var usersData = JSON.stringify(snapshot.val())
-        // })
-        // this.setState({
-        //     usersNote : array
-        // })
+    render() {        
+        console.log('Profile Image In Render ' + profileImage);
         // const {navigation} = this.props
         // const note = navigation.getParam('Note', 'No Note')
         // const title = navigation.getParam('Title', 'No Title')
@@ -233,7 +207,7 @@ class Dashboard extends Component {
                                                     Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage = {this.state.usersNote[key].chosenImage}/>
                                             );
                                         }
-                                        console.log('In Pinned ' + this.state.usersNote[key].Reminder === currentDate);
+                                        // console.log('In Pinned ' + this.state.usersNote[key].Reminder === currentDate);
                                         if (this.state.usersNote[key].Reminder === currentDate) {
                                             PushNotification.localNotification({
                                                 title: this.state.usersNote[key].Title,
@@ -265,7 +239,7 @@ class Dashboard extends Component {
                                                     Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage = {this.state.usersNote[key].chosenImage} />
                                             );
                                         }
-                                        console.log('In Others ' + this.state.usersNote[key].Reminder === currentDate);
+                                        // console.log('In Others ' + this.state.usersNote[key].Reminder === currentDate);
                                         if (this.state.usersNote[key].Reminder === currentDate) {
                                             PushNotification.localNotification({
                                                 title: this.state.usersNote[key].Title,

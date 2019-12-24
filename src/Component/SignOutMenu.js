@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, Image, TouchableOpacity, Button} from 'react-native'
+import {View, Text, Image, TouchableOpacity, Button, AsyncStorage} from 'react-native'
 import styles from './StyleSheets'
 import firebase from '../Firebase'
 import {Divider} from 'react-native-elements'
@@ -11,12 +11,12 @@ const UserData = new userData
 // import signOutAction from './SignOutAction'
 // import {connect} from 'react-redux'
 
+var profileIcon = ''
 const options = {
     title : 'Select Image',
     takePhotoButtonTitle : 'Take Photo',
     chooseFromLibraryButtonTitle : 'Choose Image',
 }
-
 
 class SignOutMenu extends Component {
 
@@ -48,8 +48,11 @@ class SignOutMenu extends Component {
                     avatarSource : source
                 })
                 var profile = this.state.avatarSource
-                // var currentUserId = UserData.userDetails()
-                // console.log('Current User from sign out ' + currentUserId);
+                // console.log('Profile Pic' + profile);
+                AsyncStorage.setItem('ProfilePic', profile)
+                AsyncStorage.getItem('ProfilePic').then((success) => {
+                    console.log('Profile Pic in Render ' + success);
+                })
                 firebase.database.database().ref('User').on('child_added', function(snapshot) {
                     firebase.database.database().ref('User').on('value', function(snapshot) {
                          userValue = snapshot.val()
@@ -71,9 +74,7 @@ class SignOutMenu extends Component {
     }
 
     handleCrossIcon = () => {
-        this.props.navigation.navigate('Dashboard', {
-            profileIcon : this.state.avatarSource
-        })
+        this.props.navigation.navigate('Dashboard')
     }
 
     componentDidMount = () => {
@@ -82,17 +83,29 @@ class SignOutMenu extends Component {
                 usersNote: response
             })            
         })
-        firebase.database.database().ref('User').orderByValue().on('value', function(snapshot){
-            var profilePic = snapshot.val()
-            console.log('Profile pic ' + JSON.stringify(profilePic.userProfile));
-            
-        })
         // console.log(" " + this.state.usersNote)
     }
 
-    render(){
+    componentDidUpdate = () => {
+        var userValue
+        var currentUser
+        firebase.database.database().ref('User').on('child_added' , function(snapshot){
+            userValue = snapshot.val()            
+            currentUser = firebase.firebase.auth().currentUser.email
+            console.log('Current user in update ' + userValue.email);
+
+            if(currentUser === userValue.email){
+                console.log("Current user in update " + currentUser);
+                console.log('User data value ' + userValue.email);
+                profileIcon = userValue.userProfile
+            }   
+        })
+    }
+
+    render(){        
         const {navigation} = this.props
         var userEmailId = navigation.getParam('userEmailId')
+        
         // console.log("User email id " + userEmailId);
 
         // var userData = firebase.firebase.auth().currentUser
@@ -113,7 +126,7 @@ class SignOutMenu extends Component {
                             <TouchableOpacity onPress = {this.uploadProfile}>
                                 <Avatar.Image size = {50}
                                 // style = {{width : 35, height : 35}}
-                                source = {this.state.avatarSource === '' ? require('../Assets/ProfileIcon.jpg') : this.state.avatarSource}
+                                source = {this.state.avatarSource === '' ? profileIcon : this.state.avatarSource}
                                 />
                             </TouchableOpacity>
                         </View>
