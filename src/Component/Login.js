@@ -9,6 +9,7 @@ import Dashboard from './Dashboard'
 import Register from './Register'
 import {AsyncStorage} from 'react-native'
 import UserServices from '../../UserServices'
+import {LoginManager} from 'react-native-fbsdk'
 
 class Login extends Component{
 
@@ -196,6 +197,12 @@ class Login extends Component{
                         <View style = {styles.signInButton}>
                             <Button title = "Sign In"
                              onPress = {this.handleSignIn}/>
+                        </View>
+                        
+                        <View>
+                            <Button title = 'Login with Facebook'
+                            style = {{bottom : 10}}
+                            onPress = {this.loginFacebook}/>
                         </View>
                         
                         <View >

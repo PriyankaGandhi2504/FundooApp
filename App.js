@@ -39,6 +39,7 @@ import RestoreOptions from './src/Component/RestoreOptions'
 import Hoc from './src/Component/HOC'
 import UserList from './src/Component/UserList'
 import FastImageDemo from './src/Component/FastImageDemo'
+import RestDemo from './src/Component/RestDemo'
 
 // import LocalNotificationPage from './src/Component/LocalNotification'
 // import PushNotificationPage from './src/Component/PushNotification'
@@ -81,7 +82,8 @@ class App extends Component{
     //  <DrawerRouter/>
       // <View>
       //    {/* <Users/> */}
-      //    <FastImageDemo/>
+      //    <RestDemo/>
+      //    {/* <FastImageDemo/> */}
       //   {/* <Background/> */}
       // {/* <LocalNotificationPage/> */}
       // {/* <PushNotificationPage/> */}
