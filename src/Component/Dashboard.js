@@ -229,7 +229,8 @@ class Dashboard extends Component {
                                         if(!this.state.usersNote[key].chosenImage === ""){
                                             return(
                                                 <FastImage style = {{width : 'auto', height : 'auto'}}
-                                                source = {this.state.usersNote[key].chosenImage}/>
+                                                source = {this.state.usersNote[key].chosenImage}
+                                                resizeMode = {FastImage.resizeMode.contain}/>
                                             )
                                         }
                                         if (!this.state.usersNote[key].isArchive && !this.state.usersNote[key].Deleted && !this.state.usersNote[key].isPin) {

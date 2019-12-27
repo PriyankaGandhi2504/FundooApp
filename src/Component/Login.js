@@ -148,6 +148,21 @@ class Login extends Component{
         }
     }
 
+    loginFacebook = () => {
+        try{
+            let result = LoginManager.logInWithPermissions(['public_profile'])
+            if(result.isCancelled){
+                alert(`Login Cancelled`)
+            }else{
+                this.props.navigation.navigate('DrawerRouter')
+                console.log('Login was successful with Permissions' + result.grantedPermissions.toString())
+                
+            }
+        } catch(error){
+            console.log('Facebook Login Failed with Error ' + error);
+        }
+    }
+
     handleSignUp = () => {
         this.props.navigation.navigate('Register')
     }
@@ -202,7 +217,8 @@ class Login extends Component{
                         <View>
                             <Button title = 'Login with Facebook'
                             style = {{bottom : 10}}
-                            onPress = {this.loginFacebook}/>
+                            onPress = {this.loginFacebook}
+                            />
                         </View>
                         
                         <View >

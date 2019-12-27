@@ -313,7 +313,8 @@ class CreateNote extends Component {
                     <View style={styles.titleText}>
                         <View style = {this.state.chosenImage === '' ? this.state.chosenImageFromDB === '' ? {display : 'none'} : {width : 'auto', height : 'auto'} : {width : 'auto', height : 'auto'}}>
                             <FastImage style = {{width : 400, height : 400}}
-                            source = {this.state.chosenImage === '' ? this.state.chosenImageFromDB : this.state.chosenImage}/>
+                            source = {this.state.chosenImage === '' ? this.state.chosenImageFromDB : this.state.chosenImage}
+                            resizeMode = {FastImage.resizeMode.contain}/>
                         </View>
                         <TextInput style={{ fontSize: 24 }}
                             value={this.state.Title}

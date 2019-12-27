@@ -13,11 +13,11 @@ class RestDemo extends Component{
 
     componentDidMount = () => {
         return fetch('https://jsonplaceholder.typicode.com/todos.json')
-        .then((response) => response.json())
+        .then((response) => response)
         .then((responseJson) => {
             this.setState({
                 isLoading : false,
-                dataSource : responseJson
+                dataSource : responseJson.headers
             })
             console.log('Data Source in Did Mount ' + JSON.stringify(this.state.dataSource));
             
