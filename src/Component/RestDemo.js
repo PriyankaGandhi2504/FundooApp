@@ -1,31 +1,30 @@
-import React, {Component} from 'react'
-import {View, Text, ActivityIndicator} from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, ActivityIndicator } from 'react-native'
 
-class RestDemo extends Component{
+class RestDemo extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            isLoading : true,
-            dataSource : null
+            isLoading: true,
+            dataSource: null
         }
     }
 
     componentDidMount = () => {
-        return fetch('https://jsonplaceholder.typicode.com/todos.json')
-        .then((response) => response)
-        .then((responseJson) => {
-            this.setState({
-                isLoading : false,
-                dataSource : responseJson.headers
+        return fetch('https://reactnative-b924a.firebaseio.com/.json')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    dataSource: responseJson.User
+                })
+                console.log('Data Source in Did Mount ' + JSON.stringify(this.state.dataSource));
+                console.log('Response json ' + JSON.stringify(responseJson));
             })
-            console.log('Data Source in Did Mount ' + JSON.stringify(this.state.dataSource));
-            
-            console.log('Response json ' + JSON.stringify(responseJson));
-        })
-        .catch((error) => {
-            console.log("Error : " + error);            
-        })
+            .catch((error) => {
+                console.log("Error : " + error);
+            })
 
         // fetch('https://myapiexample/endpoint/', {
         //     method : 'POST',
@@ -40,24 +39,33 @@ class RestDemo extends Component{
         // })
     }
 
-    render(){
+    render() {
 
-        if(this.state.isLoading){
-            return(
+        if (this.state.isLoading) {
+            return (
                 <View>
-                    <ActivityIndicator/>
+                    <ActivityIndicator />
                 </View>
             )
-        }else{
-            console.log('data source ' + JSON.stringify(this.state.dataSource));
-            // let notes = this.state.dataSource.map((val, key) => {
-            //     return <View key = {key}>
-            //         <Text> abc </Text>
-            //     </View>
-            // })
-            return(
+        } else {
+            console.log('data source ', this.state.dataSource);
+            return (
                 <View>
-                    <Text> Content Loaded </Text>
+                    {/* <Text>gfiiff</Text> */}
+                    {Object.keys(this.state.dataSource).map((val, key) => {
+                        console.log("key", key);
+                        console.log('Value ', this.state.dataSource[val]);
+
+                        return <View key={key}>
+                            {
+                                Object.keys(this.state.dataSource[val]).map((value, key) => {
+                                    console.log('Value of Key ', this.state.dataSource[val]);
+                                })
+                            }
+                            <Text> Abc </Text>
+                            {/* <Text> {this.state.dataSource[val]} </Text>  */}
+                        </View>
+                    })}
                 </View>
             )
         }

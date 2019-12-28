@@ -14,14 +14,14 @@ import SearchNote from './SearchNote'
 import moment from 'moment';
 import PushNotification from 'react-native-push-notification'
 import FastImage from 'react-native-fast-image'
-import {Avatar} from 'react-native-paper'
+import { Avatar } from 'react-native-paper'
 
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 var currentDate = moment().format('D-MM-YYYY h:mm a')
-var profileImage = profileImage; 
+var profileImage = profileImage;
 var userDataValue
-var currentUser
+var currentUser, reminderValue, noteValue, titleValue
 
 const options = {
     title: 'Add Image',
@@ -57,14 +57,9 @@ class Dashboard extends Component {
             searchBarDisp: {
                 display: styles.searchBar
             },
-            // profileImage : profileImage
         }
-        
-        
         console.disableYellowBox = true
         console.log('Current Date ' + currentDate);
-        // console.log('Current Time ' + currentTime);
-
     }
 
     updateSearch = () => {
@@ -104,19 +99,16 @@ class Dashboard extends Component {
             })
         })
 
-        await firebase.database.database().ref('User').on('child_added' , function(snapshot){
-            userDataValue = snapshot.val()            
+        await firebase.database.database().ref('User').on('child_added', function (snapshot) {
+            userDataValue = snapshot.val()
             currentUser = firebase.firebase.auth().currentUser.email
             console.log('Current user in update ' + userDataValue.email);
-            if(currentUser === userDataValue.email){
-                    profileImage = userDataValue.userProfile
-            }   
+            if (currentUser === userDataValue.email) {
+                profileImage = userDataValue.userProfile
+            }
         })
-        // AsyncStorage.setItem('ProfilePic', profileImage)
-        // AsyncStorage.getItem('ProfilePic').then((success) => {
-        //     console.log('Profile Pic in Async Storage ' + success);
-            
-        // })
+
+        setInterval(() => this.showReminder(), 1000)
         console.log('Profile Image in Component Did Update ' + profileImage);
     }
 
@@ -131,14 +123,26 @@ class Dashboard extends Component {
                 icon: list
             })
         } else {
-            this.setState({ 
+            this.setState({
                 gridDisplay: false,
                 icon: grid
             })
         }
     }
 
-    render() {        
+    showReminder = () => {
+        if (reminderValue === currentDate) {
+        console.log('Reminder Value ' + reminderValue === currentDate);
+            PushNotification.localNotification({
+                title: titleValue,
+                message: noteValue,
+                color: 'red',
+                actions: ["Yes", "No"]
+            })
+        }
+    }
+
+    render() {
         console.log('Profile Image In Render ' + profileImage);
         // const {navigation} = this.props
         // const note = navigation.getParam('Note', 'No Note')
@@ -186,7 +190,7 @@ class Dashboard extends Component {
 
                                 <View style={{ right: 10, top: -26 }}>
                                     <TouchableOpacity onPress={this.profileDisplay}>
-                                        <Avatar.Image size = {30}
+                                        <Avatar.Image size={30}
                                             source={profileImage === '' ? require('../Assets/ProfileIcon.jpg') : profileImage} />
                                     </TouchableOpacity>
                                 </View>
@@ -204,18 +208,20 @@ class Dashboard extends Component {
                                             return (
                                                 <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
                                                     navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
-                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage = {this.state.usersNote[key].chosenImage}/>
+                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage={this.state.usersNote[key].chosenImage} />
                                             );
                                         }
-                                        // console.log('In Pinned ' + this.state.usersNote[key].Reminder === currentDate);
                                         if (this.state.usersNote[key].Reminder === currentDate) {
                                             PushNotification.localNotification({
                                                 title: this.state.usersNote[key].Title,
                                                 message: this.state.usersNote[key].Note,
                                                 color: 'red',
-                                                actions: ['Yes', 'No']
+                                                actions: ["Yes", "No"]
                                             })
                                         }
+                                        // noteValue = this.state.usersNote[key].Note
+                                        // titleValue = this.state.usersNote[key].Title
+                                        // reminderValue = this.state.usersNote[key].Reminder
                                     })
                                 }
                             </View>
@@ -226,21 +232,23 @@ class Dashboard extends Component {
                             <View style={styles.userCard}>
                                 {
                                     Object.getOwnPropertyNames(this.state.usersNote).map((key, indexing) => {
-                                        if(!this.state.usersNote[key].chosenImage === ""){
-                                            return(
-                                                <FastImage style = {{width : 'auto', height : 'auto'}}
-                                                source = {this.state.usersNote[key].chosenImage}
-                                                resizeMode = {FastImage.resizeMode.contain}/>
+                                        if (!this.state.usersNote[key].chosenImage === "") {
+                                            return (
+                                                <FastImage style={{ width: 'auto', height: 'auto' }}
+                                                    source={this.state.usersNote[key].chosenImage}
+                                                    resizeMode={FastImage.resizeMode.contain} />
                                             )
                                         }
                                         if (!this.state.usersNote[key].isArchive && !this.state.usersNote[key].Deleted && !this.state.usersNote[key].isPin) {
                                             return (
                                                 <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
                                                     navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
-                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage = {this.state.usersNote[key].chosenImage} />
+                                                    Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage={this.state.usersNote[key].chosenImage} />
                                             );
                                         }
-                                        // console.log('In Others ' + this.state.usersNote[key].Reminder === currentDate);
+                                        // noteValue = this.state.usersNote[key].Note
+                                        // titleValue = this.state.usersNote[key].Title
+                                        // reminderValue = this.state.usersNote[key].Reminder
                                         if (this.state.usersNote[key].Reminder === currentDate) {
                                             PushNotification.localNotification({
                                                 title: this.state.usersNote[key].Title,

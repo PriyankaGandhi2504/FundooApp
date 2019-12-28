@@ -20,6 +20,7 @@ import Settings from './Settings'
 import HelpFeedback from './HelpFeedback'
 import SearchNote from './SearchNote'
 import RestoreTrash from './RestoreTrash'
+// import SplashScreen from './SplashScreen'
 
 // navigationOptions : {header : null}
 const MainNavigator = createStackNavigator({
@@ -38,7 +39,8 @@ const MainNavigator = createStackNavigator({
   Settings : {screen : Settings, navigationOptions : {header : null}},
   HelpFeedback : {screen : HelpFeedback, navigationOptions : {header : null}},
   SearchNote : {screen : SearchNote, navigationOptions : {header : null}},
-  RestoreTrash : {screen : RestoreTrash, navigationOptions : {header : null}}
+  RestoreTrash : {screen : RestoreTrash, navigationOptions : {header : null}},
+  // SplashScreen : {screen : SplashScreen, navigationOptions : {header : null}}
   // HomeScreen : {screen : HomeScreen, navigationOptions : {header : null}},
   // SettingScreen : {screen : SettingScreen, navigationOptions : {header : null}}
 },

@@ -17,11 +17,8 @@ class SplashScreen extends Component {
                  }
                  else{
                     this.goToLogin()
-                
                  }
-                
                  console.log('isAuthenticate in getItem',isAuthenticatedUser) })
-
                  .catch((error) => {
                         this.goToLogin()
                  })

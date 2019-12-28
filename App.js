@@ -74,39 +74,39 @@ class App extends Component{
     return(
       // <AppDrawerNavigator/>
       // <Provider store = {store}>
-     <Router/>
+    //  <Router/>
 
       // </Provider>
 
 // {/* <Try/> */}
     //  <DrawerRouter/>
-      // <View>
-      //    {/* <Users/> */}
-      //    <RestDemo/>
-      //    {/* <FastImageDemo/> */}
-      //   {/* <Background/> */}
-      // {/* <LocalNotificationPage/> */}
-      // {/* <PushNotificationPage/> */}
-      // {/* <RestoreTrash/> */}
-      //   {/* <SplashScreen/> */}
-      // {/* <SearchNote/> */}
-      //   {/* <RefreshControlDemo/> */}
-      //   {/* <Orientation/> */}
-      //   {/* <AddBoxMenu/> */}
-      //   {/* <Reminder/> */}
-      //   {/* <Datedropdown/> */}
-      //           {/* <MultiSelectDemo/>
-      //            {/* <SignOutMenu/> */}
-      //              {/* <ReviewDoubleClickQue/> */}
-      //           {/* <FlatListDemo/> */}
-      //           {/* <Note/> */}
-      //          {/* <ToggleSearchBar/> */}
-      //          {/* <ToggleSearchbarMenu/> */}
-      //           {/* <ColorPaletteDemo/> */}
-      //                     {/* <CreateNote/> */}
-      //                   {/* <Dashboard/> */}
-      //               {/* <Snackbar/> */}
-      //          </View>
+      <View>
+         {/* <Users/> */}
+         <RestDemo/>
+         {/* <FastImageDemo/> */}
+        {/* <Background/> */}
+      {/* <LocalNotificationPage/> */}
+      {/* <PushNotificationPage/> */}
+      {/* <RestoreTrash/> */}
+        {/* <SplashScreen/> */}
+      {/* <SearchNote/> */}
+        {/* <RefreshControlDemo/> */}
+        {/* <Orientation/> */}
+        {/* <AddBoxMenu/> */}
+        {/* <Reminder/> */}
+        {/* <Datedropdown/> */}
+                {/* <MultiSelectDemo/>
+                 {/* <SignOutMenu/> */}
+                   {/* <ReviewDoubleClickQue/> */}
+                {/* <FlatListDemo/> */}
+                {/* <Note/> */}
+               {/* <ToggleSearchBar/> */}
+               {/* <ToggleSearchbarMenu/> */}
+                {/* <ColorPaletteDemo/> */}
+                          {/* <CreateNote/> */}
+                        {/* <Dashboard/> */}
+                    {/* <Snackbar/> */}
+               </View>
     );
   }
 }
