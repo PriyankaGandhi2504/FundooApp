@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator, ScrollView } from 'react-native'
 
+var dataValue
 class RestDemo extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             isLoading: true,
-            dataSource: null
+            dataSource: null,
+            value : []
         }
     }
 
@@ -26,6 +28,8 @@ class RestDemo extends Component {
                 console.log("Error : " + error);
             })
 
+
+
         // fetch('https://myapiexample/endpoint/', {
         //     method : 'POST',
         //     headers : {
@@ -41,6 +45,12 @@ class RestDemo extends Component {
 
     render() {
 
+        // return(
+        //     <View>
+
+        //     </View>
+        // )
+
         if (this.state.isLoading) {
             return (
                 <View>
@@ -50,23 +60,16 @@ class RestDemo extends Component {
         } else {
             console.log('data source ', this.state.dataSource);
             return (
+                <ScrollView>
                 <View>
-                    {/* <Text>gfiiff</Text> */}
-                    {Object.keys(this.state.dataSource).map((val, key) => {
+                    {Object.getOwnPropertyNames(this.state.dataSource).map((val, key) => {
                         console.log("key", key);
                         console.log('Value ', this.state.dataSource[val]);
-
-                        return <View key={key}>
-                            {
-                                Object.keys(this.state.dataSource[val]).map((value, key) => {
-                                    console.log('Value of Key ', this.state.dataSource[val]);
-                                })
-                            }
-                            <Text> Abc </Text>
-                            {/* <Text> {this.state.dataSource[val]} </Text>  */}
-                        </View>
+                        console.log('Value of Key ', this.state.dataSource[val]);
+                        return <Text> {this.state.dataSource[val].email} </Text>
                     })}
                 </View>
+                </ScrollView>
             )
         }
     }
