@@ -44,13 +44,6 @@ class RestDemo extends Component {
     }
 
     render() {
-
-        // return(
-        //     <View>
-
-        //     </View>
-        // )
-
         if (this.state.isLoading) {
             return (
                 <View>
@@ -62,7 +55,7 @@ class RestDemo extends Component {
             return (
                 <ScrollView>
                 <View>
-                    {Object.getOwnPropertyNames(this.state.dataSource).map((val, key) => {
+                    {Object.keys(this.state.dataSource).map((val, key) => {
                         console.log("key", key);
                         console.log('Value ', this.state.dataSource[val]);
                         console.log('Value of Key ', this.state.dataSource[val]);
