@@ -11,7 +11,7 @@ const UserData = new userData
 // import signOutAction from './SignOutAction'
 // import {connect} from 'react-redux'
 
-var profileIcon = ''
+var profileIcon, profile
 const options = {
     title : 'Select Image',
     takePhotoButtonTitle : 'Take Photo',
@@ -47,12 +47,7 @@ class SignOutMenu extends Component {
                 this.setState({
                     avatarSource : source
                 })
-                var profile = this.state.avatarSource
-                // console.log('Profile Pic' + profile);
-                AsyncStorage.setItem('ProfilePic', profile)
-                AsyncStorage.getItem('ProfilePic').then((success) => {
-                    console.log('Profile Pic in Render ' + success);
-                })
+                profile = this.state.avatarSource
                 firebase.database.database().ref('User').on('child_added', function(snapshot) {
                     firebase.database.database().ref('User').on('value', function(snapshot) {
                          userValue = snapshot.val()
@@ -74,7 +69,8 @@ class SignOutMenu extends Component {
     }
 
     handleCrossIcon = () => {
-        this.props.navigation.navigate('Dashboard')
+        console.log('Updated Profile from Sign Out Menu ' , profile);
+        this.props.navigation.navigate('Dashboard', {updatedProfile : profile})
     }
 
     componentDidMount = () => {
@@ -83,7 +79,6 @@ class SignOutMenu extends Component {
                 usersNote: response
             })            
         })
-        // console.log(" " + this.state.usersNote)
     }
 
     componentDidUpdate = () => {
@@ -92,11 +87,7 @@ class SignOutMenu extends Component {
         firebase.database.database().ref('User').on('child_added' , function(snapshot){
             userValue = snapshot.val()            
             currentUser = firebase.firebase.auth().currentUser.email
-            console.log('Current user in update ' + userValue.email);
-
             if(currentUser === userValue.email){
-                console.log("Current user in update " + currentUser);
-                console.log('User data value ' + userValue.email);
                 profileIcon = userValue.userProfile
             }   
         })
@@ -105,9 +96,6 @@ class SignOutMenu extends Component {
     render(){        
         const {navigation} = this.props
         var userEmailId = navigation.getParam('userEmailId')
-        
-        // console.log("User email id " + userEmailId);
-
         // var userData = firebase.firebase.auth().currentUser
         // var userEmail = userData.email
 
@@ -125,7 +113,6 @@ class SignOutMenu extends Component {
                         <View>
                             <TouchableOpacity onPress = {this.uploadProfile}>
                                 <Avatar.Image size = {50}
-                                // style = {{width : 35, height : 35}}
                                 source = {this.state.avatarSource === '' ? profileIcon : this.state.avatarSource}
                                 />
                             </TouchableOpacity>

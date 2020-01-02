@@ -20,7 +20,7 @@ var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 var currentDate = moment().format('D-MM-YYYY h:mm a')
 var profileImage = profileImage;
-var userDataValue
+var userDataValue, updatedProfile
 var currentUser, reminderValue, noteValue, titleValue
 
 const options = {
@@ -33,6 +33,16 @@ class Dashboard extends Component {
 
     constructor(props) {
         super(props)
+        firebase.database.database().ref('User').on('child_added', function (snapshot) {
+            userDataValue = snapshot.val()
+            currentUser = firebase.firebase.auth().currentUser.email
+            console.log('Current user in update ' + userDataValue.email);
+            if (currentUser === userDataValue.email) {
+                profileImage = userDataValue.userProfile
+            }
+        })
+        const {navigation} = props
+        updatedProfile = navigation.getParam('updatedProfile', require('../Assets/ProfileIcon.jpg'))
         this.state = {
             search: '',
             googleKeepImageVisibility: false,
@@ -92,21 +102,21 @@ class Dashboard extends Component {
         })
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         UserData.userData(response => {
             this.setState({
                 usersNote: response
             })
         })
 
-        await firebase.database.database().ref('User').on('child_added', function (snapshot) {
-            userDataValue = snapshot.val()
-            currentUser = firebase.firebase.auth().currentUser.email
-            console.log('Current user in update ' + userDataValue.email);
-            if (currentUser === userDataValue.email) {
-                profileImage = userDataValue.userProfile
-            }
-        })
+        // await firebase.database.database().ref('User').on('child_added', function (snapshot) {
+        //     userDataValue = snapshot.val()
+        //     currentUser = firebase.firebase.auth().currentUser.email
+        //     console.log('Current user in update ' + userDataValue.email);
+        //     if (currentUser === userDataValue.email) {
+        //         profileImage = userDataValue.userProfile
+        //     }
+        // })
 
         setInterval(() => this.showReminder(), 1000)
         console.log('Profile Image in Component Did Update ' + profileImage);
@@ -143,7 +153,9 @@ class Dashboard extends Component {
     }
 
     render() {
-        console.log('Profile Image In Render ' + profileImage);
+        console.log('Profile Image In Render ' + JSON.stringify(profileImage));
+        console.log('Updated Profile in Render ' + updatedProfile);
+        
         // const {navigation} = this.props
         // const note = navigation.getParam('Note', 'No Note')
         // const title = navigation.getParam('Title', 'No Title')
@@ -191,7 +203,7 @@ class Dashboard extends Component {
                                 <View style={{ right: 10, top: -26 }}>
                                     <TouchableOpacity onPress={this.profileDisplay}>
                                         <Avatar.Image size={30}
-                                            source={profileImage === '' ? require('../Assets/ProfileIcon.jpg') : profileImage} />
+                                            source={updatedProfile === '' ? updatedProfile : profileImage} />
                                     </TouchableOpacity>
                                 </View>
                             </View>

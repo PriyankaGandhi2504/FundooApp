@@ -35,7 +35,6 @@ class ToggleSearchBar extends Component{
     }
 
     render(){
-        
         return(
             <View style = {{height : "100%", width : "100%"}}>
                 <View style = {styles.toggleSearchBar}>
@@ -93,7 +92,6 @@ class ToggleSearchBar extends Component{
                 <View style = {this.state.menuDisplay}>
                     <ToggleSearchbarMenu/>
                 </View>
-
             </View>
         )
     }

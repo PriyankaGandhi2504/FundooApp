@@ -100,7 +100,8 @@ class DeletedNotes extends Component {
                                         <Note index={indexes} Title={this.state.deletedNotes[key].Title} 
                                         Note={this.state.deletedNotes[key].Note} navigation={this.props.navigation} 
                                         gridDisplayValue={this.state.gridDisplay} Color={this.state.deletedNotes[key].Color} 
-                                        Reminder={this.state.deletedNotes[key].Reminder} DeletedValue = {this.state.deletedNotes[key].Deleted}/>
+                                        Reminder={this.state.deletedNotes[key].Reminder} DeletedValue = {this.state.deletedNotes[key].Deleted}
+                                        chosenImage={this.state.deletedNotes[key].chosenImage}/>
                                     )
                                 }
                             })}

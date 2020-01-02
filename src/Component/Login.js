@@ -113,30 +113,21 @@ class Login extends Component{
                 this.props.navigation.navigate('DrawerRouter')
                 var userData = firebase.firebase.auth().currentUser
                 var userId = userData.uid
-
                 // var userInfo = new UserServices
                 // userInfo.userDetails()
-                // console.log("User Details from Login : " + JSON.stringify(userInfo.userDetails()));
-                //var userData = UserServices.userDetails()
-                // var user = firebase.firebase.auth().currentUser
-                
-                // console.log('User data' + JSON.stringify(user))
-                // console.warn('User data' + JSON.stringify(user))
+                //var userData = UserServices.userDetails()                
                 AsyncStorage.setItem('UserId', userId)
                 AsyncStorage.setItem('isAuthenticatedUser', 'true')
                 AsyncStorage.getItem('isAuthenticatedUser').then((success) => {
                     console.log("Is Authenticated User " + success);
-                    
                 }).catch((error) => {
                     console.log('Error from get item ' + error);
                 })
-
                 AsyncStorage.getItem('UserId') .then((success) => {
                     console.log("UserId " +success);     
                 })
                 .catch ((error) => {
-                    console.log("Error from login " + error);
-                    
+                    console.log("Error from login " + error);       
                 })
             })
             .catch((error) => {

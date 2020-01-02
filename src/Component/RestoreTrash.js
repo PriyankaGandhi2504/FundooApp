@@ -7,18 +7,19 @@ import Snackbar from 'react-native-snackbar';
 import firebase from '../Firebase'
 
 var dataToUpdate
-var updatedDeleteValue
+var updatedDeleteValue, deletedValue
 
 class RestoreTrash extends Component{
 
     constructor(props){
         super(props)
-        // this.state = {
-        //     Title : '',
-        //     Note : '',
-        //     KeyValue : '',
-
-        // }
+        const { navigation } = this.props
+        dataToUpdate = navigation.getParam('clickedNote' , '')
+        console.log('Deleted Value from Database ' + dataToUpdate.Deleted)
+        this.state = {
+            restoreValue : '',
+            KeyValue : dataToUpdate.key
+        }
     }
 
     handleEdit = () => {
@@ -30,13 +31,9 @@ class RestoreTrash extends Component{
                 title: 'RESTORE',
                 color: '#ff9933',
                 onPress: () => {
-                    // this.setState({
                         updatedDeleteValue = !dataToUpdate.Deleted
                         firebase.database.database().ref('Notes').child(dataToUpdate.key).update({Deleted : updatedDeleteValue})
                         this.props.navigation.goBack()
-                        // this.handleBackArrowToCreate()
-                    // })
-                    // alert(`State Changed ${updatedDeleteValue}`)
                 }
             }
         });
@@ -47,13 +44,18 @@ class RestoreTrash extends Component{
     }
 
     handleRestore = () => {
-        alert(`Restore Clicked`)
+        console.log('Deleted Value in Restore Trash ' , dataToUpdate.Deleted)
+        this.state.restoreValue = !dataToUpdate.Deleted
+        firebase.database.database().ref('Notes').child(this.state.KeyValue).update({Deleted : this.state.restoreValue})
+        Snackbar.show({
+            title : 'Note Restored',
+            duration : 1000
+        })
+        this.props.navigation.goBack()
     }
 
     render(){
-        const { navigation } = this.props
-        dataToUpdate = navigation.getParam('clickedNote' , '')
-        console.log('Deleted Value from Database ' + dataToUpdate.Deleted)
+        
         return(
             <View style = {{width : '100%', height : '100%', justifyContent : 'space-between'}}>
                 <View>

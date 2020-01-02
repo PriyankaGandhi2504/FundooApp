@@ -52,7 +52,10 @@ class Archive extends Component {
                                 Object.getOwnPropertyNames(this.state.archivedNotes).map((key, indexes) => {
                                     if (this.state.archivedNotes[key].isArchive) {
                                         return (
-                                            <Note index={indexes} Title={this.state.archivedNotes[key].Title} Note={this.state.archivedNotes[key].Note} navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} Color={this.state.archivedNotes[key].Color} Reminder={this.state.archivedNotes[key].Reminder}/>
+                                            <Note index={indexes} Title={this.state.archivedNotes[key].Title} 
+                                            Note={this.state.archivedNotes[key].Note} navigation={this.props.navigation} 
+                                            gridDisplayValue={this.state.gridDisplay} Color={this.state.archivedNotes[key].Color} 
+                                            Reminder={this.state.archivedNotes[key].Reminder} chosenImage={this.state.archivedNotes[key].chosenImage}/>
                                         )
                                     }
                                 })}

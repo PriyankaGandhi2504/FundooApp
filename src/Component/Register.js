@@ -144,11 +144,6 @@ class Register extends Component{
 
     registerButton = () => {
         var isError = false
-        // var dummy = {
-        //     firstName : "abc",
-        //     lastName : this.state.lastName
-        // }
-        // firebase.database.database().ref('/user').push(dummy)
         if(this.state.firstName == ''){
             this.state.firstNameErr = "Field Required"
             this.setState({
@@ -200,7 +195,6 @@ class Register extends Component{
         }
 
         if(!isError){
-            // var authUserId = firebase.firebase.auth().currentUser
             if(this.state.password === this.state.confirmPassword){
                 var obj = {
                     firstName : this.state.firstName,
@@ -214,7 +208,6 @@ class Register extends Component{
                 firebase.firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
                 .then((success) => {
                     console.warn("Success" + success);
-                    // firebase.database.database().ref("/User").push(obj)
                     this.setState({
                         firstName : '',
                         email : '',
