@@ -40,6 +40,7 @@ import Hoc from './src/Component/HOC'
 import UserList from './src/Component/UserList'
 import FastImageDemo from './src/Component/FastImageDemo'
 import RestDemo from './src/Component/RestDemo'
+import AxiosDemo from './src/Component/AxiosDemo'
 
 // import LocalNotificationPage from './src/Component/LocalNotification'
 // import PushNotificationPage from './src/Component/PushNotification'
@@ -74,39 +75,40 @@ class App extends Component{
     return(
       // <AppDrawerNavigator/>
       // <Provider store = {store}>
-     <Router/>
+    //  <Router/>
 
       // </Provider>
 
 // {/* <Try/> */}
     //  <DrawerRouter/>
-      // <View>
-      //    {/* <Users/> */}
-      //    <RestDemo/>
-      //    {/* <FastImageDemo/> */}
-      //   {/* <Background/> */}
-      // {/* <LocalNotificationPage/> */}
-      // {/* <PushNotificationPage/> */}
-      // {/* <RestoreTrash/> */}
-      //   {/* <SplashScreen/> */}
-      // {/* <SearchNote/> */}
-      //   {/* <RefreshControlDemo/> */}
-      //   {/* <Orientation/> */}
-      //   {/* <AddBoxMenu/> */}
-      //   {/* <Reminder/> */}
-      //   {/* <Datedropdown/> */}
-      //           {/* <MultiSelectDemo/>
-      //            {/* <SignOutMenu/> */}
-      //              {/* <ReviewDoubleClickQue/> */}
-      //           {/* <FlatListDemo/> */}
-      //           {/* <Note/> */}
-      //          {/* <ToggleSearchBar/> */}
-      //          {/* <ToggleSearchbarMenu/> */}
-      //           {/* <ColorPaletteDemo/> */}
-      //                     {/* <CreateNote/> */}
-      //                   {/* <Dashboard/> */}
-      //               {/* <Snackbar/> */}
-      //          </View>
+      <View>
+         {/* <Users/> */}
+         <AxiosDemo/>
+         {/* <RestDemo/> */}
+         {/* <FastImageDemo/> */}
+        {/* <Background/> */}
+      {/* <LocalNotificationPage/> */}
+      {/* <PushNotificationPage/> */}
+      {/* <RestoreTrash/> */}
+        {/* <SplashScreen/> */}
+      {/* <SearchNote/> */}
+        {/* <RefreshControlDemo/> */}
+        {/* <Orientation/> */}
+        {/* <AddBoxMenu/> */}
+        {/* <Reminder/> */}
+        {/* <Datedropdown/> */}
+                {/* <MultiSelectDemo/>
+                 {/* <SignOutMenu/> */}
+                   {/* <ReviewDoubleClickQue/> */}
+                {/* <FlatListDemo/> */}
+                {/* <Note/> */}
+               {/* <ToggleSearchBar/> */}
+               {/* <ToggleSearchbarMenu/> */}
+                {/* <ColorPaletteDemo/> */}
+                          {/* <CreateNote/> */}
+                        {/* <Dashboard/> */}
+                    {/* <Snackbar/> */}
+               </View>
     );
   }
 }

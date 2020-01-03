@@ -14,39 +14,39 @@ class RestDemo extends Component {
     }
 
     componentDidMount = () => {
-        // return fetch('https://reactnative-b924a.firebaseio.com/.json')
-        //     .then((response) => response.json())
-        //     .then((responseJson) => {
-        //         this.setState({
-        //             isLoading: false,
-        //             dataSource: responseJson.User
-        //         },()=>{
-        //             console.log('Data Source in Did Mount ' + JSON.stringify(this.state.dataSource));
-        //         console.log('Response json ' + JSON.stringify(responseJson));
-        //         })
+        return fetch('https://reactnative-b924a.firebaseio.com/.json')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    dataSource: responseJson.User
+                },()=>{
+                    console.log('Data Source in Did Mount ' + JSON.stringify(this.state.dataSource));
+                console.log('Response json ' + JSON.stringify(responseJson));
+                })
                 
-        //     })
-        //     .catch((error) => {
-        //         console.log("Error : " + error);
-        //     })
-
-        return fetch('https://reactnative-b924a.firebaseio.com/', {
-            method : 'POST',
-            headers : {
-                Accept : 'Notes/json',
-                'Content-Type' : 'Notes/json'
-            },
-            body : JSON.stringify({
-                Note : 'yourValue',
-                Title : 'yourOtherValue'
             })
-        }) .then((response) => response.json())
-        .then((responseJson) => {
-            this.setState({
-                isLoading : false,
-                dataSource : responseJson.Notes
-            }, () => {console.log('Data Source In Did Mount ', this.state.dataSource)})
-        })
+            .catch((error) => {
+                console.log("Error : " + error);
+            })
+
+        // return fetch('https://reactnative-b924a.firebaseio.com/', {
+            // method : 'POST',
+            // headers : {
+            //     Accept : 'Notes/json',
+            //     'Content-Type' : 'Notes/json'
+            // },
+            // body : JSON.stringify({
+            //     Note : 'yourValue',
+            //     Title : 'yourOtherValue'
+        //     })
+        // }) .then((response) => response.json())
+        // .then((responseJson) => {
+        //     this.setState({
+        //         isLoading : false,
+        //         dataSource : responseJson.Notes
+        //     }, () => {console.log('Data Source In Did Mount ', this.state.dataSource)})
+        // })
     }
 
     render() {

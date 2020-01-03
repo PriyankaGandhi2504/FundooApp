@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image, ScrollView, Button } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView, Button, Alert } from 'react-native'
 import styles from './StyleSheets'
 import CreateNote from './CreateNote'
 import { AsyncStorage } from 'react-native'
@@ -15,6 +15,7 @@ import moment from 'moment';
 import PushNotification from 'react-native-push-notification'
 import FastImage from 'react-native-fast-image'
 import { Avatar } from 'react-native-paper'
+import firebaseNotify from 'react-native-firebase';
 
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
@@ -120,7 +121,78 @@ class Dashboard extends Component {
 
         setInterval(() => this.showReminder(), 1000)
         console.log('Profile Image in Component Did Update ' + profileImage);
+        this.checkPermission();
+        this.createNotificationListeners();
     }
+
+    componentWillUnmount() {
+        this.notificationListener();
+        this.notificationOpenedListener();
+      }
+
+    async checkPermission() {
+        const enabled = await firebaseNotify.messaging().hasPermission();
+        if (enabled) {
+            this.getToken();
+        } else {
+            this.requestPermission();
+        }
+      }
+
+      async requestPermission() {
+        try {
+            await firebaseNotify.messaging().requestPermission();
+            // User has authorised
+            this.getToken();
+        } catch (error) {
+            // User has rejected permissions
+            console.log('permission rejected');
+        }
+      }
+
+      async getToken() {
+        let fcmToken = await AsyncStorage.getItem('fcmToken');
+        if (!fcmToken) {
+            fcmToken = await firebaseNotify.messaging().getToken();
+            console.log('Fcm Token in If ', fcmToken);
+            
+            if (fcmToken) {
+                // user has a device token
+                console.log('Fcm Token in Else ', fcmToken);
+                
+                await AsyncStorage.setItem('fcmToken', fcmToken);
+            }
+        }
+      }
+
+      async createNotificationListeners() {
+        this.notificationListener = firebaseNotify.notifications().onNotification((notification) => {
+            const { title, body } = notification;
+            this.showAlert(title, body);
+        });
+        this.notificationOpenedListener = firebaseNotify.notifications().onNotificationOpened((notificationOpen) => {
+            const { title, body } = notificationOpen.notification;
+            this.showAlert(title, body);
+        });
+        const notificationOpen = await firebaseNotify.notifications().getInitialNotification();
+        if (notificationOpen) {
+            const { title, body } = notificationOpen.notification;
+            this.showAlert(title, body);
+        }
+        this.messageListener = firebaseNotify.messaging().onMessage((message) => {
+          console.log(JSON.stringify(message));
+        });
+      }
+      
+      showAlert(title, body) {
+        Alert.alert(
+          title, body,
+          [
+              { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false },
+        );
+      }
 
     // static getDerivedStateFromProps(props, state){
     //     console.log("Get Derived State From Props");
