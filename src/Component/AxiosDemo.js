@@ -20,18 +20,21 @@ class AxiosDemo extends Component {
             })
     }
 
-    handlePost = () => {
-        var dummyObject = {
-            Note: 'Dummy',
-            Title: 'obj',
-        }
-        axios.post('https://reactnative-b924a.firebaseio.com/Notes.json', dummyObject)
+    handleUserPost = (obj) => {
+        // firstName, lastName, email, password, userProfile
+        // var obj = {
+        //     firstName : firstName,
+        //     lastName : lastName,
+        //     email : email,
+        //     password : password,
+        //     userProfile : userProfile
+        // }
+        axios.post('https://reactnative-b924a.firebaseio.com/User.json', obj)
             .then((success) => {
                 console.log('Success in Post Then ', success);
             })
             .catch((error) => {
                 console.log('Error in Post Catch ', error);
-
             })
     }
 
@@ -61,10 +64,10 @@ class AxiosDemo extends Component {
                     }
                 </View>
 
-                <View style={{ width: 100 }}>
+                {/* <View style={{ width: 100 }}>
                     <Button title='POST'
-                        onPress={this.handlePost} />
-                </View>
+                        onPress={this.handleUserPost} />
+                </View> */}
 
                 <View style={{ top: 10, width : 100 }}>
                     <Button title='DELETE'

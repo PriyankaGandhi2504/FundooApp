@@ -57,7 +57,6 @@ class ForgotPassword extends Component{
                 this.setState({
                     ...this.state
                 })
-                // console.warn('Error Occured on Forgot Password Page' + error)
             })
         }
     }

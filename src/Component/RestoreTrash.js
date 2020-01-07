@@ -1,29 +1,27 @@
-import React, {Component} from 'react'
-import {View, Text, TouchableOpacity, Image, TextInput, ScrollView} from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
 import styles from './StyleSheets'
-// import RestoreOptions from './RestoreOptions'
 import RBSheet from "react-native-raw-bottom-sheet";
 import Snackbar from 'react-native-snackbar';
 import firebase from '../Firebase'
+import DeleteForever from './DeleteForever';
 
 var dataToUpdate
 var updatedDeleteValue, deletedValue
 
-class RestoreTrash extends Component{
+class RestoreTrash extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         const { navigation } = this.props
-        dataToUpdate = navigation.getParam('clickedNote' , '')
-        console.log('Deleted Value from Database ' + dataToUpdate.Deleted)
+        dataToUpdate = navigation.getParam('clickedNote', '')
         this.state = {
-            restoreValue : '',
-            KeyValue : dataToUpdate.key
+            restoreValue: '',
+            KeyValue: dataToUpdate.key
         }
     }
 
     handleEdit = () => {
-        console.log('Deleted value in snackbar ' + dataToUpdate.Deleted)
         Snackbar.show({
             title: 'Cannot Edit in Recycle Bin',
             duration: 1000,
@@ -31,9 +29,9 @@ class RestoreTrash extends Component{
                 title: 'RESTORE',
                 color: '#ff9933',
                 onPress: () => {
-                        updatedDeleteValue = !dataToUpdate.Deleted
-                        firebase.database.database().ref('Notes').child(dataToUpdate.key).update({Deleted : updatedDeleteValue})
-                        this.props.navigation.goBack()
+                    updatedDeleteValue = !dataToUpdate.Deleted
+                    firebase.database.database().ref('Notes').child(dataToUpdate.key).update({ Deleted: updatedDeleteValue })
+                    this.props.navigation.goBack()
                 }
             }
         });
@@ -44,74 +42,75 @@ class RestoreTrash extends Component{
     }
 
     handleRestore = () => {
-        console.log('Deleted Value in Restore Trash ' , dataToUpdate.Deleted)
         this.state.restoreValue = !dataToUpdate.Deleted
-        firebase.database.database().ref('Notes').child(this.state.KeyValue).update({Deleted : this.state.restoreValue})
+        firebase.database.database().ref('Notes').child(this.state.KeyValue).update({ Deleted: this.state.restoreValue })
         Snackbar.show({
-            title : 'Note Restored',
-            duration : 1000
+            title: 'Note Restored',
+            duration: 1000
         })
         this.props.navigation.goBack()
     }
 
-    render(){
-        
-        return(
-            <View style = {{width : '100%', height : '100%', justifyContent : 'space-between'}}>
+    handleDeleteForever = () => {
+    }
+
+    render() {
+        return (
+            <View style={{ width: '100%', height: '100%', justifyContent: 'space-between' }}>
                 <View>
-                <View>
-                    <TouchableOpacity onPress = {this.handleBackDelete}>
-                        <Image style = {{width : 30, height : 30, tintColor : 'black'}}
-                        source = {require('../Assets/BackArrow.png')}/>
+                    <View>
+                        <TouchableOpacity onPress={this.handleBackDelete}>
+                            <Image style={{ width: 30, height: 30, tintColor: 'black' }}
+                                source={require('../Assets/BackArrow.png')} />
+                        </TouchableOpacity>
+                    </View>
+
+                    <TouchableOpacity onPress={this.handleEdit}>
+                        <View style={{ height: 600 }}>
+                            <TextInput style={{ fontSize: 24 }}
+                                value={dataToUpdate.Title}
+                                placeholder="Title"
+                                editable={false}
+                            />
+                            <TextInput style={{ fontSize: 18 }}
+                                multiline
+                                value={dataToUpdate.Note}
+                                placeholder="Note"
+                                editable={false}
+                            />
+                        </View>
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress = {this.handleEdit}>
-                    <View style = {{height : 600}}>
-                        <TextInput style={{ fontSize: 24 }}
-                            value={dataToUpdate.Title}
-                            placeholder="Title"
-                            editable = {false}
-                        />
-                            <TextInput style={{ fontSize: 18 }}
-                            multiline
-                            value={dataToUpdate.Note}
-                            placeholder="Note" 
-                            editable = {false}
-                            />
-                    </View>
-                </TouchableOpacity>
-                </View>
-
-                <View style = {{height : 30, flexDirection : 'row', justifyContent : 'space-between'}}>
+                <View style={{ height: 30, flexDirection: 'row', justifyContent: 'space-between', position: 'relative' }}>
                     <View>
                         <TouchableOpacity>
-                            <Image style = {{width : 30, height : 25}}
-                            source = {require('../Assets/AddItems.png')}/>
+                            <Image style={{ width: 30, height: 25 }}
+                                source={require('../Assets/AddItems.png')} />
                         </TouchableOpacity>
                     </View>
 
                     <View>
                         <View>
-                            <TouchableOpacity onPress = {() => { this.RBSheet.open() }}>
-                                <Image style = {{width : 20, height : 25}}
-                                source = {require('../Assets/Menu.png')}/>
+                            <TouchableOpacity onPress={() => { this.RBSheet.open() }}>
+                                <Image style={{ width: 20, height: 25 }}
+                                    source={require('../Assets/Menu.png')} />
                             </TouchableOpacity>
 
                             <RBSheet
-                            ref={ref => {
-                                this.RBSheet = ref;
-                            }}
-                            height={100}
-                            duration={250}
-                            customStyles={{
-                            container: {
-                                justifyContent: "flex-start",
-                                alignItems: "flex-start",
-                                bottom: 40
-                            }
-                            }}>
-                                <RestoreOptions handleRestore = {this.handleRestore}/>
+                                ref={ref => {
+                                    this.RBSheet = ref;
+                                }}
+                                height={100}
+                                duration={250}
+                                customStyles={{
+                                    container: {
+                                        justifyContent: "flex-start",
+                                        alignItems: "flex-start",
+                                        bottom: 40
+                                    }
+                                }}>
+                                <RestoreOptions handleRestore={this.handleRestore} handleDeleteForever={this.handleDeleteForever} />
                             </RBSheet>
                         </View>
                     </View>
@@ -124,23 +123,24 @@ class RestoreTrash extends Component{
 export default RestoreTrash
 
 const RestoreOptions = (props) => {
-    return(
-        <View style = {{height : 100, width : '100%'}}>
+    return (
+        <View style={{ height: 100, width: '100%' }}>
             <View>
-                <View style = {{height : 50}}>
-                    <TouchableOpacity style = {{display : 'flex', flexDirection : 'row'}}
-                    onPress = {props.handleRestore}>
-                        <Image style = {{width : 30, height : 30, top : 10, left : 15}}
-                        source = {require('../Assets/restore.png')}/>
-                        <Text style = {{fontSize : 20, top : 10, left : 40}}> Restore </Text>
+                <View style={{ height: 50 }}>
+                    <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}
+                        onPress={props.handleRestore}>
+                        <Image style={{ width: 30, height: 30, top: 10, left: 15 }}
+                            source={require('../Assets/restore.png')} />
+                        <Text style={{ fontSize: 20, top: 10, left: 40 }}> Restore </Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style = {{height : 50}}>
-                    <TouchableOpacity style = {{display : 'flex', flexDirection : 'row'}}>
-                        <Image style = {{width : 30, height : 30, top : 10, left : 15}}
-                        source = {require('../Assets/deleteForever.png')}/>
-                        <Text style = {{fontSize : 20, top : 10, left : 40}}> Delete Forever </Text>
+                <View style={{ height: 50 }}>
+                    <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}
+                        onPress={props.handleDeleteForever}>
+                        <Image style={{ width: 30, height: 30, top: 10, left: 15 }}
+                            source={require('../Assets/deleteForever.png')} />
+                        <Text style={{ fontSize: 20, top: 10, left: 40 }}> Delete Forever </Text>
                     </TouchableOpacity>
                 </View>
             </View>

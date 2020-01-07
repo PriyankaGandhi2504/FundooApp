@@ -1,32 +1,16 @@
 import {StyleSheet} from 'react-native'
-import { colors } from 'react-native-elements'
 
 const styles = StyleSheet.create({
     scrollView : {
-        // display : "flex",
         backgroundColor: 'pink',
         flex : 1
-        // marginHorizontal: 20
     },
-    // demo : {
-    //     width : "25%",
-    //     // display : "flex",
-    //     flexDirection : "row"
-    // },
-    // demo1 : {
-    //    alignItems : "flex-start"
-    // },
-    // demo2 : {
-    //     width : 50
-    // },
     loginContainer : {
         backgroundColor : "yellow",
         width : "100%",
         height : "100%",
-        // flexWrap : "wrap"
     },
     loginSubcontainer : {
-        // display : "flex",
         display : "flex",
         alignItems : "center",
         backgroundColor : "white",
@@ -41,16 +25,9 @@ const styles = StyleSheet.create({
         fontWeight : "bold"
     },
     image : {
-        // width : 350, 
         height : 200, 
-        // alignItems : "center",
         marginTop : "0%",
-        // borderWidth : 1,
-        // borderColor : "white",
-        // borderRadius : 50,
         marginHorizontal : "50%",
-
-        // position : "relative"
     },
     signInText : {
         textAlign : "center",
@@ -65,23 +42,11 @@ const styles = StyleSheet.create({
     },
     emailInput : {
         width : "75%",
-        // alignContent : "center",
-        // margin : "10%",
         marginBottom : "5%",
         textAlign : "center",
-        // borderWidth : 1,
-        // borderColor : "black",
-        // borderStyle : "solid",
-        // borderRadius : 10
     },
     passwordInput : {
         width : "75%",
-        // alignContent : "center",
-        // margin : "10%",
-        // borderWidth : 1,
-        // borderColor : "black",
-        // borderStyle : "solid",
-        // borderRadius : 10,
         marginBottom : "3%"
     },
     forgotPassword : {
@@ -94,36 +59,21 @@ const styles = StyleSheet.create({
         marginTop : 10
     },
     createAccountText : {
-        // marginBottom : 10,
         fontWeight : "bold",
         fontSize : 20,
         fontStyle : "italic"
-    },
-    signUpButton : {
-        // marginBottom : "10%"
     },
 
     /********************** Register Page ***************************/
 
     registerContainer : {
-        // display : "flex",
         backgroundColor : "yellow",
         width : "100%",
         height : "100%",
-        // alignContent : "center"
     },
     registerSubContainer : {
         display : "flex",
-        // flexDirection : "column",
-        // flexDirection : "column",
-        // alignItems : "center",
-        // margin : "2%",
-        // marginBottom : "2%",
         height : "100%",
-        // width : "100%",
-        // borderWidth : 1,
-        // borderColor : "black",
-        // borderRadius : 20,
         backgroundColor : "white"
     },
     combinedDiv : {
@@ -132,80 +82,43 @@ const styles = StyleSheet.create({
     imageDiv : {
         width : "100%",
         height : 100,
-        // flexDirection : "column"
-        // marginTop : "0%"
-    },
-    componentDiv : {
-        // margin : 20
-        // flexDirection : "column"
     },
     registerImage : {
         height : 150,
         display : "flex",
         alignSelf : "center",
         marginTop : "2%",
-        // alignItems : "center",
-        // alignContent : "center",
-        // alignItems : "center",
-        // justifyContent : "center"
-        // marginTop : "-45%",
-        // width : "100%",
-        // marginBottom : "-45%"
-        // marginHorizontal : "25%"
-        // width : 350
     },
     registerFundooapp : {
-        // marginTop : "-10%",
         textAlign : "center",
         fontSize : 40,
         display : "flex",
-        // flexDirection : "row",
         fontWeight : "bold",
         color : "black"
     },
     firstName : {
         alignSelf : "center",
-        // margin : "25%",
-        // textAlign : "center",
-        // borderWidth : 1,
-        // borderColor : "black",
-        // borderRadius : 10,
         width : "75%",
         marginBottom : "5%"
     },
     lastName : {
         alignSelf : "center",
-        // margin : "10%",
-        // borderWidth : 1,
-        // borderColor : "black",
-        // borderRadius : 10,
         width : "75%",
         marginBottom : "5%"
     },
     registerEmail : {
         alignSelf : "center",
-        // borderWidth : 1,
-        // borderColor : "black",
-        // borderRadius : 10,
         width : "75%",
         marginBottom : "5%"
     },
     registerPassword : {
         alignSelf : "center",
-        // borderWidth : 1,
-        // borderColor : "black",
-        // borderRadius : 10,
         width : "75%",
         marginBottom : "5%"
     },
     confirmPassword : {
-        // borderWidth : 1,
-        // borderColor : "black",
-        // borderRadius : 10,
-        // display : "flex",
         flexDirection : "row",
         width : "60%",
-        // justifyContent : "flex-start",
         marginBottom : "5%",
         marginLeft : "13%"
     },
@@ -215,8 +128,6 @@ const styles = StyleSheet.create({
         justifyContent : "space-around"
     },
     signInLabel : {
-        
-        // marginLeft : "10%",
         fontWeight : "bold",
         fontSize : 20,
         color : "darkblue",
@@ -224,22 +135,17 @@ const styles = StyleSheet.create({
         textDecorationLine : "underline",
         
     },
-    // registerButton : {
-    //     // bottom : 10
-    // },
+    
     /************************ Dashboard ****************************/
     dashboardContainer : {
         width : "100%",
         height : "100%",
-        // backgroundColor : "lightblue"
     },
     dashboardSubContainer : {
         margin : "2%",
         height : "100%",
-        // backgroundColor : "orange",
     },
     searchBar : {
-        // backfaceVisibility : "hidden",
         color : "white",
         width : "100%",
         borderWidth : 1,
@@ -263,30 +169,8 @@ const styles = StyleSheet.create({
         justifyContent : "space-between", 
         borderBottomWidth : 0.3,
         zIndex : 1,
-        // shadowRadius : 3,
-        // shadowOpacity : 0.2,
-        // shadowOffset : {width : 10, height : 10},
-        // shadowColor : '#000',
-        // backgroundColor : 'yellow'
-
     },
-    // selectedNoteHeaderBar : {
-    //     color : "white",
-    //     width : "100%",
-    //     borderWidth : 1,
-    //     borderColor : "grey",
-    //     borderRadius : 10,
-    //     height : 40,
-    //     shadowRadius : 10,
-    //     shadowOpacity : 0.8,
-    //     // shadowOffset : {width : 10, height : 10},
-    //     shadowColor : 'rgba(0,0,0,0.14)',
-    //     // position : "absolute",
-    //     // backgroundColor : "pink",
-    //     zIndex : 1
-    // },
     googleKeepImage : {
-        // backfaceVisibility : "hidden",
         display : "flex",
         justifyContent : "center",
         alignItems : "center",
@@ -299,28 +183,16 @@ const styles = StyleSheet.create({
     },
     takeNote : {
         backgroundColor : "white",
-        // height : 30,
         display : "flex",
         justifyContent : "space-around",
-        // alignSelf : "flex-end",
         flexDirection : "row",
-        // position : "absolute",
         alignItems : "flex-end",
-        // top : 400,
         position : "absolute",
         width : "100%",
         bottom : 5,
-        // borderTopWidth : 1,
-        // borderRadius : 10
-        // height : 300
-        
-        // marginBottom : 50
-        // justifyContent : "flex-end",
-        // textAlign : "center"
     },
     checkBoxImage : {
         display : "flex",
-        // alignItems : "flex-end"
     },
     profileIcon : {
         display : "flex", 
@@ -333,29 +205,12 @@ const styles = StyleSheet.create({
         position : "absolute", 
         alignSelf : "flex-end",
         top : 25,
-        // zIndex : 20000
     },
     userCard : {
-        // borderWidth : 1,
-        // marginBottom : 5,
         height : 'auto',
         width : '100%',
-        // display : 'flex',
         flexWrap : 'wrap',
         flexDirection : 'row'
-        
-        // width : "45%",
-        // borderWidth : 1,
-        // borderRadius : 20,
-        // display : "flex",
-        // flexDirection : "row"
-        // height : "200%"
-    },
-    notesCard : {
-        
-        // bottom : 40,
-        // top : 20
-        // borderWidth : 1
     },
     longPressedStyle : {
         borderWidth : 2,
@@ -369,22 +224,12 @@ const styles = StyleSheet.create({
         borderRadius : 10,
         borderWidth : 1,
         width : "90%",
-        // backgroundColor : 'white'
-        
-       
-        // width : "40%"
     },
-    
-    cardTitle : {
-    },
-
     gridView : {
         display : "flex", 
         width : "100%", 
         flexDirection : "column", 
         flexWrap : "wrap",
-        // backgroundColor : 'lightblue',
-        // height : "auto",
     },
 
     /********************* Forgot Password **********************/
@@ -399,7 +244,6 @@ const styles = StyleSheet.create({
         display : "flex",
         flexDirection : "column",
         alignItems : "center",
-        // justifyContent : "space-between"
     },
     forgotLabel : {
         fontSize : 40
@@ -413,33 +257,19 @@ const styles = StyleSheet.create({
         flexBasis : 90
     },
     submitButton : {
-        
-        // display : "flex",
-        // alignContent : "center"
         alignItems : "center"
     },
+
     /********************* Create Note *************************/
+    
     createNoteContainer : {
         width : "100%",
         height : "100%",
-        // backgroundColor : "lightpink",
         display : "flex",
         justifyContent : "center",
         alignItems : "center"
     },
-    // createNoteSubContainer : {
-    //     width : "100%",
-    //     height : "100%",
-        
-    //     backgroundColor : "lightblue",
-    // },
-    // createNoteSubcontainerStyle : {
-    //     width : "100%",
-    //     height : "100%",
-    //     backgroundColor : "lightpink",
-    // },
     headerContainer : {
-        // backgroundColor : "white",
         display : "flex",
         flexDirection : "row",
         position : "absolute"
@@ -457,30 +287,22 @@ const styles = StyleSheet.create({
         marginTop : "10%"        
     },
     footerComponents : {
-        // backgroundColor : "lightyellow",
         display : "flex",
         flexDirection : "row",
         position : "absolute",
         bottom : 0,
         width : "100%",
         height : 320
-        // alignContent : "space-between"
-
     },
     addItemIcon : {
         display : "flex",
         height : 325,
         width : '100%',
-        // height : 400,
         alignItems : 'flex-start',
         justifyContent : "flex-end",
-        // top : 50,
-        // alignContent : 'flex-end',
-        // backgroundColor : "lightgreen",
         position : 'absolute'
     },
     menuIcon : {
-        // backgroundColor : "lightblue",
         width : "100%",
         display : "flex",
         alignItems : "flex-end",
@@ -490,41 +312,13 @@ const styles = StyleSheet.create({
     menuList : {
         backgroundColor : "white",
         height : 270,
-        // marginTop : "45%",
         borderRadius : 20,
         width : "100%",
         position : "absolute",
-        // borderWidth : 0.3,
         borderTopWidth : 0.3
-        // bottom : 20,
-        // display : "flex",
-        // justifyContent : "flex-end"
     },
     delete : {
         width : "100%",
-        // display : "flex",
-        // flexDirection : "row",
-        // backgroundColor : "pink",
-    },
-    makeCopy : {
-        // backgroundColor : "lightgreen"
-    },
-    send : {
-        // backgroundColor : "red"
-    },
-    collaborator : {
-        // backgroundColor : "yellow"
-    },
-    labels : {
-        // backgroundColor : "brown"
-    },
-    colorPaletteStyle : {
-        // backgroundColor : 'pink',
-        // width : 90000,
-        // top : -30
-        // height : "auto"
-        // top : 0
-        
     },
     flatListContainer : {
         flex : 1,
@@ -543,15 +337,14 @@ const styles = StyleSheet.create({
     textStyle : {
         fontSize : 80
     },
+
     /*************************** Sign Out Menu ***********************/
+    
     signOutContainer : {
         width : "100%",
         height : "100%",
-        // backgroundColor : 'lightpink'
     },
     signOutHeader : {
-        // backgroundColor : 'lightblue',
-        // width : "100%",
         height : "auto",
         margin : 10,
     },
@@ -562,19 +355,15 @@ const styles = StyleSheet.create({
         justifyContent : "space-between"
     },
     signOut : {
-        // width : 90,
         display : "flex",
         alignItems : "center"
     },
+
     /************************************** Reminder ***********************************/
+    
     reminderContainer : {
         position : 'absolute',
         width : '100%'
-        // width : "100%",
-        // height : "100%",
-        // backgroundColor : 'lightblue',
-        // alignItems : 'center',
-        // justifyContent : 'center',
     },
     reminderSubContainer : {
         backgroundColor : 'white',
@@ -582,20 +371,17 @@ const styles = StyleSheet.create({
         width : '90%',
         display : "flex",
         borderWidth : 1,
-        // alignItems : 'center',
-        // justifyContent : 'center',
-        // alignContent : 'center',
         alignSelf : 'center',
         position : 'absolute'
     },
+
     /******************************* Toggle Search Bar *******************************/
+    
     toggleSearchbarMenu : {
         height : 300,
         width : 200,
         backgroundColor : 'lightpink',
         zIndex : 1000000,
-        // right : 0,
-        // left : 160,
         display : 'flex',
         alignSelf : 'flex-end',
         shadowRadius : 3,
@@ -607,7 +393,6 @@ const styles = StyleSheet.create({
     toggleMenu : {
         width : '100%',
         height : '100%',
-        // backgroundColor : 'lightblue'
     }
 })
 

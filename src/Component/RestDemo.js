@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, ActivityIndicator, ScrollView } from 'react-native'
 
-var dataValue
 class RestDemo extends Component {
 
     constructor(props) {
@@ -9,7 +8,7 @@ class RestDemo extends Component {
         this.state = {
             isLoading: true,
             dataSource: null,
-            value : []
+            value: []
         }
     }
 
@@ -20,25 +19,23 @@ class RestDemo extends Component {
                 this.setState({
                     isLoading: false,
                     dataSource: responseJson.User
-                },()=>{
-                    console.log('Data Source in Did Mount ' + JSON.stringify(this.state.dataSource));
-                console.log('Response json ' + JSON.stringify(responseJson));
+                }, () => {
                 })
-                
+
             })
             .catch((error) => {
                 console.log("Error : " + error);
             })
 
         // return fetch('https://reactnative-b924a.firebaseio.com/', {
-            // method : 'POST',
-            // headers : {
-            //     Accept : 'Notes/json',
-            //     'Content-Type' : 'Notes/json'
-            // },
-            // body : JSON.stringify({
-            //     Note : 'yourValue',
-            //     Title : 'yourOtherValue'
+        // method : 'POST',
+        // headers : {
+        //     Accept : 'Notes/json',
+        //     'Content-Type' : 'Notes/json'
+        // },
+        // body : JSON.stringify({
+        //     Note : 'yourValue',
+        //     Title : 'yourOtherValue'
         //     })
         // }) .then((response) => response.json())
         // .then((responseJson) => {
@@ -60,14 +57,14 @@ class RestDemo extends Component {
             console.log('data source ', this.state.dataSource);
             return (
                 <ScrollView>
-                <View>
-                    {Object.keys(this.state.dataSource).map((val, key) => {
-                        console.log("key", key);
-                        console.log('Value ', this.state.dataSource[val]);
-                        console.log('Value of Key ', this.state.dataSource[val]);
-                        return <Text> {this.state.dataSource[val].email} </Text>
-                    })}
-                </View>
+                    <View>
+                        {Object.keys(this.state.dataSource).map((val, key) => {
+                            console.log("key", key);
+                            console.log('Value ', this.state.dataSource[val]);
+                            console.log('Value of Key ', this.state.dataSource[val]);
+                            return <Text> {this.state.dataSource[val].email} </Text>
+                        })}
+                    </View>
                 </ScrollView>
             )
         }

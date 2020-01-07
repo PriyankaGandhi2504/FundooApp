@@ -3,7 +3,6 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer'
 import {DrawerItems} from 'react-navigation'
 import DrawerRouter from './DrawerNavigator'
-// import HomeScreen from './HomeScreen'
 import SettingScreen from './SettingScreen'
 import Login from './Login'
 import Register from './Register'
@@ -20,9 +19,8 @@ import Settings from './Settings'
 import HelpFeedback from './HelpFeedback'
 import SearchNote from './SearchNote'
 import RestoreTrash from './RestoreTrash'
-// import SplashScreen from './SplashScreen'
+import SplashScreen from './SplashScreen'
 
-// navigationOptions : {header : null}
 const MainNavigator = createStackNavigator({
   Login: {screen: Login, navigationOptions : {header : null}},
   Dashboard: {screen: Dashboard, navigationOptions : {header : null}},
@@ -40,34 +38,14 @@ const MainNavigator = createStackNavigator({
   HelpFeedback : {screen : HelpFeedback, navigationOptions : {header : null}},
   SearchNote : {screen : SearchNote, navigationOptions : {header : null}},
   RestoreTrash : {screen : RestoreTrash, navigationOptions : {header : null}},
-  // SplashScreen : {screen : SplashScreen, navigationOptions : {header : null}}
+  SplashScreen : {screen : SplashScreen, navigationOptions : {header : null}}
   // HomeScreen : {screen : HomeScreen, navigationOptions : {header : null}},
   // SettingScreen : {screen : SettingScreen, navigationOptions : {header : null}}
 },
 {
-    initialRouteName:'Login'
+    initialRouteName:'SplashScreen'
 }
-
 );
 
-// const AppDrawerNavigator = createDrawerNavigator({
-//   Dashboard : Dashboard,
-//   HomeScreen : HomeScreen,
-//   SettingScreen : SettingScreen,
-//   },
-//   {
-//     hideStatusBar : true,
-//     drawerBackgroundColor : 'rgba(255,255,255,.9)',
-//     overlayColor : '#6b52ae',
-//     contentOptions : {
-//       activeTintColor : '#fff',
-//       activeBackgroundColor : '#6b52ae'
-//     },
-//   })
-
 const Router = createAppContainer(MainNavigator);
-
-// const DrawerRouter = createAppContainer(AppDrawerNavigator);
-
-// const Router = createDrawerNavigator(MainNavigator)
 export default Router;

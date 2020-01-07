@@ -1,31 +1,29 @@
-import React, {Component} from 'react'
-import { View, Text, TouchableOpacity, Image, ScrollView} from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 
-class Orientation extends Component{
+class Orientation extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         console.log("Constructor");
-        
     }
 
-    componentDidMount(){
-        console.log("Component Did Mount");  
+    componentDidMount() {
+        console.log("Component Did Mount");
     }
 
-    componentDidUpdate(){
-        console.log("Component Did Update"); 
+    componentDidUpdate() {
+        console.log("Component Did Update");
     }
 
-    render(){
+    render() {
         console.log("render");
-        
-        return(
+        return (
             <TouchableOpacity>
-            <View>
-                <Text> Hello </Text>
+                <View>
+                    <Text> Hello </Text>
                 </View>
-                </TouchableOpacity>
+            </TouchableOpacity>
         )
     }
 }

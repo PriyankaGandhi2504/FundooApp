@@ -36,7 +36,7 @@ class UserList extends Component {
     return (
       <View style={{ backgroundColor: 'lightblue' }}>
         <View>
-          <View style={{flexDirection : 'row', justifyContent : 'space-around'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
             <Text>Users ID</Text>
             <Text>Users Name</Text>
           </View>

@@ -20,7 +20,6 @@ class AddBoxMenu extends Component{
 
     handleChooseImage = () => {
         ImagePicker.showImagePicker(options, (response) => {
-            console.log("Response : " + response);
             if (response.didCancel) {
                 console.log('User cancelled Image Picker');
             } else if (response.error) {

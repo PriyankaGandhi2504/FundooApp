@@ -11,51 +11,47 @@ class DeletedNotes extends Component {
         this.state = {
             deletedNotes: [],
             gridDisplay: false,
-            emptyNoteDisplay : false,
-            isEmptyNoteDisplay : {
-                display : 'none'
+            emptyNoteDisplay: false,
+            isEmptyNoteDisplay: {
+                display: 'none'
             }
         }
     }
 
     componentDidMount = () => {
-        UserData.userData( (response) => {
+        UserData.userData((response) => {
             this.setState({
                 deletedNotes: response
             })
         })
-
-        // console.log("Details from Deleted Notes " + JSON.stringify(details));
-         
-        // console.log("Deleted Notes " + JSON.stringify(this.state.deletedNotes));
     }
 
     handleDeleteMenu = () => {
-        if(!this.state.emptyNoteDisplay){
+        if (!this.state.emptyNoteDisplay) {
             this.setState({
-                emptyNoteDisplay : true,
-                isEmptyNoteDisplay : {
-                    width : '100%', alignItems : 'flex-end'
+                emptyNoteDisplay: true,
+                isEmptyNoteDisplay: {
+                    width: '100%', alignItems: 'flex-end'
                 }
             })
-        }else{
+        } else {
             this.setState({
-                emptyNoteDisplay : false,
-                isEmptyNoteDisplay : {
-                    display : 'none'
+                emptyNoteDisplay: false,
+                isEmptyNoteDisplay: {
+                    display: 'none'
                 }
             })
         }
     }
 
     handleEmptyRecycleBin = () => {
-        
+
     }
 
     render() {
         return (
             <View>
-                <View style={{ display: 'flex', flexDirection: 'row', width : '100%', justifyContent : 'space-around', borderWidth : 0.5, borderRadius : 10, height : 40, top : 5}}>
+                <View style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-around', borderWidth: 0.5, borderRadius: 10, height: 40, top: 5 }}>
                     <View>
                         <TouchableOpacity
                             onPress={this.props.navigation.openDrawer}
@@ -69,39 +65,34 @@ class DeletedNotes extends Component {
                         <Text style={{ fontSize: 20, top: 5 }}> Deleted </Text>
                     </View>
 
-                    <View style={{alignItems: 'flex-end'}}>
+                    <View style={{ alignItems: 'flex-end' }}>
                         <TouchableOpacity style={{ width: 35 }}
-                        onPress = {this.handleDeleteMenu}>
+                            onPress={this.handleDeleteMenu}>
                             <Image style={{ width: 20, height: 30 }}
                                 source={require('../Assets/Menu.png')} />
                         </TouchableOpacity>
                     </View>
-
-                    
                 </View>
 
-                <View style = {this.state.isEmptyNoteDisplay}>
-                <View style = {{height : 50, width : '50%', elevation : 1, borderWidth : 0.5, right : 10, top : 10}}>
-                        <TouchableOpacity onPress = {this.handleEmptyRecycleBin}>
-                            <Text style = {{fontSize : 20, top : 10}}> Empty Recycle Bin </Text>
+                <View style={this.state.isEmptyNoteDisplay}>
+                    <View style={{ height: 50, width: '50%', elevation: 1, borderWidth: 0.5, right: 10, top: 10 }}>
+                        <TouchableOpacity onPress={this.handleEmptyRecycleBin}>
+                            <Text style={{ fontSize: 20, top: 10 }}> Empty Recycle Bin </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
 
                 <ScrollView>
                     <View>
-                    
                         {
                             Object.getOwnPropertyNames(this.state.deletedNotes).map((key, indexes) => {
-                                console.log('Deleted Value from Deleted Page ' + this.state.deletedNotes[key].Deleted)
                                 if (this.state.deletedNotes[key].Deleted) {
-                                    console.log('Deleted Value from Deleted Page Inside IF ' + this.state.deletedNotes[key].Deleted)
                                     return (
-                                        <Note index={indexes} Title={this.state.deletedNotes[key].Title} 
-                                        Note={this.state.deletedNotes[key].Note} navigation={this.props.navigation} 
-                                        gridDisplayValue={this.state.gridDisplay} Color={this.state.deletedNotes[key].Color} 
-                                        Reminder={this.state.deletedNotes[key].Reminder} DeletedValue = {this.state.deletedNotes[key].Deleted}
-                                        chosenImage={this.state.deletedNotes[key].chosenImage}/>
+                                        <Note index={indexes} Title={this.state.deletedNotes[key].Title}
+                                            Note={this.state.deletedNotes[key].Note} navigation={this.props.navigation}
+                                            gridDisplayValue={this.state.gridDisplay} Color={this.state.deletedNotes[key].Color}
+                                            Reminder={this.state.deletedNotes[key].Reminder} DeletedValue={this.state.deletedNotes[key].Deleted}
+                                            chosenImage={this.state.deletedNotes[key].chosenImage} />
                                     )
                                 }
                             })}

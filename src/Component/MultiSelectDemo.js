@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
- 
 
 class MultiSelectDemo extends Component {
-    state = {
-        selectedItems : []
-    };
- 
+  state = {
+    selectedItems: []
+  };
+
   items = [{
     id: '92iijs7yta',
     name: 'Ondo',
@@ -36,11 +35,11 @@ class MultiSelectDemo extends Component {
     id: 'suudydjsjd',
     name: 'Abuja',
   }];
- 
+
   onSelectedItemsChange = selectedItems => {
     this.setState({ selectedItems });
   };
- 
+
   render() {
     const { selectedItems } = this.state;
     return (
@@ -54,7 +53,7 @@ class MultiSelectDemo extends Component {
           selectedItems={selectedItems}
           selectText="Pick Items"
           searchInputPlaceholderText="Search Items..."
-          onChangeInput={ (text)=> console.log(text)}
+          onChangeInput={(text) => console.log(text)}
           altFontFamily="ProximaNova-Light"
           tagRemoveIconColor="#CCC"
           tagBorderColor="#CCC"
@@ -68,7 +67,6 @@ class MultiSelectDemo extends Component {
           submitButtonText="Submit"
         />
         <View>
-
           {/* {this.multiSelect.getSelectedItemsExt(selectedItems) && this.multiSelect} */}
         </View>
       </View>

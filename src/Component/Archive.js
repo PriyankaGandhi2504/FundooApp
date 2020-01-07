@@ -5,7 +5,6 @@ const UserData = new userData
 import Note from './Note'
 import DefaultSearchBar from './DefaultSearchBar'
 
-var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 
 class Archive extends Component {
@@ -24,18 +23,10 @@ class Archive extends Component {
 
     componentDidMount = () => {
         UserData.userData( (response) => {
-            // console.log('Aerchived notes in  Archive page',response)
             this.setState({
                 archivedNotes: response
             })
         })
-        // console.log("Details from Archive " + JSON.stringify(details));
-        // await this.setState({
-        //     archivedNotes: details
-        // })
-
-        // console.log("Archived Notes " + JSON.stringify(this.state.archivedNotes));
-        // console.log("Archive Value from Archive " + JSON.stringify(this.state.archivedNotes.isArchive)); 
     }
 
     render() {

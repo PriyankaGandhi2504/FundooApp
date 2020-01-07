@@ -24,7 +24,6 @@ import MultiSelectDemo from './src/Component/MultiSelectDemo'
 import Reminders from './src/Component/Reminders'
 import CreateLabel from './src/Component/CreateLabel'
 import Archive from './src/Component/Archive'
-import FlatList1 from './src/Component/FlatList'
 import ColorPaletteDemo from './src/Component/ColorPaletteDemo'
 import ToggleSearchBar from './src/Component/ToggleSearchBar'
 import Reminder from './src/Component/Reminder'
@@ -41,7 +40,8 @@ import UserList from './src/Component/UserList'
 import FastImageDemo from './src/Component/FastImageDemo'
 import RestDemo from './src/Component/RestDemo'
 import AxiosDemo from './src/Component/AxiosDemo'
-
+import SplashScreen from './src/Component/SplashScreen'
+import DeleteForever from './src/Component/DeleteForever'
 // import LocalNotificationPage from './src/Component/LocalNotification'
 // import PushNotificationPage from './src/Component/PushNotification'
 // import Background from './src/Component/Background'
@@ -83,13 +83,14 @@ class App extends Component{
     //  <DrawerRouter/>
       // <View>
       //    {/* <Users/> */}
-      //    <AxiosDemo/>
+      //    {/* <AxiosDemo/> */}
       //    {/* <RestDemo/> */}
       //    {/* <FastImageDemo/> */}
       //   {/* <Background/> */}
       // {/* <LocalNotificationPage/> */}
       // {/* <PushNotificationPage/> */}
       // {/* <RestoreTrash/> */}
+      // <DeleteForever/>
       //   {/* <SplashScreen/> */}
       // {/* <SearchNote/> */}
       //   {/* <RefreshControlDemo/> */}

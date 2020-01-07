@@ -1,6 +1,4 @@
-
-import React,{Component} from 'react';
-// import Profile from './Profile'
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -8,20 +6,18 @@ import {
 } from 'react-native';
 
 class SettingScreen extends React.Component {
-    
-    render() {
-      return (
-          <View style = {{display : "flex", alignItems : "center"}}>
-            <TouchableOpacity onPress = {this.props.navigation.openDrawer}>
-              <Text>
-                  Open drawer
-                  Settings Screen
+  render() {
+    return (
+      <View style={{ display: "flex", alignItems: "center" }}>
+        <TouchableOpacity onPress={this.props.navigation.openDrawer}>
+          <Text>
+            Open drawer
+            Settings Screen
               </Text>
-              </TouchableOpacity>
-          </View>
-        
-      );
-    }
+        </TouchableOpacity>
+      </View>
+    );
   }
+}
 
-  export default SettingScreen;
+export default SettingScreen;

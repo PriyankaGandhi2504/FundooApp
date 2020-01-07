@@ -5,7 +5,6 @@ const UserData = new userData
 import Note from './Note'
 import DefaultSearchBar from './DefaultSearchBar'
 
-var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 
 class Reminders extends Component {
@@ -23,12 +22,12 @@ class Reminders extends Component {
     }
 
     componentDidMount = () => {
-        UserData.userData( (response) => {
+        UserData.userData((response) => {
             this.setState({
                 reminderNotes: response
             })
         })
-        }
+    }
 
     render() {
         return (
@@ -39,20 +38,20 @@ class Reminders extends Component {
 
                 <TouchableOpacity>
                     <ScrollView>
-                        <View style = {{height : '100%'}}>
+                        <View style={{ height: '100%' }}>
                             {
                                 Object.getOwnPropertyNames(this.state.reminderNotes).map((key, indexes) => {
                                     if (this.state.reminderNotes[key].Reminder) {
                                         return (
-                                            <Note index={indexes} Title={this.state.reminderNotes[key].Title} 
-                                            Note={this.state.reminderNotes[key].Note} navigation={this.props.navigation} 
-                                            gridDisplayValue={this.state.gridDisplay} Color={this.state.reminderNotes[key].Color} 
-                                            Reminder={this.state.reminderNotes[key].Reminder} chosenImage={this.state.reminderNotes[key].chosenImage}/>
+                                            <Note index={indexes} Title={this.state.reminderNotes[key].Title}
+                                                Note={this.state.reminderNotes[key].Note} navigation={this.props.navigation}
+                                                gridDisplayValue={this.state.gridDisplay} Color={this.state.reminderNotes[key].Color}
+                                                Reminder={this.state.reminderNotes[key].Reminder} chosenImage={this.state.reminderNotes[key].chosenImage} />
                                         )
                                     }
                                 })}
                         </View>
-                        <View style = {{height : 60}}></View>
+                        <View style={{ height: 60 }}></View>
                     </ScrollView>
                 </TouchableOpacity>
             </View>

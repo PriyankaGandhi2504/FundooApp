@@ -32,31 +32,21 @@ class Note extends Component {
             toggleSearchBar: {
                 display: 'none'
             },
-            // Deleted : props.DeletedValue
         }
-        
-        // console.log('Deleted Value ' + this.props.DeletedValue)
     }
 
     async componentDidMount() {
         var details = await UserData.userData()
-        // console.log("Details " + JSON.stringify(details));
         this.setState({
             usersNote: details
         })
-        // console.log("Users Note " + JSON.stringify(this.state.usersNote));
     }
 
     handleLongPress = (event, i) => {
-        // console.log("I Index " + i);
         this.state.selectedNotesIndex.push(i)
-        // console.log("Selected notes indexes " + this.state.selectedNotesIndex);
         this.state.flag[i] = 1
         this.state.isSelected[i] = true
-        // console.log( "Flag state of " + i + "is " + this.state.flag[i]);
-        // console.log('Is Selected Status of Index ' + this.state.isSelected[i]);
         if (!this.state.isLongPressed) {
-            // console.log("Long Pressed value " + this.state.isLongPressed);
 
             this.setState({
                 longPressedStyle: styles.longPressedStyle,
@@ -68,12 +58,6 @@ class Note extends Component {
                     display: 'none'
                 },
             })
-            // console.log("Long Pressed Value " + this.state.isLongPressed);
-            // ,()=>{console.log(this.state.isLongPressed)})
-            // console.log("in if statement ");
-            // this.state.selectedNotesIndex = this.state.selectedNotesIndex.pop()
-            // console.log("Selected Notes Index after Pop " + this.state.selectedNotesIndex);
-
         } else {
             this.state.flag[i] = 0
             this.setState({
@@ -123,15 +107,12 @@ class Note extends Component {
                     },
                     searchBar: styles.searchBar,
                     normalPressedStyle: styles.normalPressedStyle,
-
                     longPressedStyle: {
                         display: 'none'
                     }
                 })
             }
         } else {
-            // console.log('Deleted Value in Else ' + Deleted)
-            // console.log('Note Title in else part ' + JSON.stringify(noteObjectArray[i].Note)); //particular card's key
             this.props.DeletedValue === true ? this.props.navigation.navigate('RestoreTrash', {
                 clickedNote: noteObjectArray[i]
             })
@@ -141,11 +122,10 @@ class Note extends Component {
                 }
             )
         }
-    }//end of normalPress
+    }
 
     render() {
         const {index, Title, Note, gridDisplayValue, Color, Reminder, DeletedValue, chosenImage} = this.props
-        // console.log(2367876543,chosenImage)
         return (
             <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, index)}
                 onPress={(event) => this.handleNormalPress(event, index)}

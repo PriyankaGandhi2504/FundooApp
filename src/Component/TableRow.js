@@ -12,7 +12,6 @@ class TableRow extends Component {
     this.setState({
       arr: JSON.stringify(this.props)
     })
-    console.log('Array', this)
   }
   render() {
     return (

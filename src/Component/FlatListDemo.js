@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, FlatList, StyleSheet, Text, Image, ActivityIndicator} from 'react-native';
+import { View, FlatList, StyleSheet, Text, Image, ActivityIndicator } from 'react-native';
 import userData from '../../UserServices'
 const UserData = new userData
 const dataArray = [
@@ -14,156 +14,98 @@ const dataArray = [
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     title: 'Third Item',
-    name : 'Priyanka'
+    name: 'Priyanka'
   },
   {
-    id : 4,
-    title : 'Months',
-    array : ['jan', 'feb']
+    id: 4,
+    title: 'Months',
+    array: ['jan', 'feb']
   }
 ];
 
-// function Item({ title }) {
-//   return (
-//     <View style={styles.item}>
-//       <Text style={styles.title}>{title}</Text>
-//     </View>
-//   );
-// }
-
-
 export default class FlatListDemo extends Component {
 
-  constructor(){
+  constructor() {
     super()
     this.state = {
-      data : [],
-      page : 1,
-      isLoading : false
+      data: [],
+      page: 1,
+      isLoading: false
     }
   }
 
-
-//   componentDidMount(){
-//   // console.log("await ");
-  
-//   var details = UserData.userData()
-//   // console.log("received");
-  
-//   console.log("Details " + JSON.stringify(details));
-//   this.setState({
-//       data : details
-//   })
-//   console.log("Users Note " + this.state.usersNote);
-//   // console.log("Component Did Mount");
-  
-// }
-
-componentDidMount = () => {
-  this.getData()
-} 
-
-
-  getData = async ()=> {
-    // console.log(" get data ");
-    
-    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=35&_page='+this.state.page
-    fetch(url).then((response) => response.json())
-    .then((responseJson) => {
-      // console.log( " Response Json " + JSON.stringify(responseJson));
-      // var array = 
-      this.setState({
-        data : responseJson,
-        // data : JSON.stringify(responseJson),
-        isLoading : false
-      }, this.getData)
-    })
+  componentDidMount = () => {
+    this.getData()
   }
 
-  
+  getData = async () => {
+    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=35&_page=' + this.state.page
+    fetch(url).then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          data: responseJson,
+          isLoading: false
+        }, this.getData)
+      })
+  }
 
-  renderRow = ({item}) => {
-    return(
-      <View style = {styles.itemView}>
-        {/* <Image/> */}
-        <Text style = {styles.itemText}> {item.id} </Text>
-        <Text style = {styles.itemText}> {item.title} </Text>
-        {/* <Text style = {styles.itemText}> {item.name} </Text>
-        <Text style = {styles.itemText}> {item.array} </Text> */}
-
-      </View>    
-    ) 
+  renderRow = ({ item }) => {
+    return (
+      <View style={styles.itemView}>
+        <Text style={styles.itemText}> {item.id} </Text>
+        <Text style={styles.itemText}> {item.title} </Text>
+      </View>
+    )
   }
 
   handleLoadMore = () => {
-    // this.setState({
-    //   page : 0
-    // })
-    // console.warn('handle load more')
     this.setState({
-      page : 1,
-      isLoading : true
-    },this.getData)
+      page: 1,
+      isLoading: true
+    }, this.getData)
   }
 
   renderFooter = () => {
-    return(
+    return (
       <View>
-        <ActivityIndicator size = "large"/>
+        <ActivityIndicator size="large" />
       </View>
     )
   }
 
-  render(){
+  render() {
     return (
-      <View style = {styles.container}>
+      <View style={styles.container}>
         <FlatList
-        data = {this.state.data}
-        // initialNumToRender = {10}
-        numColumns = {1}
-        renderItem = {this.renderRow}
-        onEndReached = {this.handleLoadMore}
-        keyExtractor = {(item, index) => index.toString()}
-        onEndThreshold = {0}
-        showsVerticalScrollIndicator = {false}
-        
-        // ItemSeparatorComponent = {}
-        // extraData = {this.renderRow}
-        // initialNumToRender = {1}
-        // onEndThreshold = {this.renderRow}
-        ListFooterComponent = {this.renderFooter}
-        
+          data={this.state.data}
+          // initialNumToRender = {10}
+          numColumns={1}
+          renderItem={this.renderRow}
+          onEndReached={this.handleLoadMore}
+          keyExtractor={(item, index) => index.toString()}
+          onEndThreshold={0}
+          showsVerticalScrollIndicator={false}
+          // ItemSeparatorComponent = {}
+          // extraData = {this.renderRow}
+          // initialNumToRender = {1}
+          // onEndThreshold = {this.renderRow}
+          ListFooterComponent={this.renderFooter}
         />
       </View>
-
-      // <FlatList
-      //     data={DATA}
-      //     renderItem={({item}) =><View>
-      //     <Text>{item.id}</Text>
-      //     <Text>{item.title}</Text>
-      //     </View>}
-      //     keyExtractor={item => item.id}
-      //   />
-      // <SafeAreaView style={styles.container}>
-        
-      // </SafeAreaView>
     )
   }
-  
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     marginTop: 10,
   },
-itemText : {
-  fontSize : 16,
-  paddingBottom : 20,
-},
-itemView : {
-  borderBottomWidth : 1,
-  marginBottom : 10
-
-}
+  itemText: {
+    fontSize: 16,
+    paddingBottom: 20,
+  },
+  itemView: {
+    borderBottomWidth: 1,
+    marginBottom: 10
+  }
 });

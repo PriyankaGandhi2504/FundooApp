@@ -73,15 +73,15 @@ class SearchNote extends Component {
                 <ScrollView>
                     <View>
                         {
-                            Object.getOwnPropertyNames(this.state.notesArray).map((key, indexes) => { 
-                                var dummyNote = String(this.state.notesArray[key].Note) 
-                                var dummyTitle = String(this.state.notesArray[key].Title)                       
-                                if(dummyNote.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || dummyNote.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || 
-                                dummyTitle.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || dummyTitle.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1) {
+                            Object.getOwnPropertyNames(this.state.notesArray).map((key, indexes) => {
+                                var dummyNote = String(this.state.notesArray[key].Note)
+                                var dummyTitle = String(this.state.notesArray[key].Title)
+                                if (dummyNote.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || dummyNote.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 ||
+                                    dummyTitle.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1 || dummyTitle.toLowerCase().indexOf(this.state.searchedText.toLowerCase()) > -1) {
                                     return (
                                         <Note index={indexes} Title={this.state.notesArray[key].Title} Note={this.state.notesArray[key].Note}
-                                        navigation={this.props.navigation} gridDisplayValue={false}
-                                        Color={this.state.notesArray[key].Color} Reminder={this.state.notesArray[key].Reminder} />
+                                            navigation={this.props.navigation} gridDisplayValue={false}
+                                            Color={this.state.notesArray[key].Color} Reminder={this.state.notesArray[key].Reminder} />
                                     )
                                 }
                             })

@@ -70,7 +70,6 @@ class Dashboard extends Component {
             },
         }
         console.disableYellowBox = true
-        console.log('Current Date ' + currentDate);
     }
 
     updateSearch = () => {
@@ -83,8 +82,8 @@ class Dashboard extends Component {
 
     profileDisplay = () => {
         var userDataa = firebase.firebase.auth().currentUser
-        var userEmailId = userDataa.email
-        this.props.navigation.navigate('SignOutMenu', { userEmailId })
+       var userEmailId = userDataa.email
+        this.props.navigation.navigate('SignOutMenu', {userEmailId})
     }
 
     galleryIcon = () => {
@@ -105,9 +104,11 @@ class Dashboard extends Component {
 
     componentDidMount() {
         UserData.userData(response => {
-            this.setState({
-                usersNote: response
-            })
+            if(response !== null){
+                this.setState({
+                    usersNote: response
+                })
+            }
         })
 
         // await firebase.database.database().ref('User').on('child_added', function (snapshot) {
@@ -142,11 +143,9 @@ class Dashboard extends Component {
       async requestPermission() {
         try {
             await firebaseNotify.messaging().requestPermission();
-            // User has authorised
-            this.getToken();
+            this.getToken();        // User has authorised
         } catch (error) {
-            // User has rejected permissions
-            console.log('permission rejected');
+            console.log('permission rejected');     // User has rejected permissions
         }
       }
 
@@ -157,9 +156,7 @@ class Dashboard extends Component {
             console.log('Fcm Token in If ', fcmToken);
             
             if (fcmToken) {
-                // user has a device token
-                console.log('Fcm Token in Else ', fcmToken);
-                
+                console.log('Fcm Token in Else ', fcmToken);  // user has a device token
                 await AsyncStorage.setItem('fcmToken', fcmToken);
             }
         }
@@ -225,15 +222,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        console.log('Profile Image In Render ' + JSON.stringify(profileImage));
-        console.log('Updated Profile in Render ' + updatedProfile);
-        
-        // const {navigation} = this.props
-        // const note = navigation.getParam('Note', 'No Note')
-        // const title = navigation.getParam('Title', 'No Title')
-
         return (
-
             <View style={styles.dashboardContainer}>
                 <View style={styles.dashboardSubContainer}>
                     <View style={this.state.toggleSearchBar}>
@@ -303,9 +292,6 @@ class Dashboard extends Component {
                                                 actions: ["Yes", "No"]
                                             })
                                         }
-                                        // noteValue = this.state.usersNote[key].Note
-                                        // titleValue = this.state.usersNote[key].Title
-                                        // reminderValue = this.state.usersNote[key].Reminder
                                     })
                                 }
                             </View>
@@ -330,9 +316,6 @@ class Dashboard extends Component {
                                                     Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage={this.state.usersNote[key].chosenImage} />
                                             );
                                         }
-                                        // noteValue = this.state.usersNote[key].Note
-                                        // titleValue = this.state.usersNote[key].Title
-                                        // reminderValue = this.state.usersNote[key].Reminder
                                         if (this.state.usersNote[key].Reminder === currentDate) {
                                             PushNotification.localNotification({
                                                 title: this.state.usersNote[key].Title,
