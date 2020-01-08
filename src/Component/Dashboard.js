@@ -21,7 +21,7 @@ var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
 var currentDate = moment().format('D-MM-YYYY h:mm a')
 var profileImage = profileImage;
-var userDataValue, updatedProfile
+var userDataValue, updatedProfile, userID
 var currentUser, reminderValue, noteValue, titleValue
 
 const options = {
@@ -37,12 +37,11 @@ class Dashboard extends Component {
         firebase.database.database().ref('User').on('child_added', function (snapshot) {
             userDataValue = snapshot.val()
             currentUser = firebase.firebase.auth().currentUser.email
-            console.log('Current user in update ' + userDataValue.email);
             if (currentUser === userDataValue.email) {
                 profileImage = userDataValue.userProfile
             }
         })
-        const {navigation} = props
+        const { navigation } = props
         updatedProfile = navigation.getParam('updatedProfile', require('../Assets/ProfileIcon.jpg'))
         this.state = {
             search: '',
@@ -82,8 +81,8 @@ class Dashboard extends Component {
 
     profileDisplay = () => {
         var userDataa = firebase.firebase.auth().currentUser
-       var userEmailId = userDataa.email
-        this.props.navigation.navigate('SignOutMenu', {userEmailId})
+        var userEmailId = userDataa.email
+        this.props.navigation.navigate('SignOutMenu', { userEmailId })
     }
 
     galleryIcon = () => {
@@ -104,7 +103,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         UserData.userData(response => {
-            if(response !== null){
+            if (response !== null) {
                 this.setState({
                     usersNote: response
                 })
@@ -129,7 +128,7 @@ class Dashboard extends Component {
     componentWillUnmount() {
         this.notificationListener();
         this.notificationOpenedListener();
-      }
+    }
 
     async checkPermission() {
         const enabled = await firebaseNotify.messaging().hasPermission();
@@ -138,31 +137,31 @@ class Dashboard extends Component {
         } else {
             this.requestPermission();
         }
-      }
+    }
 
-      async requestPermission() {
+    async requestPermission() {
         try {
             await firebaseNotify.messaging().requestPermission();
             this.getToken();        // User has authorised
         } catch (error) {
             console.log('permission rejected');     // User has rejected permissions
         }
-      }
+    }
 
-      async getToken() {
+    async getToken() {
         let fcmToken = await AsyncStorage.getItem('fcmToken');
         if (!fcmToken) {
             fcmToken = await firebaseNotify.messaging().getToken();
             console.log('Fcm Token in If ', fcmToken);
-            
+
             if (fcmToken) {
                 console.log('Fcm Token in Else ', fcmToken);  // user has a device token
                 await AsyncStorage.setItem('fcmToken', fcmToken);
             }
         }
-      }
+    }
 
-      async createNotificationListeners() {
+    async createNotificationListeners() {
         this.notificationListener = firebaseNotify.notifications().onNotification((notification) => {
             const { title, body } = notification;
             this.showAlert(title, body);
@@ -177,19 +176,19 @@ class Dashboard extends Component {
             this.showAlert(title, body);
         }
         this.messageListener = firebaseNotify.messaging().onMessage((message) => {
-          console.log(JSON.stringify(message));
+            console.log(JSON.stringify(message));
         });
-      }
-      
-      showAlert(title, body) {
+    }
+
+    showAlert(title, body) {
         Alert.alert(
-          title, body,
-          [
-              { text: 'OK', onPress: () => console.log('OK Pressed') },
-          ],
-          { cancelable: false },
+            title, body,
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false },
         );
-      }
+    }
 
     // static getDerivedStateFromProps(props, state){
     //     console.log("Get Derived State From Props");
@@ -211,7 +210,7 @@ class Dashboard extends Component {
 
     showReminder = () => {
         if (reminderValue === currentDate) {
-        console.log('Reminder Value ' + reminderValue === currentDate);
+            console.log('Reminder Value ' + reminderValue === currentDate);
             PushNotification.localNotification({
                 title: titleValue,
                 message: noteValue,
@@ -277,10 +276,12 @@ class Dashboard extends Component {
                             <View style={styles.userCard}>
                                 {
                                     Object.getOwnPropertyNames(this.state.usersNote).map((key, indexing) => {
+                                        console.log('Key Object in Dashboard ', this.state.usersNote[key]);
+                                        
                                         if (!this.state.usersNote[key].isArchive && !this.state.usersNote[key].Deleted && this.state.usersNote[key].isPin) {
                                             return (
                                                 <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
-                                                    navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
+                                                    navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} noteKey ={key} 
                                                     Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage={this.state.usersNote[key].chosenImage} />
                                             );
                                         }
@@ -312,7 +313,7 @@ class Dashboard extends Component {
                                         if (!this.state.usersNote[key].isArchive && !this.state.usersNote[key].Deleted && !this.state.usersNote[key].isPin) {
                                             return (
                                                 <Note index={indexing} Title={this.state.usersNote[key].Title} Note={this.state.usersNote[key].Note}
-                                                    navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay}
+                                                    navigation={this.props.navigation} gridDisplayValue={this.state.gridDisplay} noteKey = {key}
                                                     Color={this.state.usersNote[key].Color} Reminder={this.state.usersNote[key].Reminder} chosenImage={this.state.usersNote[key].chosenImage} />
                                             );
                                         }

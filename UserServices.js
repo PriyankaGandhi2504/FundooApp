@@ -14,8 +14,10 @@ class UserServices {
     userData(callback) {
         AsyncStorage.getItem('UserId').then((success) => {
             userID = success
+            console.log('User Id in User Services ', userID);
             firebase.database.database().ref('Notes').orderByChild('fetchedUserId').equalTo(userID).on('value', function (snapshot) {
-                var userObject = snapshot.val()
+                var userObject = snapshot.val() 
+                console.log('User Object In User Services ', userObject);
                 return callback(userObject)
             })
         })

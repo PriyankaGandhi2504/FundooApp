@@ -26,7 +26,7 @@ var dataToUpdate, chosenImageFromGallery
 class CreateNote extends Component {
     constructor(props) {
         const { navigation } = props
-        dataToUpdate = navigation.getParam('clickedNote', '')
+        dataToUpdate = navigation.getParam('clickedNote', '')        
         chosenImageFromGallery = navigation.getParam('chosenImage', '')
         super(props)
         this.state = {
@@ -144,6 +144,8 @@ class CreateNote extends Component {
     componentDidMount = async () => {
         const { navigation } = this.props
         dataToUpdate = navigation.getParam('clickedNote', '')
+        console.log('Data To Update From create not ', dataToUpdate);
+        
         chosenImageFromGallery = navigation.getParam('chosenImage', '')
         await this.setState({
             KeyValue: dataToUpdate.key

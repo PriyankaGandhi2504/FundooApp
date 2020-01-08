@@ -10,6 +10,7 @@ import FastImage from 'react-native-fast-image'
 
 var list = require('../Assets/List.png')
 var grid = require('../Assets/Grid.png')
+var noteKeyArray = ''
 
 class Note extends Component {
 
@@ -33,6 +34,7 @@ class Note extends Component {
                 display: 'none'
             },
         }
+        noteObjectArray = this.props.note
     }
 
     async componentDidMount() {
@@ -83,18 +85,31 @@ class Note extends Component {
                 keysss = Object.keys(noteObject1)
             })
 
+            console.log('Keysssss ', keysss); 
+
             var j;
             for (j = 0; j < keysss.length; j++) {
-                var keyIndex = keysss[j]
+                console.log('Keys Of J ', keysss[j]);
+                console.log('note key ', noteKeyArray);
+                
+                if(keysss[j] === noteKeyArray){
+                    var keyIndex = keysss[j]
                 ndata = noteObject1[keyIndex]
                 ndata['key'] = keyIndex
                 noteObjectArray.push(ndata)
+                }
+                
             }
         })
 
+        console.log('Note Object Array In Note ', noteObjectArray);
+        
         this.setState({
             usersNote: noteObjectArray
         })
+
+        console.log('Users Note In Note ', noteObjectArray);
+        
 
         if (this.state.isSelected[i] === true) {
             this.state.isSelected[i] = false
@@ -125,7 +140,10 @@ class Note extends Component {
     }
 
     render() {
-        const {index, Title, Note, gridDisplayValue, Color, Reminder, DeletedValue, chosenImage} = this.props
+        const {index, Title, Note, gridDisplayValue, Color, Reminder, DeletedValue, chosenImage,noteKey} = this.props  
+        noteKeyArray = this.props.noteKey
+        console.log('Note key Array in Render ', noteKeyArray);
+        
         return (
             <TouchableOpacity onLongPress={(event) => this.handleLongPress(event, index)}
                 onPress={(event) => this.handleNormalPress(event, index)}
