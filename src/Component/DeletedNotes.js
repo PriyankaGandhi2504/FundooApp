@@ -44,10 +44,6 @@ class DeletedNotes extends Component {
         }
     }
 
-    handleEmptyRecycleBin = () => {
-
-    }
-
     render() {
         return (
             <View>

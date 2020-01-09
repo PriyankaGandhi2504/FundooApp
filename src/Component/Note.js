@@ -97,8 +97,7 @@ class Note extends Component {
                 ndata = noteObject1[keyIndex]
                 ndata['key'] = keyIndex
                 noteObjectArray.push(ndata)
-                }
-                
+                } 
             }
         })
 

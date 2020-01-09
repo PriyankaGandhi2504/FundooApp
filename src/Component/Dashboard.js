@@ -44,17 +44,11 @@ class Dashboard extends Component {
         const { navigation } = props
         updatedProfile = navigation.getParam('updatedProfile', require('../Assets/ProfileIcon.jpg'))
         this.state = {
-            search: '',
             googleKeepImageVisibility: false,
             profileVisibility: false,
             userEmail: '',
             avtarSource: null,
             usersNote: [],
-            isLongPressed: false,
-            longPressedStyle: {},
-            selectedNotesIndex: [],
-            flag: [],
-            normalPressedStyle: {},
             countClick: 0,
             gridDisplay: false,
             gridView: {

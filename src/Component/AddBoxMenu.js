@@ -5,8 +5,8 @@ import CreateNote from './CreateNote'
 
 const options = {
     title: 'Add Image',
-    takePhotoButtonTitle: 'Take photo',
-    chooseFromLibraryButtonTitle: 'Choose image',
+    takePhotoButtonTitle: 'Take Photo',
+    chooseFromLibraryButtonTitle: 'Choose Image',
 }
 
 class AddBoxMenu extends Component{
