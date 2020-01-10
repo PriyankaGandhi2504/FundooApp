@@ -47,6 +47,7 @@ import DeleteForever from './src/Component/DeleteForever'
 // import Background from './src/Component/Background'
 // import SplashScreen from './src/Component/SplashScreen'
 // import RefreshControlDemo from './src/Component/RefreshControlDemo'
+
 const UsersData = [
   {
       id: 1,

@@ -82,18 +82,17 @@ class Note extends Component {
             noteObject1 = snapshot.val()
             firebase.database.database().ref('Notes').on('value', function (snapshot) {
                 noteObject1 = snapshot.val()
-                keysss = Object.keys(noteObject1)
+                // keysss = Object.keys(noteObject1)
             })
-
-            console.log('Keysssss ', keysss); 
-
+            var key = Object.keys(noteObject1)
+            console.log('Key ', key);
             var j;
-            for (j = 0; j < keysss.length; j++) {
-                console.log('Keys Of J ', keysss[j]);
+            for (j = 0; j < key.length; j++) {
+                console.log('Keys Of J ', key[j]);
                 console.log('note key ', noteKeyArray);
                 
-                if(keysss[j] === noteKeyArray){
-                    var keyIndex = keysss[j]
+                if(key[j] === noteKeyArray){
+                    var keyIndex = key[j]
                 ndata = noteObject1[keyIndex]
                 ndata['key'] = keyIndex
                 noteObjectArray.push(ndata)
@@ -108,7 +107,6 @@ class Note extends Component {
         })
 
         console.log('Users Note In Note ', noteObjectArray);
-        
 
         if (this.state.isSelected[i] === true) {
             this.state.isSelected[i] = false
