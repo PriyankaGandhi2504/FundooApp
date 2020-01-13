@@ -1,6 +1,7 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import { DrawerItems } from 'react-navigation'
+// import {createBottomTabNavigator} from 'react-navigation-tabs'
 import React from 'react'
 import { Image } from 'react-native'
 import Login from './Login'
@@ -17,7 +18,9 @@ import DeletedNotes from './DeletedNotes'
 import Settings from './Settings';
 import HelpFeedback from './HelpFeedback';
 
-const AppDrawerNavigator = createDrawerNavigator({
+// const AppDrawerNavigator = createBottomTabNavigator({
+  const AppDrawerNavigator = createDrawerNavigator({
+
   Dashboard: {
     screen: Dashboard, navigationOptions:
     {

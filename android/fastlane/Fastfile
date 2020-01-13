@@ -29,11 +29,11 @@ platform :android do
   lane :beta do
     gradle(task: "assembleRelease")
     firebase_app_distribution(
-          app : "1:228889421337:android:28e709067e583f37496c88",
-          testers : "priyankagandhi214@gmail.com",
-          release_notes : "Release Notes Via Fastlane",
+          app: "1:228889421337:android:28e709067e583f37496c88",
+          testers: "priyankagandhi214@gmail.com",
+          release_notes: "Release Notes Via Fastlane",
           firebase_cli_path: “/usr/local/bin/firebase”,
-          apk_path : /Users/bridgelabz/Priyanka/fundoonotes/android/app/release/app-release.apk
+          apk_path: "/Users/bridgelabz/Priyanka/fundoonotes/android/app/release/app-release.apk"
     )
 
 

@@ -19,6 +19,8 @@ class RestoreTrash extends Component {
             restoreValue: '',
             KeyValue: dataToUpdate.key
         }
+        console.log('Key Value ', dataToUpdate.key);
+        
     }
 
     handleEdit = () => {

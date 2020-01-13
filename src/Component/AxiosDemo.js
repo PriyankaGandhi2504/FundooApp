@@ -21,14 +21,6 @@ class AxiosDemo extends Component {
     }
 
     handleUserPost = (obj) => {
-        // firstName, lastName, email, password, userProfile
-        // var obj = {
-        //     firstName : firstName,
-        //     lastName : lastName,
-        //     email : email,
-        //     password : password,
-        //     userProfile : userProfile
-        // }
         axios.post('https://reactnative-b924a.firebaseio.com/User.json', obj)
             .then((success) => {
                 console.log('Success in Post Then ', success);
@@ -40,16 +32,16 @@ class AxiosDemo extends Component {
 
     handleDelete = () => {
         axios.delete('https://reactnative-b924a.firebaseio.com/Notes/-LxaZB2-NsN3vY6rhLiL.json')
-        .then((success) => {
-            console.log('Success In delete ', success)
-        })
+            .then((success) => {
+                console.log('Success In delete ', success)
+            })
     }
 
     handlePatch = () => {
-        axios.patch('https://reactnative-b924a.firebaseio.com/Notes/-LxAPmtKZnc3-5alnqXC.json', {Note : 'Patch Value Updated'})
-        .then((success) => {
-            console.log('Success In Patch Method ', success.data);
-        })
+        axios.patch('https://reactnative-b924a.firebaseio.com/Notes/-LxAPmtKZnc3-5alnqXC.json', { Note: 'Patch Value Updated' })
+            .then((success) => {
+                console.log('Success In Patch Method ', success.data);
+            })
     }
 
     render() {
@@ -69,14 +61,14 @@ class AxiosDemo extends Component {
                         onPress={this.handleUserPost} />
                 </View> */}
 
-                <View style={{ top: 10, width : 100 }}>
+                <View style={{ top: 10, width: 100 }}>
                     <Button title='DELETE'
                         onPress={this.handleDelete} />
                 </View>
 
-                <View style = {{ top : 20, width : 100 }}>
-                    <Button title = 'PATCH'
-                    onPress = {this.handlePatch} />     
+                <View style={{ top: 20, width: 100 }}>
+                    <Button title='PATCH'
+                        onPress={this.handlePatch} />
                 </View>
             </View>
         )

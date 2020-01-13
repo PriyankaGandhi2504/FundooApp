@@ -75,39 +75,35 @@ class Note extends Component {
 
     handleNormalPress = (event, i) => {
         var ndata;
-        var noteObject1, keysss;
+        var noteObject1, keys;
         var noteObjectArray = []
 
         firebase.database.database().ref('Notes').on('child_added', function (snapshot) {
             noteObject1 = snapshot.val()
             firebase.database.database().ref('Notes').on('value', function (snapshot) {
                 noteObject1 = snapshot.val()
+                keys = Object.keys(noteObject1)
                 // keysss = Object.keys(noteObject1)
             })
-            var key = Object.keys(noteObject1)
-            console.log('Key ', key);
+            // var keys = Object.keys(noteObject1)
+            // console.log('Key ', key);
             var j;
-            for (j = 0; j < key.length; j++) {
-                console.log('Keys Of J ', key[j]);
-                console.log('note key ', noteKeyArray);
-                
-                if(key[j] === noteKeyArray){
-                    var keyIndex = key[j]
+            for (j = 0; j < keys.length; j++) {
+                // console.log('Keys Of J ', key[j]);
+                // console.log('note key ', noteKeyArray);
+                // if(keys[j] === noteKeyArray){
+                    var keyIndex = keys[j]
                 ndata = noteObject1[keyIndex]
                 ndata['key'] = keyIndex
                 noteObjectArray.push(ndata)
-                } 
+                // } 
             }
         })
-
         console.log('Note Object Array In Note ', noteObjectArray);
-        
         this.setState({
-            usersNote: noteObjectArray
+            usersNote: noteObjectArray[i]
         })
-
-        console.log('Users Note In Note ', noteObjectArray);
-
+        console.log('Users Note In Note ', noteObjectArray[i]);
         if (this.state.isSelected[i] === true) {
             this.state.isSelected[i] = false
             this.state.flag[i] = 0
