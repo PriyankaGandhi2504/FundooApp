@@ -29,4 +29,8 @@
             android:value="@string/facebook_app_id"/>
     </application>
 
+    <meta-data
+           android:name="firebase_crashlytics_collection_enabled"
+           android:value="AIzaSyBoCIX73LJAyEF8Cm5scOrPCiXWhuuhc5E" />
+
 </manifest>

@@ -8,41 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:228889421337:android:21f61dc4a803dec5496c88",
-        "android_client_info": {
-          "package_name": "com.fundooapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "228889421337-dc5g3vq2bekjdsbhvocfekiqtrvjmnq9.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBoxuXhVyq2Bnr6E_PtG6Y8m8vY8_g41kg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "228889421337-dc5g3vq2bekjdsbhvocfekiqtrvjmnq9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:228889421337:android:28e709067e583f37496c88",
+        "mobilesdk_app_id": "1:228889421337:android:4a375b5b9e5db6f8496c88",
         "android_client_info": {
           "package_name": "com.fundoonotes"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "228889421337-2q1sk5higamsuoj4793n7nv8e86mleud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fundoonotes",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
         {
           "client_id": "228889421337-dc5g3vq2bekjdsbhvocfekiqtrvjmnq9.apps.googleusercontent.com",
           "client_type": 3
